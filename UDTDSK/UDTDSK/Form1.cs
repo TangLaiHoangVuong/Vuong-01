@@ -23,5 +23,12 @@ namespace UDTDSK
             fr2.Show();
             this.Hide();
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            Form3 fr3 = new Form3();
+            fr3.Show();
+            this.Hide();
+        }
     }
 }

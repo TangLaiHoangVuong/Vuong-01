@@ -153,7 +153,6 @@
             // 
             // pictureBox1
             // 
-            this.pictureBox1.Image = global::UDTDSK.Properties.Resources.ba_con_thằn_lằn;
             this.pictureBox1.Location = new System.Drawing.Point(35, 3);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(135, 74);
@@ -164,7 +163,6 @@
             // 
             // pictureBox2
             // 
-            this.pictureBox2.Image = global::UDTDSK.Properties.Resources.mamcay;
             this.pictureBox2.Location = new System.Drawing.Point(60, 12);
             this.pictureBox2.Name = "pictureBox2";
             this.pictureBox2.Size = new System.Drawing.Size(381, 263);

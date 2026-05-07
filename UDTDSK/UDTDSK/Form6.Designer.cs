@@ -131,7 +131,6 @@
             // 
             // pictureBox1
             // 
-            this.pictureBox1.Image = global::UDTDSK.Properties.Resources.ba_con_thằn_lằn;
             this.pictureBox1.Location = new System.Drawing.Point(55, 16);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(135, 74);

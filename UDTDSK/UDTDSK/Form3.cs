@@ -137,5 +137,10 @@ namespace UDTDSK
 
             this.Controls.Add(card);
         }
+
+        private void Form3_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

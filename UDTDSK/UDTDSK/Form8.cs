@@ -10,52 +10,13 @@ using System.Windows.Forms;
 
 namespace UDTDSK
 {
-    public partial class Form5 : Form
+    public partial class Form8 : Form
     {
         Color originalBackColor;
         Color originalForeColor;
-        public Form5()
+        public Form8()
         {
             InitializeComponent();
-            
-        }
-        
-    private void button1_Click(object sender, EventArgs e)
-        {
-            double canNang, chieuCao;
-            if (!double.TryParse(txtCanNang.Text, out canNang) ||
-                !double.TryParse(txtChieuCao.Text, out chieuCao))
-            {
-                MessageBox.Show("Vui lòng nhập số hợp lệ");
-                return;
-            }
-
-            chieuCao /= 100;
-
-            double bmi = canNang / (chieuCao * chieuCao);
-
-            txtBMI.Text = bmi.ToString("0.00");
-
-            if (bmi < 18.5)
-            {
-                txtPhanLoai.Text = "Gầy";
-                txtDanhGia.Text = "Thiếu cân";
-            }
-            else if (bmi < 25)
-            {
-                txtPhanLoai.Text = "Bình thường";
-                txtDanhGia.Text = "Sức khỏe tốt";
-            }
-            else if (bmi < 30)
-            {
-                txtPhanLoai.Text = "Thừa cân";
-                txtDanhGia.Text = "Cần kiểm soát cân nặng";
-            }
-            else
-            {
-                txtPhanLoai.Text = "Béo phì";
-                txtDanhGia.Text = "Nguy cơ sức khỏe cao";
-            }
         }
         private void HideLogoutIfNeeded()
         {
@@ -150,7 +111,7 @@ namespace UDTDSK
                 }
             }
         }
-        private void Form6_Load(object sender, EventArgs e)
+        private void Form8_Load(object sender, EventArgs e)
         {
             pictureBox1.Left = (splitContainer1.Panel1.Width - pictureBox1.Width) / 2;
             btnDangXuat.Left = (splitContainer1.Panel1.Width - btnDangXuat.Width) / 2;
@@ -165,4 +126,3 @@ namespace UDTDSK
         }
     }
 }
-

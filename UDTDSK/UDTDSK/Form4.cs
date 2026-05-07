@@ -48,6 +48,22 @@ namespace UDTDSK
         {
             HideLogoutIfNeeded();
         }
+        private void btnDangXuat_Click(object sender, EventArgs e)
+        {
+            DialogResult result = MessageBox.Show(
+                "Bạn có muốn đăng xuất không?",
+                "Xác nhận",
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Question
+            );
+
+            if (result == DialogResult.Yes)
+            {
+                Form1 fr1 = new Form1();
+                fr1.Show();
+                this.Hide();
+            }
+        }
         private void Button_MouseEnter(object sender, EventArgs e)
         {
             Button btn = (Button)sender;
@@ -114,14 +130,6 @@ namespace UDTDSK
             pictureBox1.MouseLeave += pictureBox1_MouseLeave;
         }
 
-        private void btnDangXuat_Click(object sender, EventArgs e)
-        {
-            DialogResult result = MessageBox.Show(
-                "Bạn có muốn đăng xuất không?",
-                "Xác nhận",
-                MessageBoxButtons.YesNo,
-                MessageBoxIcon.Question
-            );
 
             if (result == DialogResult.Yes)
             {
@@ -129,13 +137,6 @@ namespace UDTDSK
                 fr1.Show();
                 this.Hide();
             }
-        }
-
-        private void button3_Click(object sender, EventArgs e)
-        {
-            Form5 fr5 = new Form5();
-            fr5.Show();
-            this.Hide();
         }
     }
 }

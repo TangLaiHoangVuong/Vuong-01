@@ -1,6 +1,6 @@
 ﻿namespace UDTDSK
 {
-    partial class Form7
+    partial class Form9
     {
         /// <summary>
         /// Required designer variable.
@@ -69,7 +69,7 @@
             this.btnDangXuat.Location = new System.Drawing.Point(86, 85);
             this.btnDangXuat.Name = "btnDangXuat";
             this.btnDangXuat.Size = new System.Drawing.Size(75, 23);
-            this.btnDangXuat.TabIndex = 20;
+            this.btnDangXuat.TabIndex = 27;
             this.btnDangXuat.Text = "Đăng xuất";
             this.btnDangXuat.UseVisualStyleBackColor = false;
             this.btnDangXuat.Visible = false;
@@ -81,7 +81,7 @@
             this.button5.Location = new System.Drawing.Point(42, 332);
             this.button5.Name = "button5";
             this.button5.Size = new System.Drawing.Size(167, 33);
-            this.button5.TabIndex = 19;
+            this.button5.TabIndex = 26;
             this.button5.Text = "Quản lý cảnh báo";
             this.button5.UseVisualStyleBackColor = false;
             // 
@@ -92,7 +92,7 @@
             this.button4.Location = new System.Drawing.Point(44, 282);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(165, 33);
-            this.button4.TabIndex = 18;
+            this.button4.TabIndex = 25;
             this.button4.Text = "Quản lý mục tiêu và theo dõi";
             this.button4.UseVisualStyleBackColor = false;
             // 
@@ -103,7 +103,7 @@
             this.button3.Location = new System.Drawing.Point(42, 228);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(167, 33);
-            this.button3.TabIndex = 17;
+            this.button3.TabIndex = 24;
             this.button3.Text = "Quản lý phân tích tính toán";
             this.button3.UseVisualStyleBackColor = false;
             // 
@@ -114,7 +114,7 @@
             this.button2.Location = new System.Drawing.Point(44, 176);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(165, 33);
-            this.button2.TabIndex = 16;
+            this.button2.TabIndex = 23;
             this.button2.Text = "Quản lý dữ liệu sức khoẻ";
             this.button2.UseVisualStyleBackColor = false;
             // 
@@ -125,7 +125,7 @@
             this.button1.Location = new System.Drawing.Point(42, 125);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(167, 33);
-            this.button1.TabIndex = 15;
+            this.button1.TabIndex = 22;
             this.button1.Text = "Thông tin cá nhân";
             this.button1.UseVisualStyleBackColor = false;
             // 
@@ -136,18 +136,18 @@
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(135, 74);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox1.TabIndex = 14;
+            this.pictureBox1.TabIndex = 21;
             this.pictureBox1.TabStop = false;
             // 
-            // Form7
+            // Form9
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(754, 380);
             this.Controls.Add(this.splitContainer1);
-            this.Name = "Form7";
-            this.Text = "Form7";
-            this.Load += new System.EventHandler(this.Form7_Load);
+            this.Name = "Form9";
+            this.Text = "Form9";
+            this.Load += new System.EventHandler(this.Form9_Load);
             this.splitContainer1.Panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);

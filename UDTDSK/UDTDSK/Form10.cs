@@ -10,11 +10,11 @@ using System.Windows.Forms;
 
 namespace UDTDSK
 {
-    public partial class Form9 : Form
+    public partial class Form10 : Form
     {
         Color originalBackColor;
         Color originalForeColor;
-        public Form9()
+        public Form10()
         {
             InitializeComponent();
         }
@@ -111,7 +111,7 @@ namespace UDTDSK
                 }
             }
         }
-        private void Form9_Load(object sender, EventArgs e)
+        private void Form10_Load(object sender, EventArgs e)
         {
             pictureBox1.Left = (splitContainer1.Panel1.Width - pictureBox1.Width) / 2;
             btnDangXuat.Left = (splitContainer1.Panel1.Width - btnDangXuat.Width) / 2;

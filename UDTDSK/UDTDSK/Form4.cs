@@ -63,6 +63,22 @@ namespace UDTDSK
             btn.BackColor = originalBackColor;
             btn.ForeColor = originalForeColor;
         }
+        private void CenterButtons(Control parent)
+        {
+            foreach (Control ctrl in parent.Controls)
+            {
+                if (ctrl is Button)
+                {
+                    Button btn = (Button)ctrl;
+                    btn.Left = (parent.Width - btn.Width) / 2;
+                }
+
+                if (ctrl.HasChildren)
+                {
+                    CenterButtons(ctrl);
+                }
+            }
+        }
         private void AddHoverEffect(Control parent)
         {
             foreach (Control ctrl in parent.Controls)
@@ -87,14 +103,32 @@ namespace UDTDSK
         private void Form4_Load(object sender, EventArgs e)
         {
             pictureBox1.Left = (splitContainer1.Panel1.Width - pictureBox1.Width) / 2;
+            btnDangXuat.Left = (splitContainer1.Panel1.Width - btnDangXuat.Width) / 2;
 
             //Xử lý nút Button
             AddHoverEffect(this);
+            CenterButtons(splitContainer1.Panel1);
 
-            // QUAN TRỌNG: đảm bảo event chạy
+            //Xử lý Ảnh
             pictureBox1.MouseEnter += pictureBox1_MouseEnter;
             pictureBox1.MouseLeave += pictureBox1_MouseLeave;
         }
-        
+
+        private void btnDangXuat_Click(object sender, EventArgs e)
+        {
+            DialogResult result = MessageBox.Show(
+                "Bạn có muốn đăng xuất không?",
+                "Xác nhận",
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Question
+            );
+
+            if (result == DialogResult.Yes)
+            {
+                Form1 fr1 = new Form1();
+                fr1.Show();
+                this.Hide();
+            }
+        }
     }
 }

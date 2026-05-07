@@ -26,8 +26,22 @@ namespace UDTDSK
 
         private void button1_Click(object sender, EventArgs e)
         {
-            Form3 fr3 = new Form3();
-            fr3.Show();
+            if (txtEmail.Text.Trim() == "")
+            {
+                MessageBox.Show("Vui lòng nhập tài khoản Email của bạn!");
+                txtEmail.Focus();
+                return;
+            }
+
+            if (txtPass.Text.Trim() == "")
+            {
+                MessageBox.Show("Vui lòng nhập mật khẩu!");
+                txtPass.Focus();
+                return;
+            }
+
+            Form4 fr4 = new Form4();
+            fr4.Show();
             this.Hide();
         }
     }

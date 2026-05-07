@@ -1,6 +1,6 @@
 ﻿namespace UDTDSK
 {
-    partial class Form7
+    partial class Form9
     {
         /// <summary>
         /// Required designer variable.
@@ -28,36 +28,19 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
-            this.splitContainer1.SuspendLayout();
             this.SuspendLayout();
             // 
-            // splitContainer1
-            // 
-            this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.splitContainer1.Location = new System.Drawing.Point(0, 0);
-            this.splitContainer1.Name = "splitContainer1";
-            this.splitContainer1.Size = new System.Drawing.Size(754, 380);
-            this.splitContainer1.SplitterDistance = 251;
-            this.splitContainer1.TabIndex = 0;
-            // 
-            // Form7
+            // Form9
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(754, 380);
-            this.Controls.Add(this.splitContainer1);
-            this.Name = "Form7";
-            this.Text = "Form7";
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
-            this.splitContainer1.ResumeLayout(false);
+            this.Name = "Form9";
+            this.Text = "Form9";
             this.ResumeLayout(false);
 
         }
 
         #endregion
-
-        private System.Windows.Forms.SplitContainer splitContainer1;
     }
 }

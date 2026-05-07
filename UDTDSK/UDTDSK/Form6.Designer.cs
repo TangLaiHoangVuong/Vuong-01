@@ -50,7 +50,7 @@
             // 
             // splitContainer1.Panel1
             // 
-            this.splitContainer1.Panel1.BackColor = System.Drawing.Color.LightBlue;
+            this.splitContainer1.Panel1.BackColor = System.Drawing.Color.LightSkyBlue;
             this.splitContainer1.Panel1.Controls.Add(this.btnDangXuat);
             this.splitContainer1.Panel1.Controls.Add(this.button5);
             this.splitContainer1.Panel1.Controls.Add(this.button4);
@@ -120,7 +120,7 @@
             // 
             // button1
             // 
-            this.button1.BackColor = System.Drawing.Color.SteelBlue;
+            this.button1.BackColor = System.Drawing.Color.RoyalBlue;
             this.button1.ForeColor = System.Drawing.Color.White;
             this.button1.Location = new System.Drawing.Point(42, 125);
             this.button1.Name = "button1";

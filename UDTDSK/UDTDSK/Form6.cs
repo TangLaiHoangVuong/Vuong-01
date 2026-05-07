@@ -111,6 +111,12 @@ namespace UDTDSK
                 }
             }
         }
+        private void button1_Paint(object sender, PaintEventArgs e)
+        {
+            Button btn = sender as Button;
+            Pen pen = new Pen(Color.White, 3);  // màu + độ dày
+            e.Graphics.DrawRectangle(pen, 0, 0, btn.Width - 1, btn.Height - 1);
+        }
         private void Form6_Load(object sender, EventArgs e)
         {
             pictureBox1.Left = (splitContainer1.Panel1.Width - pictureBox1.Width) / 2;

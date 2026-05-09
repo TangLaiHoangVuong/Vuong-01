@@ -146,5 +146,10 @@ namespace UDTDSK
             fr5.Show();
             this.Hide();
         }
+
+        private void splitContainer1_Panel2_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
     }
 }

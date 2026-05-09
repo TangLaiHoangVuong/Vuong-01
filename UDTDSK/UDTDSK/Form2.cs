@@ -42,7 +42,7 @@ namespace UDTDSK
 
             if (txtPass2.Text.Trim() == "")
             {
-                MessageBox.Show("Vui lòng xác nhận mật khẩu!");
+                MessageBox.Show("Vui lòng xác nhận lại mật khẩu!");
                 txtPass2.Focus();
                 return;
             }

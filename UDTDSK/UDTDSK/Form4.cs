@@ -128,15 +128,7 @@ namespace UDTDSK
             //Xử lý Ảnh
             pictureBox1.MouseEnter += pictureBox1_MouseEnter;
             pictureBox1.MouseLeave += pictureBox1_MouseLeave;
-        }
-
-
-            if (result == DialogResult.Yes)
-            {
-                Form1 fr1 = new Form1();
-                fr1.Show();
-                this.Hide();
-            }
+            
         }
     }
 }

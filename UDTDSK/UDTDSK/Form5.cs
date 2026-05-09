@@ -150,7 +150,8 @@ namespace UDTDSK
                 }
             }
         }
-        private void Form6_Load(object sender, EventArgs e)
+
+        private void Form5_Load(object sender, EventArgs e)
         {
             pictureBox1.Left = (splitContainer1.Panel1.Width - pictureBox1.Width) / 2;
             btnDangXuat.Left = (splitContainer1.Panel1.Width - btnDangXuat.Width) / 2;
@@ -158,6 +159,11 @@ namespace UDTDSK
             //Xử lý nút Button
             AddHoverEffect(this);
             CenterButtons(splitContainer1.Panel1);
+
+            // Xử lý button đăng xuất
+            btnDangXuat.Click += btnDangXuat_Click;
+            btnDangXuat.MouseEnter += btnDangXuat_MouseEnter;
+            btnDangXuat.MouseLeave += btnDangXuat_MouseLeave;
 
             //Xử lý Ảnh
             pictureBox1.MouseEnter += pictureBox1_MouseEnter;

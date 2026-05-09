@@ -111,12 +111,6 @@ namespace UDTDSK
                 }
             }
         }
-        private void button1_Paint(object sender, PaintEventArgs e)
-        {
-            Button btn = sender as Button;
-            Pen pen = new Pen(Color.White, 3);  // màu + độ dày
-            e.Graphics.DrawRectangle(pen, 0, 0, btn.Width - 1, btn.Height - 1);
-        }
         private void Form6_Load(object sender, EventArgs e)
         {
             pictureBox1.Left = (splitContainer1.Panel1.Width - pictureBox1.Width) / 2;
@@ -125,6 +119,16 @@ namespace UDTDSK
             //Xử lý nút Button
             AddHoverEffect(this);
             CenterButtons(splitContainer1.Panel1);
+
+            //Màu viền nút Button1
+            button1.FlatStyle = FlatStyle.Flat;
+            button1.FlatAppearance.BorderSize = 2;
+            button1.FlatAppearance.BorderColor = Color.Violet;
+
+            // Xử lý button đăng xuất
+            btnDangXuat.Click += btnDangXuat_Click;
+            btnDangXuat.MouseEnter += btnDangXuat_MouseEnter;
+            btnDangXuat.MouseLeave += btnDangXuat_MouseLeave;
 
             //Xử lý Ảnh
             pictureBox1.MouseEnter += pictureBox1_MouseEnter;

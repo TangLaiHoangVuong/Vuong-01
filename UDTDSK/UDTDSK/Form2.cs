@@ -81,10 +81,46 @@ namespace UDTDSK
                 txtEmail.Focus();
             }
         }
+        private void pictureBox1_Click(object sender, EventArgs e)
+        {
+            // Hiện mật khẩu
+            txtPass.UseSystemPasswordChar = false;
 
+            pictureBox1.Visible = false;
+            pictureBox2.Visible = true;
+        }
+
+        private void pictureBox2_Click(object sender, EventArgs e)
+        {
+            // Ẩn mật khẩu
+            txtPass.UseSystemPasswordChar = true;
+
+            pictureBox1.Visible = true;
+            pictureBox2.Visible = false;
+        }
+
+        private void pictureBox4_Click(object sender, EventArgs e)
+        {
+            // Hiện mật khẩu
+            txtPass2.UseSystemPasswordChar = false;
+
+            pictureBox4.Visible = false;
+            pictureBox3.Visible = true;
+        }
+
+        private void pictureBox3_Click(object sender, EventArgs e)
+        {
+            // Ẩn mật khẩu
+            txtPass2.UseSystemPasswordChar = true;
+
+            pictureBox4.Visible = true;
+            pictureBox3.Visible = false;
+        }
         private void Form2_Load(object sender, EventArgs e)
         {
-
+            // Ẩn mật khẩu
+            txtPass.UseSystemPasswordChar = true;
+            txtPass2.UseSystemPasswordChar = true;
         }
     }
 }

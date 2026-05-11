@@ -124,5 +124,134 @@ namespace UDTDSK
             pictureBox1.MouseEnter += pictureBox1_MouseEnter;
             pictureBox1.MouseLeave += pictureBox1_MouseLeave;
         }
+        private void HienThiCanhBao()
+        {
+            DataTable dt = new DataTable();
+
+            dt.Columns.Add("STT");
+            dt.Columns.Add("Chỉ số");
+            dt.Columns.Add("Giá trị");
+            dt.Columns.Add("Trạng thái");
+            dt.Columns.Add("Thời gian");
+            dgvCanhBao.DataSource = dt;
+            foreach (DataGridViewRow row in dgvCanhBao.Rows)
+            {
+                if (row.Cells[3].Value != null)
+                {
+                    string trangThai = row.Cells[3].Value.ToString();
+
+                    if (trangThai == "Nguy hiểm")
+                    {
+                        row.Cells[3].Style.ForeColor = Color.Red;
+                    }
+                    else if (trangThai == "Cao")
+                    {
+                        row.Cells[3].Style.ForeColor = Color.Orange;
+                    }
+                    else
+                    {
+                        row.Cells[3].Style.ForeColor = Color.Blue;
+                    }
+                }
+            }
+        }
+
+        private void splitContainer1_Panel2_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void dgvCanhBao_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+            if (dgvCanhBao.SelectedRows.Count > 0)
+            {
+                string chiSo = dgvCanhBao.SelectedRows[0].Cells[1].Value.ToString();
+
+                MessageBox.Show(
+                    "Đã gửi thông báo cảnh báo cho chỉ số: " + chiSo,
+                    "Thông báo",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning
+                );
+            }
+            else
+            {
+                MessageBox.Show(
+                    "Vui lòng chọn cảnh báo!",
+                    "Thông báo",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Information
+                );
+            }
+        }
+
+        private void button7_Click(object sender, EventArgs e)
+        {
+            if (dgvCanhBao.SelectedRows.Count > 0)
+            {
+                dgvCanhBao.Rows.RemoveAt(
+                    dgvCanhBao.SelectedRows[0].Index
+                );
+
+                MessageBox.Show(
+                    "Xóa cảnh báo thành công!",
+                    "Thông báo",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Information
+                );
+            }
+            else
+            {
+                MessageBox.Show(
+                    "Vui lòng chọn cảnh báo cần xóa!",
+                    "Thông báo",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Information
+                );
+            }
+        }
+
+        private void bt_Click(object sender, EventArgs e)
+        {
+            if (dgvCanhBao.SelectedRows.Count > 0)
+            {
+                string chiSo =
+                    dgvCanhBao.SelectedRows[0].Cells[1].Value.ToString();
+
+                string giaTri =
+                    dgvCanhBao.SelectedRows[0].Cells[2].Value.ToString();
+
+                string trangThai =
+                    dgvCanhBao.SelectedRows[0].Cells[3].Value.ToString();
+
+                string thoiGian =
+                    dgvCanhBao.SelectedRows[0].Cells[4].Value.ToString();
+
+                MessageBox.Show(
+                    "Chỉ số: " + chiSo +
+                    "\nGiá trị: " + giaTri +
+                    "\nTrạng thái: " + trangThai +
+                    "\nThời gian: " + thoiGian,
+                    "Chi tiết cảnh báo",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Information
+                );
+            }
+            else
+            {
+                MessageBox.Show(
+                    "Vui lòng chọn cảnh báo!",
+                    "Thông báo",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Information
+                );
+            }
+        }
     }
-}
+   }
+

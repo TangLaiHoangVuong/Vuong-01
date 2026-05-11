@@ -36,10 +36,17 @@
             this.button2 = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.button6 = new System.Windows.Forms.Button();
+            this.button7 = new System.Windows.Forms.Button();
+            this.bt = new System.Windows.Forms.Button();
+            this.dgvCanhBao = new System.Windows.Forms.DataGridView();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
+            this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvCanhBao)).BeginInit();
             this.SuspendLayout();
             // 
             // splitContainer1
@@ -58,6 +65,15 @@
             this.splitContainer1.Panel1.Controls.Add(this.button2);
             this.splitContainer1.Panel1.Controls.Add(this.button1);
             this.splitContainer1.Panel1.Controls.Add(this.pictureBox1);
+            // 
+            // splitContainer1.Panel2
+            // 
+            this.splitContainer1.Panel2.Controls.Add(this.dgvCanhBao);
+            this.splitContainer1.Panel2.Controls.Add(this.bt);
+            this.splitContainer1.Panel2.Controls.Add(this.button7);
+            this.splitContainer1.Panel2.Controls.Add(this.button6);
+            this.splitContainer1.Panel2.Controls.Add(this.label1);
+            this.splitContainer1.Panel2.Paint += new System.Windows.Forms.PaintEventHandler(this.splitContainer1_Panel2_Paint);
             this.splitContainer1.Size = new System.Drawing.Size(754, 380);
             this.splitContainer1.SplitterDistance = 251;
             this.splitContainer1.TabIndex = 0;
@@ -139,6 +155,55 @@
             this.pictureBox1.TabIndex = 21;
             this.pictureBox1.TabStop = false;
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(209, 41);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(148, 20);
+            this.label1.TabIndex = 0;
+            this.label1.Text = "Quản lý cảnh báo";
+            // 
+            // button6
+            // 
+            this.button6.Location = new System.Drawing.Point(53, 282);
+            this.button6.Name = "button6";
+            this.button6.Size = new System.Drawing.Size(75, 38);
+            this.button6.TabIndex = 2;
+            this.button6.Text = "Gửi thông báo";
+            this.button6.UseVisualStyleBackColor = true;
+            this.button6.Click += new System.EventHandler(this.button6_Click);
+            // 
+            // button7
+            // 
+            this.button7.Location = new System.Drawing.Point(229, 282);
+            this.button7.Name = "button7";
+            this.button7.Size = new System.Drawing.Size(75, 38);
+            this.button7.TabIndex = 3;
+            this.button7.Text = "Xoá cảnh báo";
+            this.button7.UseVisualStyleBackColor = true;
+            this.button7.Click += new System.EventHandler(this.button7_Click);
+            // 
+            // bt
+            // 
+            this.bt.Location = new System.Drawing.Point(395, 279);
+            this.bt.Name = "bt";
+            this.bt.Size = new System.Drawing.Size(75, 41);
+            this.bt.TabIndex = 4;
+            this.bt.Text = "Chi tiết";
+            this.bt.UseVisualStyleBackColor = true;
+            this.bt.Click += new System.EventHandler(this.bt_Click);
+            // 
+            // dgvCanhBao
+            // 
+            this.dgvCanhBao.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvCanhBao.Location = new System.Drawing.Point(3, 118);
+            this.dgvCanhBao.Name = "dgvCanhBao";
+            this.dgvCanhBao.Size = new System.Drawing.Size(484, 150);
+            this.dgvCanhBao.TabIndex = 5;
+            this.dgvCanhBao.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvCanhBao_CellContentClick);
+            // 
             // Form9
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -149,9 +214,12 @@
             this.Text = "Form9";
             this.Load += new System.EventHandler(this.Form9_Load);
             this.splitContainer1.Panel1.ResumeLayout(false);
+            this.splitContainer1.Panel2.ResumeLayout(false);
+            this.splitContainer1.Panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvCanhBao)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -166,5 +234,10 @@
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Button bt;
+        private System.Windows.Forms.Button button7;
+        private System.Windows.Forms.Button button6;
+        private System.Windows.Forms.DataGridView dgvCanhBao;
     }
 }

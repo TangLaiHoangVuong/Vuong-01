@@ -120,6 +120,11 @@ namespace UDTDSK
             AddHoverEffect(this);
             CenterButtons(splitContainer1.Panel1);
 
+            // Xử lý button đăng xuất
+            btnDangXuat.Click += btnDangXuat_Click;
+            btnDangXuat.MouseEnter += btnDangXuat_MouseEnter;
+            btnDangXuat.MouseLeave += btnDangXuat_MouseLeave;
+
             //Xử lý Ảnh
             pictureBox1.MouseEnter += pictureBox1_MouseEnter;
             pictureBox1.MouseLeave += pictureBox1_MouseLeave;

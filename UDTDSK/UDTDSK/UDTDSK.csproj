@@ -53,12 +53,6 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
-    <Compile Include="Form10.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Form10.Designer.cs">
-      <DependentUpon>Form10.cs</DependentUpon>
-    </Compile>
     <Compile Include="Form2.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -112,9 +106,6 @@
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Form10.resx">
-      <DependentUpon>Form10.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Form2.resx">
       <DependentUpon>Form2.cs</DependentUpon>
     </EmbeddedResource>
@@ -163,10 +154,16 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\ba con thằn lằn.jpg" />
+    <None Include="image\Avarta.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\mamcay.jpg" />
+    <None Include="image\MamCay.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="image\Mắt_Hiện.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="image\Mắt_Ẩn.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

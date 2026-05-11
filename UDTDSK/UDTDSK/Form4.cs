@@ -125,11 +125,40 @@ namespace UDTDSK
             AddHoverEffect(this);
             CenterButtons(splitContainer1.Panel1);
 
+            // Xử lý button đăng xuất
+            btnDangXuat.Click += btnDangXuat_Click;
+            btnDangXuat.MouseEnter += btnDangXuat_MouseEnter;
+            btnDangXuat.MouseLeave += btnDangXuat_MouseLeave;
+
             //Xử lý Ảnh
             pictureBox1.MouseEnter += pictureBox1_MouseEnter;
             pictureBox1.MouseLeave += pictureBox1_MouseLeave;
+            
         }
 
-        
+        private void button1_Click(object sender, EventArgs e)
+        {
+            Form6 fr6 = new Form6();
+            fr6.Show();
+            this.Hide();
+        }
+        private void button2_Click_1(object sender, EventArgs e)
+        {
+
+        }
+        private void button3_Click(object sender, EventArgs e)
+        {
+            Form5 fr5 = new Form5();
+            fr5.Show();
+            this.Hide();
+        }
+        private void button4_Click(object sender, EventArgs e)
+        {
+
+        }
+        private void button5_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

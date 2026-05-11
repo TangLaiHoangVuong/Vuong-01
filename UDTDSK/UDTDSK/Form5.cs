@@ -20,43 +20,7 @@ namespace UDTDSK
             
         }
         
-    private void button1_Click(object sender, EventArgs e)
-        {
-            double canNang, chieuCao;
-            if (!double.TryParse(txtCanNang.Text, out canNang) ||
-                !double.TryParse(txtChieuCao.Text, out chieuCao))
-            {
-                MessageBox.Show("Vui lòng nhập số hợp lệ");
-                return;
-            }
-
-            chieuCao /= 100;
-
-            double bmi = canNang / (chieuCao * chieuCao);
-
-            txtBMI.Text = bmi.ToString("0.00");
-
-            if (bmi < 18.5)
-            {
-                txtPhanLoai.Text = "Gầy";
-                txtDanhGia.Text = "Thiếu cân";
-            }
-            else if (bmi < 25)
-            {
-                txtPhanLoai.Text = "Bình thường";
-                txtDanhGia.Text = "Sức khỏe tốt";
-            }
-            else if (bmi < 30)
-            {
-                txtPhanLoai.Text = "Thừa cân";
-                txtDanhGia.Text = "Cần kiểm soát cân nặng";
-            }
-            else
-            {
-                txtPhanLoai.Text = "Béo phì";
-                txtDanhGia.Text = "Nguy cơ sức khỏe cao";
-            }
-        }
+    
         private void HideLogoutIfNeeded()
         {
             if (!pictureBox1.ClientRectangle.Contains(pictureBox1.PointToClient(Cursor.Position)) &&
@@ -187,6 +151,44 @@ namespace UDTDSK
             Form6 fr6 = new Form6();
             fr6.Show();
             this.Hide();
+        }
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+            double canNang, chieuCao;
+            if (!double.TryParse(txtCanNang.Text, out canNang) ||
+                !double.TryParse(txtChieuCao.Text, out chieuCao))
+            {
+                MessageBox.Show("Vui lòng nhập số hợp lệ");
+                return;
+            }
+
+            chieuCao /= 100;
+
+            double bmi = canNang / (chieuCao * chieuCao);
+
+            txtBMI.Text = bmi.ToString("0.00");
+
+            if (bmi < 18.5)
+            {
+                txtPhanLoai.Text = "Gầy";
+                txtDanhGia.Text = "Thiếu cân";
+            }
+            else if (bmi < 25)
+            {
+                txtPhanLoai.Text = "Bình thường";
+                txtDanhGia.Text = "Sức khỏe tốt";
+            }
+            else if (bmi < 30)
+            {
+                txtPhanLoai.Text = "Thừa cân";
+                txtDanhGia.Text = "Cần kiểm soát cân nặng";
+            }
+            else
+            {
+                txtPhanLoai.Text = "Béo phì";
+                txtDanhGia.Text = "Nguy cơ sức khỏe cao";
+            }
         }
     }
 }

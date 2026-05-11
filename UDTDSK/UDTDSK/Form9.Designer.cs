@@ -60,10 +60,10 @@
             // 
             this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.splitContainer1.Location = new System.Drawing.Point(0, 0);
-<<<<<<< HEAD
-=======
+//<<<<<<< HEAD
+//=======
             this.splitContainer1.Margin = new System.Windows.Forms.Padding(4);
->>>>>>> 945dac357578f44d3e67d19a39c6042950824f5c
+//>>>>>>> 945dac357578f44d3e67d19a39c6042950824f5c
             this.splitContainer1.Name = "splitContainer1";
             // 
             // splitContainer1.Panel1

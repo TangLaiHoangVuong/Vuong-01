@@ -120,6 +120,11 @@ namespace UDTDSK
             AddHoverEffect(this);
             CenterButtons(splitContainer1.Panel1);
 
+            //Màu viền nút Button Thông tin cá nhân
+            button4.FlatStyle = FlatStyle.Flat;
+            button4.FlatAppearance.BorderSize = 2;
+            button4.FlatAppearance.BorderColor = Color.Violet;
+
             // Xử lý button đăng xuất
             btnDangXuat.Click += btnDangXuat_Click;
             btnDangXuat.MouseEnter += btnDangXuat_MouseEnter;
@@ -128,6 +133,115 @@ namespace UDTDSK
             //Xử lý Ảnh
             pictureBox1.MouseEnter += pictureBox1_MouseEnter;
             pictureBox1.MouseLeave += pictureBox1_MouseLeave;
+        }
+        private void radCanNang_CheckedChanged(object sender, EventArgs e)
+        {
+            if (radCanNang.Checked)
+            {
+                cboDonVi.Items.Clear();
+                cboDonVi.Items.Add("kg");
+                cboDonVi.SelectedIndex = 0; // Tự động chọn mục đầu tiên
+            }
+        }
+
+        private void radSoBuoc_CheckedChanged(object sender, EventArgs e)
+        {
+            if (radSoBuoc.Checked)
+            {
+                cboDonVi.Items.Clear();
+                cboDonVi.Items.Add("bước");
+                cboDonVi.SelectedIndex = 0;
+            }
+        }
+
+        private void radLuongNuoc_CheckedChanged(object sender, EventArgs e)
+        {
+            if (radLuongNuoc.Checked)
+            {
+                cboDonVi.Items.Clear();
+                cboDonVi.Items.Add("ml");
+                cboDonVi.Items.Add("lít");
+                cboDonVi.SelectedIndex = 0;
+            }
+        }
+
+        private void radCalorie_CheckedChanged(object sender, EventArgs e)
+        {
+            if (radCalorie.Checked)
+            {
+                cboDonVi.Items.Clear();
+                cboDonVi.Items.Add("kcal");
+                cboDonVi.SelectedIndex = 0;
+            }
+        }
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+            if (txtTenMucTieu.Text.Trim() == "")
+            {
+                MessageBox.Show("Vui lòng đặt tên mục tiêu!");
+                txtTenMucTieu.Focus();
+                return;
+            }
+
+            // Kiểm tra RadioButton
+            if (!radCanNang.Checked &&
+                !radSoBuoc.Checked &&
+                !radLuongNuoc.Checked &&
+                !radCalorie.Checked)
+            {
+                MessageBox.Show("Vui lòng chọn loại mục tiêu!");
+                return;
+            }
+
+            if (txtMTHoanThanh.Text.Trim() == "")
+            {
+                MessageBox.Show("Vui lòng nhập số lượng mục tiêu cần hoàn thành!");
+                txtMTHoanThanh.Focus();
+                return;
+            }
+
+            // Thông báo thành công
+            MessageBox.Show("Thêm mục tiêu thành công!");
+
+            // Reset dữ liệu sau khi thêm
+            txtTenMucTieu.Clear();
+            txtMTHoanThanh.Clear();
+
+            radCanNang.Checked = false;
+            radSoBuoc.Checked = false;
+            radLuongNuoc.Checked = false;
+            radCalorie.Checked = false;
+
+            cboDonVi.Items.Clear();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            Form6 fr6 = new Form6();
+            fr6.Show();
+            this.Hide();
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            Form7 fr7 = new Form7();
+            fr7.Show();
+            this.Hide();
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            Form5 fr5 = new Form5();
+            fr5.Show();
+            this.Hide();
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            Form9 fr9 = new Form9();
+            fr9.Show();
+            this.Hide();
         }
     }
 }

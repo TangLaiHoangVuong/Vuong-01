@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -17,7 +18,15 @@ namespace UDTDSK
         public Form8()
         {
             InitializeComponent();
+            
+
+
+            conn = new SqlConnection(strConn);
         }
+        string strConn = @"Data Source=.;Initial Catalog=QLSK;Integrated Security=True";
+        SqlConnection conn;
+
+
         private void HideLogoutIfNeeded()
         {
             if (!pictureBox1.ClientRectangle.Contains(pictureBox1.PointToClient(Cursor.Position)) &&
@@ -111,6 +120,54 @@ namespace UDTDSK
                 }
             }
         }
+        
+            
+        private void LoadMucTieu()
+        {
+            try
+            {
+                conn.Open();
+
+                string sql =
+                @"SELECT *
+                  FROM Muc_tieu";
+
+                SqlDataAdapter da =
+                    new SqlDataAdapter(sql, conn);
+
+                DataTable dt =
+                    new DataTable();
+
+                da.Fill(dt);
+
+                dgvMucTieu.DataSource = dt;
+
+                dgvMucTieu.Columns[0].HeaderText =
+                    "Mã mục tiêu";
+
+                dgvMucTieu.Columns[1].HeaderText =
+                    "Mô tả";
+
+                dgvMucTieu.Columns[2].HeaderText =
+                    "Giá trị mục tiêu";
+
+                dgvMucTieu.Columns[3].HeaderText =
+                    "Giá trị hiện tại";
+
+                dgvMucTieu.Columns[4].HeaderText =
+                    "Trạng thái";
+
+                dgvMucTieu.AutoSizeColumnsMode =
+                    DataGridViewAutoSizeColumnsMode.Fill;
+
+                conn.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
         private void Form8_Load(object sender, EventArgs e)
         {
             pictureBox1.Left = (splitContainer1.Panel1.Width - pictureBox1.Width) / 2;
@@ -128,6 +185,226 @@ namespace UDTDSK
             //Xử lý Ảnh
             pictureBox1.MouseEnter += pictureBox1_MouseEnter;
             pictureBox1.MouseLeave += pictureBox1_MouseLeave;
+        }
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                conn.Open();
+
+                string sql =
+                @"INSERT INTO Muc_tieu
+                VALUES
+                (
+                    @Ma,
+                    @MoTa,
+                    @GiaTri,
+                    @GiaTriHT,
+                    @TrangThai
+                )";
+
+                SqlCommand cmd =
+                    new SqlCommand(sql, conn);
+
+                cmd.Parameters.AddWithValue(
+                    "@Ma",
+                    txtMaMT.Text
+                );
+
+                cmd.Parameters.AddWithValue(
+                    "@MoTa",
+                    txtMoTa.Text
+                );
+
+                cmd.Parameters.AddWithValue(
+                    "@GiaTri",
+                    txtGiaTri.Text
+                );
+
+                cmd.Parameters.AddWithValue(
+                    "@GiaTriHT",
+                    txtGiaTriHT.Text
+                );
+
+                cmd.Parameters.AddWithValue(
+                    "@TrangThai",
+                    txtTrangThai.Text
+                );
+
+                cmd.ExecuteNonQuery();
+
+                conn.Close();
+
+                MessageBox.Show(
+                    "Thêm mục tiêu thành công!"
+                );
+
+                LoadMucTieu();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void button7_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                conn.Open();
+
+                string sql =
+                @"UPDATE Muc_tieu
+                  SET
+                    mo_ta=@MoTa,
+                    gia_tri=@GiaTri,
+                    Gia_tri_hien_tai=@GiaTriHT,
+                    Trang_thai=@TrangThai
+                  WHERE Ma_muc_tieu=@Ma";
+
+                SqlCommand cmd =
+                    new SqlCommand(sql, conn);
+
+                cmd.Parameters.AddWithValue(
+                    "@Ma",
+                    txtMaMT.Text
+                );
+
+                cmd.Parameters.AddWithValue(
+                    "@MoTa",
+                    txtMoTa.Text
+                );
+
+                cmd.Parameters.AddWithValue(
+                    "@GiaTri",
+                    txtGiaTri.Text
+                );
+
+                cmd.Parameters.AddWithValue(
+                    "@GiaTriHT",
+                    txtGiaTriHT.Text
+                );
+
+                cmd.Parameters.AddWithValue(
+                    "@TrangThai",
+                    txtTrangThai.Text
+                );
+
+                cmd.ExecuteNonQuery();
+
+                conn.Close();
+
+                MessageBox.Show(
+                    "Cập nhật thành công!"
+                );
+
+                LoadMucTieu();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void button8_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                conn.Open();
+
+                string sql =
+                @"DELETE FROM Muc_tieu
+                  WHERE Ma_muc_tieu=@Ma";
+
+                SqlCommand cmd =
+                    new SqlCommand(sql, conn);
+
+                cmd.Parameters.AddWithValue(
+                    "@Ma",
+                    txtMaMT.Text
+                );
+
+                cmd.ExecuteNonQuery();
+
+                conn.Close();
+
+                MessageBox.Show(
+                    "Xóa thành công!"
+                );
+
+                LoadMucTieu();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void button9_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                int mucTieu =
+                    Convert.ToInt32(txtGiaTri.Text);
+
+                int hienTai =
+                    Convert.ToInt32(txtGiaTriHT.Text);
+
+                if (hienTai >= mucTieu)
+                {
+                    txtTrangThai.Text =
+                        "Hoàn thành";
+                }
+                else
+                {
+                    txtTrangThai.Text =
+                        "Chưa hoàn thành";
+                }
+            }
+            catch
+            {
+                MessageBox.Show(
+                    "Giá trị phải là số!"
+                );
+            }
+        }
+
+        private void button10_Click(object sender, EventArgs e)
+        {
+            txtMaMT.Clear();
+            txtMoTa.Clear();
+            txtGiaTri.Clear();
+            txtGiaTriHT.Clear();
+            txtTrangThai.Clear();
+
+            LoadMucTieu();
+        }
+
+        private void dgvMucTieu_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0)
+            {
+                txtMaMT.Text =
+                    dgvMucTieu.Rows[e.RowIndex]
+                    .Cells[0].Value.ToString();
+
+                txtMoTa.Text =
+                    dgvMucTieu.Rows[e.RowIndex]
+                    .Cells[1].Value.ToString();
+
+                txtGiaTri.Text =
+                    dgvMucTieu.Rows[e.RowIndex]
+                    .Cells[2].Value.ToString();
+
+                txtGiaTriHT.Text =
+                    dgvMucTieu.Rows[e.RowIndex]
+                    .Cells[3].Value.ToString();
+
+                txtTrangThai.Text =
+                    dgvMucTieu.Rows[e.RowIndex]
+                    .Cells[4].Value.ToString();
+            }
         }
     }
 }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -111,8 +112,80 @@ namespace UDTDSK
                 }
             }
         }
+        private void LoadThongBao()
+        {
+            try
+            {
+                conn.Open();
+
+                string sql =
+                @"SELECT *
+                  FROM Thong_bao";
+
+                SqlDataAdapter da =
+                    new SqlDataAdapter(sql, conn);
+
+                DataTable dt = new DataTable();
+
+                da.Fill(dt);
+
+                dgvCanhBao.DataSource = dt;
+
+                dgvCanhBao.Columns[0].HeaderText =
+                    "Mã TB";
+
+                dgvCanhBao.Columns[1].HeaderText =
+                    "Nội dung";
+
+                dgvCanhBao.Columns[2].HeaderText =
+                    "Loại thông báo";
+
+                dgvCanhBao.Columns[3].HeaderText =
+                    "Thời gian";
+
+                dgvCanhBao.AutoSizeColumnsMode =
+                    DataGridViewAutoSizeColumnsMode.Fill;
+
+                dgvCanhBao.DefaultCellStyle.Font =
+                    new Font("Arial", 11);
+
+                // Tô màu
+                foreach (DataGridViewRow row in dgvCanhBao.Rows)
+                {
+                    if (row.Cells[2].Value != null)
+                    {
+                        string loai =
+                            row.Cells[2].Value.ToString();
+
+                        if (loai == "Nguy hiểm")
+                        {
+                            row.Cells[2].Style.ForeColor =
+                                Color.Red;
+                        }
+                        else if (loai == "Cảnh báo")
+                        {
+                            row.Cells[2].Style.ForeColor =
+                                Color.Orange;
+                        }
+                        else if (loai == "Nhắc nhở")
+                        {
+                            row.Cells[2].Style.ForeColor =
+                                Color.Blue;
+                        }
+                    }
+                }
+
+                conn.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
         private void Form9_Load(object sender, EventArgs e)
         {
+            LoadThongBao();
             pictureBox1.Left = (splitContainer1.Panel1.Width - pictureBox1.Width) / 2;
             btnDangXuat.Left = (splitContainer1.Panel1.Width - btnDangXuat.Width) / 2;
 
@@ -129,37 +202,13 @@ namespace UDTDSK
             pictureBox1.MouseEnter += pictureBox1_MouseEnter;
             pictureBox1.MouseLeave += pictureBox1_MouseLeave;
         }
-        private void HienThiCanhBao()
-        {
-            DataTable dt = new DataTable();
+        string strConn =
+        @"Data Source=.;Initial Catalog=QLSK;Integrated Security=True";
 
-            dt.Columns.Add("STT");
-            dt.Columns.Add("Chỉ số");
-            dt.Columns.Add("Giá trị");
-            dt.Columns.Add("Trạng thái");
-            dt.Columns.Add("Thời gian");
-            dgvCanhBao.DataSource = dt;
-            foreach (DataGridViewRow row in dgvCanhBao.Rows)
-            {
-                if (row.Cells[3].Value != null)
-                {
-                    string trangThai = row.Cells[3].Value.ToString();
-
-                    if (trangThai == "Nguy hiểm")
-                    {
-                        row.Cells[3].Style.ForeColor = Color.Red;
-                    }
-                    else if (trangThai == "Cao")
-                    {
-                        row.Cells[3].Style.ForeColor = Color.Orange;
-                    }
-                    else
-                    {
-                        row.Cells[3].Style.ForeColor = Color.Blue;
-                    }
-                }
-            }
-        }
+        SqlConnection conn;
+        
+        
+       
 
         private void splitContainer1_Panel2_Paint(object sender, PaintEventArgs e)
         {
@@ -175,87 +224,230 @@ namespace UDTDSK
         {
             if (dgvCanhBao.SelectedRows.Count > 0)
             {
-                string chiSo = dgvCanhBao.SelectedRows[0].Cells[1].Value.ToString();
+                string noiDung =
+                    dgvCanhBao.SelectedRows[0]
+                    .Cells[1].Value.ToString();
 
                 MessageBox.Show(
-                    "Đã gửi thông báo cảnh báo cho chỉ số: " + chiSo,
-                    "Thông báo",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Warning
-                );
-            }
-            else
-            {
-                MessageBox.Show(
-                    "Vui lòng chọn cảnh báo!",
-                    "Thông báo",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Information
+                    "Đã gửi:\n" + noiDung
                 );
             }
         }
+
+        // XÓA THÔNG BÁO
+
 
         private void button7_Click(object sender, EventArgs e)
         {
             if (dgvCanhBao.SelectedRows.Count > 0)
             {
-                dgvCanhBao.Rows.RemoveAt(
-                    dgvCanhBao.SelectedRows[0].Index
+                string maTB =
+                    dgvCanhBao.SelectedRows[0]
+                    .Cells[0].Value.ToString();
+
+                conn.Open();
+
+                string sql =
+                @"DELETE FROM Thong_bao
+                  WHERE Ma_thong_bao=@Ma";
+
+                SqlCommand cmd =
+                    new SqlCommand(sql, conn);
+
+                cmd.Parameters.AddWithValue(
+                    "@Ma",
+                    maTB
                 );
 
+                cmd.ExecuteNonQuery();
+
+                conn.Close();
+
                 MessageBox.Show(
-                    "Xóa cảnh báo thành công!",
-                    "Thông báo",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Information
+                    "Xóa thành công!"
                 );
-            }
-            else
-            {
-                MessageBox.Show(
-                    "Vui lòng chọn cảnh báo cần xóa!",
-                    "Thông báo",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Information
-                );
+
+                LoadThongBao();
             }
         }
 
         private void bt_Click(object sender, EventArgs e)
         {
-            if (dgvCanhBao.SelectedRows.Count > 0)
+            try
             {
-                string chiSo =
-                    dgvCanhBao.SelectedRows[0].Cells[1].Value.ToString();
+                conn.Open();
 
-                string giaTri =
-                    dgvCanhBao.SelectedRows[0].Cells[2].Value.ToString();
+                string sql =
+                @"SELECT *
+                  FROM Chi_so_suc_khoe";
 
-                string trangThai =
-                    dgvCanhBao.SelectedRows[0].Cells[3].Value.ToString();
+                SqlCommand cmd =
+                    new SqlCommand(sql, conn);
 
-                string thoiGian =
-                    dgvCanhBao.SelectedRows[0].Cells[4].Value.ToString();
+                SqlDataReader rd =
+                    cmd.ExecuteReader();
+
+                while (rd.Read())
+                {
+                    string maTB =
+                        "TB" + DateTime.Now.Ticks.ToString();
+
+                    string noiDung = "";
+
+                    string loai = "";
+
+                    // Nhịp tim
+                    int nhipTim =
+                        Convert.ToInt32(rd["Nhip_tim"]);
+
+                    // Nước
+                    int nuoc =
+                        Convert.ToInt32(rd["Luong_nuoc"]);
+
+                    // Giấc ngủ
+                    int ngu =
+                        Convert.ToInt32(rd["Thoi_gian_ngu"]);
+
+                    // KIỂM TRA NHỊP TIM
+                    if (nhipTim > 120)
+                    {
+                        noiDung =
+                        "Nhịp tim vượt ngưỡng an toàn";
+
+                        loai = "Nguy hiểm";
+
+                        ThemThongBao(
+                            maTB,
+                            noiDung,
+                            loai
+                        );
+                    }
+
+                    // KIỂM TRA NƯỚC
+                    if (nuoc < 1500)
+                    {
+                        noiDung =
+                        "Bạn uống chưa đủ nước";
+
+                        loai = "Nhắc nhở";
+
+                        ThemThongBao(
+                            maTB + "1",
+                            noiDung,
+                            loai
+                        );
+                    }
+
+                    // KIỂM TRA GIẤC NGỦ
+                    if (ngu < 6)
+                    {
+                        noiDung =
+                        "Bạn ngủ chưa đủ giấc";
+
+                        loai = "Cảnh báo";
+
+                        ThemThongBao(
+                            maTB + "2",
+                            noiDung,
+                            loai
+                        );
+                    }
+                }
+
+                rd.Close();
+
+                conn.Close();
 
                 MessageBox.Show(
-                    "Chỉ số: " + chiSo +
-                    "\nGiá trị: " + giaTri +
-                    "\nTrạng thái: " + trangThai +
-                    "\nThời gian: " + thoiGian,
-                    "Chi tiết cảnh báo",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Information
+                    "Kiểm tra hoàn tất!"
                 );
+
+                LoadThongBao();
             }
-            else
+            catch (Exception ex)
             {
-                MessageBox.Show(
-                    "Vui lòng chọn cảnh báo!",
-                    "Thông báo",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Information
-                );
+                MessageBox.Show(ex.Message);
             }
+        }
+
+        // THÊM THÔNG BÁO
+        private void ThemThongBao(
+            string maTB,
+            string noiDung,
+            string loai
+        )
+        {
+            string sql =
+            @"INSERT INTO Thong_bao
+            VALUES
+            (
+                @MaTB,
+                @NoiDung,
+                @Loai,
+                GETDATE()
+            )";
+
+            SqlCommand cmd =
+                new SqlCommand(sql, conn);
+
+            cmd.Parameters.AddWithValue(
+                "@MaTB",
+                maTB
+            );
+
+            cmd.Parameters.AddWithValue(
+                "@NoiDung",
+                noiDung
+            );
+
+            cmd.Parameters.AddWithValue(
+                "@Loai",
+                loai
+            );
+
+            cmd.ExecuteNonQuery();
+        }
+
+        private void button8_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                conn.Open();
+
+                string sql =
+                @"SELECT *
+                  FROM Thong_bao
+                  WHERE Noi_dung_
+                  LIKE '%' + @NoiDung + '%'";
+
+                SqlDataAdapter da =
+                    new SqlDataAdapter(sql, conn);
+
+                da.SelectCommand.Parameters.AddWithValue(
+                    "@NoiDung",
+                    txtTim.Text
+                );
+
+                DataTable dt =
+                    new DataTable();
+
+                da.Fill(dt);
+
+                dgvCanhBao.DataSource = dt;
+
+                conn.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void button9_Click(object sender, EventArgs e)
+        {
+             txtTim.Clear();
+
+            LoadThongBao();
         }
     }
    }

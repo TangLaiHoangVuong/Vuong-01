@@ -14,6 +14,8 @@ namespace UDTDSK
     {
         Color originalBackColor;
         Color originalForeColor;
+        //DataTable
+        DataTable dt = new DataTable();
         public Form7()
         {
             InitializeComponent();
@@ -128,6 +130,115 @@ namespace UDTDSK
             //Xử lý Ảnh
             pictureBox1.MouseEnter += pictureBox1_MouseEnter;
             pictureBox1.MouseLeave += pictureBox1_MouseLeave;
+
+            // DATA GRID VIEW
+            dt.Columns.Add("Mã BN");
+            dt.Columns.Add("Họ tên");
+            dt.Columns.Add("Nhịp tim");
+            dt.Columns.Add("Huyết áp");
+            dt.Columns.Add("Nhiệt độ");
+            dt.Columns.Add("Cân nặng");
+            dt.Columns.Add("Chiều cao");
+
+            dgvSucKhoe.DataSource = dt;
+        }
+
+        private void splitContainer1_Panel2_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void btnNhap_Click(object sender, EventArgs e)
+        {
+            if (txtMaBN.Text == "" || txtHoTen.Text == "")
+            {
+                MessageBox.Show("Vui lòng nhập đầy đủ thông tin!");
+                return;
+            }
+
+            dt.Rows.Add(
+                txtMaBN.Text,
+                txtHoTen.Text,
+                txtNhipTim.Text,
+                txtHuyetAp.Text,
+                txtNhietDo.Text,
+                txtCanNang.Text,
+                txtChieuCao.Text
+            );
+
+            MessageBox.Show("Thêm thành công!");
+            XoaTrang();
+        }
+
+        private void dgvSucKhoe_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0)
+            {
+                txtMaBN.Text = dgvSucKhoe.Rows[e.RowIndex].Cells[0].Value.ToString();
+                txtHoTen.Text = dgvSucKhoe.Rows[e.RowIndex].Cells[1].Value.ToString();
+                txtNhipTim.Text = dgvSucKhoe.Rows[e.RowIndex].Cells[2].Value.ToString();
+                txtHuyetAp.Text = dgvSucKhoe.Rows[e.RowIndex].Cells[3].Value.ToString();
+                txtNhietDo.Text = dgvSucKhoe.Rows[e.RowIndex].Cells[4].Value.ToString();
+                txtCanNang.Text = dgvSucKhoe.Rows[e.RowIndex].Cells[5].Value.ToString();
+                txtChieuCao.Text = dgvSucKhoe.Rows[e.RowIndex].Cells[6].Value.ToString();
+            }
+        }
+
+        private void btnCapNhat_Click(object sender, EventArgs e)
+        {
+            if (dgvSucKhoe.CurrentRow == null)
+            {
+                MessageBox.Show("Chọn dòng cần sửa!");
+                return;
+            }
+
+            int i = dgvSucKhoe.CurrentRow.Index;
+
+            dt.Rows[i][0] = txtMaBN.Text;
+            dt.Rows[i][1] = txtHoTen.Text;
+            dt.Rows[i][2] = txtNhipTim.Text;
+            dt.Rows[i][3] = txtHuyetAp.Text;
+            dt.Rows[i][4] = txtNhietDo.Text;
+            dt.Rows[i][5] = txtCanNang.Text;
+            dt.Rows[i][6] = txtChieuCao.Text;
+
+            MessageBox.Show("Cập nhật thành công!");
+            XoaTrang();
+        }
+
+        private void btnXoa_Click(object sender, EventArgs e)
+        {
+            if (dgvSucKhoe.CurrentRow == null)
+            {
+                MessageBox.Show("Chọn dòng cần xóa!");
+                return;
+            }
+
+            DialogResult rs = MessageBox.Show(
+                "Bạn có chắc muốn xóa?",
+                "Xác nhận",
+                MessageBoxButtons.YesNo
+            );
+
+            if (rs == DialogResult.Yes)
+            {
+                dt.Rows.RemoveAt(dgvSucKhoe.CurrentRow.Index);
+                MessageBox.Show("Xóa thành công!");
+                XoaTrang();
+            }
+        }
+        // XÓA TRẮNG
+        void XoaTrang()
+        {
+            txtMaBN.Clear();
+            txtHoTen.Clear();
+            txtNhipTim.Clear();
+            txtHuyetAp.Clear();
+            txtNhietDo.Clear();
+            txtCanNang.Clear();
+            txtChieuCao.Clear();
+
+            txtMaBN.Focus();
         }
     }
 }

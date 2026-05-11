@@ -122,6 +122,11 @@ namespace UDTDSK
             AddHoverEffect(this);
             CenterButtons(splitContainer1.Panel1);
 
+            //Màu viền nút Button Thông tin cá nhân
+            button2.FlatStyle = FlatStyle.Flat;
+            button2.FlatAppearance.BorderSize = 2;
+            button2.FlatAppearance.BorderColor = Color.Violet;
+
             // Xử lý button đăng xuất
             btnDangXuat.Click += btnDangXuat_Click;
             btnDangXuat.MouseEnter += btnDangXuat_MouseEnter;
@@ -245,6 +250,20 @@ namespace UDTDSK
         {
             Form7 f = new Form7();
             f.Show();
+            this.Hide();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            Form6 fr6 = new Form6();
+            fr6.Show();
+            this.Hide();
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            Form5 fr5 = new Form5();
+            fr5.Show();
             this.Hide();
         }
     }

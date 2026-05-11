@@ -151,5 +151,12 @@ namespace UDTDSK
         {
 
         }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            Form7 fr7 = new Form7();
+            fr7.Show();
+            this.Hide();
+        }
     }
 }

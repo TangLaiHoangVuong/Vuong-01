@@ -66,7 +66,7 @@
             this.splitContainer1.Panel1.Controls.Add(this.button2);
             this.splitContainer1.Panel1.Controls.Add(this.button1);
             this.splitContainer1.Panel1.Controls.Add(this.pictureBox1);
-<<<<<<< HEAD
+//<<<<<<< HEAD
             // 
             // splitContainer1.Panel2
             // 
@@ -76,13 +76,13 @@
             this.splitContainer1.Panel2.Controls.Add(this.button6);
             this.splitContainer1.Panel2.Controls.Add(this.label1);
             this.splitContainer1.Panel2.Paint += new System.Windows.Forms.PaintEventHandler(this.splitContainer1_Panel2_Paint);
-            this.splitContainer1.Size = new System.Drawing.Size(754, 380);
-            this.splitContainer1.SplitterDistance = 251;
-=======
+ //           this.splitContainer1.Size = new System.Drawing.Size(754, 380);
+ //           this.splitContainer1.SplitterDistance = 251;
+//=======
             this.splitContainer1.Size = new System.Drawing.Size(1005, 468);
             this.splitContainer1.SplitterDistance = 334;
             this.splitContainer1.SplitterWidth = 5;
->>>>>>> f72a7540e6fcef0af3ec20bbe90dce0d4c75f2ff
+//>>>>>>> f72a7540e6fcef0af3ec20bbe90dce0d4c75f2ff
             this.splitContainer1.TabIndex = 0;
             // 
             // btnDangXuat

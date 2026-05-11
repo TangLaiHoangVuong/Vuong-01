@@ -28,17 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-<<<<<<< HEAD
-            this.SuspendLayout();
-            // 
-            // Form5
-            // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(597, 295);
-            this.Name = "Form5";
-            this.Text = "Form5";
-=======
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.btnDangXuat = new System.Windows.Forms.Button();
             this.button5 = new System.Windows.Forms.Button();
@@ -49,6 +38,11 @@
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.txtDanhGia = new System.Windows.Forms.TextBox();
             this.txtPhanLoai = new System.Windows.Forms.TextBox();
@@ -63,11 +57,6 @@
             this.label5 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -157,6 +146,7 @@
             this.button3.TabIndex = 59;
             this.button3.Text = "Quản lý phân tích tính toán";
             this.button3.UseVisualStyleBackColor = false;
+            this.button3.Click += new System.EventHandler(this.button3_Click_1);
             // 
             // button2
             // 
@@ -169,6 +159,7 @@
             this.button2.TabIndex = 58;
             this.button2.Text = "Quản lý dữ liệu sức khoẻ";
             this.button2.UseVisualStyleBackColor = false;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // button1
             // 
@@ -224,6 +215,37 @@
             this.dataGridView1.Size = new System.Drawing.Size(651, 135);
             this.dataGridView1.TabIndex = 0;
             // 
+            // Column1
+            // 
+            this.Column1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.Column1.HeaderText = "Ngày đo";
+            this.Column1.MinimumWidth = 6;
+            this.Column1.Name = "Column1";
+            // 
+            // Column2
+            // 
+            this.Column2.HeaderText = "Cân nặng (kg)";
+            this.Column2.MinimumWidth = 6;
+            this.Column2.Name = "Column2";
+            // 
+            // Column3
+            // 
+            this.Column3.HeaderText = "Chiều cao (cm)";
+            this.Column3.MinimumWidth = 6;
+            this.Column3.Name = "Column3";
+            // 
+            // Column4
+            // 
+            this.Column4.HeaderText = "BMI";
+            this.Column4.MinimumWidth = 6;
+            this.Column4.Name = "Column4";
+            // 
+            // Column5
+            // 
+            this.Column5.HeaderText = "Trạng thái";
+            this.Column5.MinimumWidth = 6;
+            this.Column5.Name = "Column5";
+            // 
             // groupBox2
             // 
             this.groupBox2.BackColor = System.Drawing.Color.White;
@@ -264,7 +286,7 @@
             this.lblDanhGia.Location = new System.Drawing.Point(11, 88);
             this.lblDanhGia.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblDanhGia.Name = "lblDanhGia";
-            this.lblDanhGia.Size = new System.Drawing.Size(72, 16);
+            this.lblDanhGia.Size = new System.Drawing.Size(78, 17);
             this.lblDanhGia.TabIndex = 1;
             this.lblDanhGia.Text = "Đánh giá:";
             // 
@@ -275,7 +297,7 @@
             this.lblPhanLoai.Location = new System.Drawing.Point(8, 47);
             this.lblPhanLoai.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblPhanLoai.Name = "lblPhanLoai";
-            this.lblPhanLoai.Size = new System.Drawing.Size(76, 16);
+            this.lblPhanLoai.Size = new System.Drawing.Size(81, 17);
             this.lblPhanLoai.TabIndex = 0;
             this.lblPhanLoai.Text = "Phân loại:";
             // 
@@ -370,6 +392,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.ForeColor = System.Drawing.Color.Black;
             this.label2.Location = new System.Drawing.Point(143, 9);
             this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
@@ -377,37 +400,6 @@
             this.label2.Size = new System.Drawing.Size(415, 29);
             this.label2.TabIndex = 8;
             this.label2.Text = "QUẢN LÝ PHÂN TÍCH TÍNH TOÁN";
-            // 
-            // Column1
-            // 
-            this.Column1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.Column1.HeaderText = "Ngày đo";
-            this.Column1.MinimumWidth = 6;
-            this.Column1.Name = "Column1";
-            // 
-            // Column2
-            // 
-            this.Column2.HeaderText = "Cân nặng (kg)";
-            this.Column2.MinimumWidth = 6;
-            this.Column2.Name = "Column2";
-            // 
-            // Column3
-            // 
-            this.Column3.HeaderText = "Chiều cao (cm)";
-            this.Column3.MinimumWidth = 6;
-            this.Column3.Name = "Column3";
-            // 
-            // Column4
-            // 
-            this.Column4.HeaderText = "BMI";
-            this.Column4.MinimumWidth = 6;
-            this.Column4.Name = "Column4";
-            // 
-            // Column5
-            // 
-            this.Column5.HeaderText = "Trạng thái";
-            this.Column5.MinimumWidth = 6;
-            this.Column5.Name = "Column5";
             // 
             // Form5
             // 
@@ -431,7 +423,6 @@
             this.groupBox2.PerformLayout();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
->>>>>>> f72a7540e6fcef0af3ec20bbe90dce0d4c75f2ff
             this.ResumeLayout(false);
 
         }

@@ -209,6 +209,13 @@ namespace UDTDSK
             fr9.Show();
             this.Hide();
         }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            Form8 fr8 = new Form8();
+            fr8.Show();
+            this.Hide();
+        }
     }
 }
 

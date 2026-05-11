@@ -114,7 +114,6 @@ namespace UDTDSK
             }
         }
         private void DLSK()
-<<<<<<< HEAD
         {
             dt.Columns.Add("Mã BN");
             dt.Columns.Add("Họ tên");
@@ -135,44 +134,6 @@ namespace UDTDSK
             //Xử lý nút Button
             AddHoverEffect(this);
             CenterButtons(splitContainer1.Panel1);
-
-            // Xử lý button đăng xuất
-            btnDangXuat.Click += btnDangXuat_Click;
-            btnDangXuat.MouseEnter += btnDangXuat_MouseEnter;
-            btnDangXuat.MouseLeave += btnDangXuat_MouseLeave;
-
-            //Xử lý Ảnh
-            pictureBox1.MouseEnter += pictureBox1_MouseEnter;
-            pictureBox1.MouseLeave += pictureBox1_MouseLeave;
-
-=======
-        {
->>>>>>> 945dac357578f44d3e67d19a39c6042950824f5c
-            // DATA GRID VIEW
-            dt.Columns.Add("Mã BN");
-            dt.Columns.Add("Họ tên");
-            dt.Columns.Add("Nhịp tim");
-            dt.Columns.Add("Huyết áp");
-            dt.Columns.Add("Nhiệt độ");
-            dt.Columns.Add("Cân nặng");
-            dt.Columns.Add("Chiều cao");
-
-            dgvSucKhoe.DataSource = dt;
-        }
-        private void Form7_Load(object sender, EventArgs e)
-        {
-            DLSK();
-            pictureBox1.Left = (splitContainer1.Panel1.Width - pictureBox1.Width) / 2;
-            btnDangXuat.Left = (splitContainer1.Panel1.Width - btnDangXuat.Width) / 2;
-
-            //Xử lý nút Button
-            AddHoverEffect(this);
-            CenterButtons(splitContainer1.Panel1);
-
-            //Màu viền nút Button Thông tin cá nhân
-            button2.FlatStyle = FlatStyle.Flat;
-            button2.FlatAppearance.BorderSize = 2;
-            button2.FlatAppearance.BorderColor = Color.Violet;
 
             // Xử lý button đăng xuất
             btnDangXuat.Click += btnDangXuat_Click;
@@ -284,33 +245,7 @@ namespace UDTDSK
 
         private void labelQuanLy_Click(object sender, EventArgs e)
         {
-           
-<<<<<<< HEAD
-            
- 
-=======
-        }
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-            Form6 fr6 = new Form6();
-            fr6.Show();
-            this.Hide();
-        }
-
-        private void button3_Click(object sender, EventArgs e)
-        {
-            Form5 fr5 = new Form5();
-            fr5.Show();
-            this.Hide();
-        }
-
-        private void button5_Click(object sender, EventArgs e)
-        {
-            Form9 fr9 = new Form9();
-            fr9.Show();
-            this.Hide();
->>>>>>> 945dac357578f44d3e67d19a39c6042950824f5c
         }
     }
 }

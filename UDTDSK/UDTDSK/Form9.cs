@@ -376,6 +376,8 @@ namespace UDTDSK
         }
 
 
+
+
         // THÊM THÔNG BÁO
         private void ThemThongBao(
             string maTB,
@@ -451,9 +453,14 @@ namespace UDTDSK
 
         private void button9_Click(object sender, EventArgs e)
         {
+
              txtTim.Clear();
             LoadThongBao();
-           }
+         }
+
+           
+        
+
 
         private void button1_Click(object sender, EventArgs e)
         {
@@ -478,6 +485,15 @@ namespace UDTDSK
 
         private void button5_Click(object sender, EventArgs e)
         {
+
+
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            Form8 fr8 = new Form8();
+            fr8.Show();
+            this.Hide();
 
         }
     }

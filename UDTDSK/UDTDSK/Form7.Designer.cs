@@ -74,7 +74,7 @@
             // 
             this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.splitContainer1.Location = new System.Drawing.Point(0, 0);
-            this.splitContainer1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.splitContainer1.Margin = new System.Windows.Forms.Padding(4);
             this.splitContainer1.Name = "splitContainer1";
             // 
             // splitContainer1.Panel1
@@ -120,7 +120,7 @@
             this.btnDangXuat.BackColor = System.Drawing.Color.SteelBlue;
             this.btnDangXuat.ForeColor = System.Drawing.Color.White;
             this.btnDangXuat.Location = new System.Drawing.Point(115, 102);
-            this.btnDangXuat.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnDangXuat.Margin = new System.Windows.Forms.Padding(4);
             this.btnDangXuat.Name = "btnDangXuat";
             this.btnDangXuat.Size = new System.Drawing.Size(100, 28);
             this.btnDangXuat.TabIndex = 41;
@@ -133,19 +133,20 @@
             this.button5.BackColor = System.Drawing.Color.SteelBlue;
             this.button5.ForeColor = System.Drawing.Color.White;
             this.button5.Location = new System.Drawing.Point(56, 406);
-            this.button5.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.button5.Margin = new System.Windows.Forms.Padding(4);
             this.button5.Name = "button5";
             this.button5.Size = new System.Drawing.Size(223, 41);
             this.button5.TabIndex = 40;
             this.button5.Text = "Quản lý cảnh báo";
             this.button5.UseVisualStyleBackColor = false;
+            this.button5.Click += new System.EventHandler(this.button5_Click);
             // 
             // button4
             // 
             this.button4.BackColor = System.Drawing.Color.SteelBlue;
             this.button4.ForeColor = System.Drawing.Color.White;
             this.button4.Location = new System.Drawing.Point(59, 345);
-            this.button4.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.button4.Margin = new System.Windows.Forms.Padding(4);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(220, 41);
             this.button4.TabIndex = 39;
@@ -157,7 +158,7 @@
             this.button3.BackColor = System.Drawing.Color.SteelBlue;
             this.button3.ForeColor = System.Drawing.Color.White;
             this.button3.Location = new System.Drawing.Point(56, 278);
-            this.button3.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.button3.Margin = new System.Windows.Forms.Padding(4);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(223, 41);
             this.button3.TabIndex = 38;
@@ -170,7 +171,7 @@
             this.button2.BackColor = System.Drawing.Color.RoyalBlue;
             this.button2.ForeColor = System.Drawing.Color.White;
             this.button2.Location = new System.Drawing.Point(59, 214);
-            this.button2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.button2.Margin = new System.Windows.Forms.Padding(4);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(220, 41);
             this.button2.TabIndex = 37;
@@ -182,7 +183,7 @@
             this.button1.BackColor = System.Drawing.Color.SteelBlue;
             this.button1.ForeColor = System.Drawing.Color.White;
             this.button1.Location = new System.Drawing.Point(56, 151);
-            this.button1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.button1.Margin = new System.Windows.Forms.Padding(4);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(223, 41);
             this.button1.TabIndex = 36;
@@ -195,7 +196,7 @@
             this.pictureBox1.BackColor = System.Drawing.Color.Red;
             this.pictureBox1.Image = global::UDTDSK.Properties.Resources.Avarta;
             this.pictureBox1.Location = new System.Drawing.Point(101, 22);
-            this.pictureBox1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.pictureBox1.Margin = new System.Windows.Forms.Padding(4);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(123, 91);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -215,7 +216,7 @@
             this.Column6,
             this.Column7});
             this.dgvSucKhoe.Location = new System.Drawing.Point(4, 295);
-            this.dgvSucKhoe.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.dgvSucKhoe.Margin = new System.Windows.Forms.Padding(4);
             this.dgvSucKhoe.Name = "dgvSucKhoe";
             this.dgvSucKhoe.Size = new System.Drawing.Size(659, 167);
             this.dgvSucKhoe.TabIndex = 18;
@@ -259,7 +260,7 @@
             // btnXoa
             // 
             this.btnXoa.Location = new System.Drawing.Point(435, 238);
-            this.btnXoa.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnXoa.Margin = new System.Windows.Forms.Padding(4);
             this.btnXoa.Name = "btnXoa";
             this.btnXoa.Size = new System.Drawing.Size(100, 50);
             this.btnXoa.TabIndex = 17;
@@ -270,7 +271,7 @@
             // btnCapNhat
             // 
             this.btnCapNhat.Location = new System.Drawing.Point(308, 238);
-            this.btnCapNhat.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnCapNhat.Margin = new System.Windows.Forms.Padding(4);
             this.btnCapNhat.Name = "btnCapNhat";
             this.btnCapNhat.Size = new System.Drawing.Size(100, 50);
             this.btnCapNhat.TabIndex = 16;
@@ -281,7 +282,7 @@
             // btnNhap
             // 
             this.btnNhap.Location = new System.Drawing.Point(158, 238);
-            this.btnNhap.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnNhap.Margin = new System.Windows.Forms.Padding(4);
             this.btnNhap.Name = "btnNhap";
             this.btnNhap.Size = new System.Drawing.Size(107, 50);
             this.btnNhap.TabIndex = 15;
@@ -292,7 +293,7 @@
             // txtChieuCao
             // 
             this.txtChieuCao.Location = new System.Drawing.Point(416, 155);
-            this.txtChieuCao.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtChieuCao.Margin = new System.Windows.Forms.Padding(4);
             this.txtChieuCao.Name = "txtChieuCao";
             this.txtChieuCao.Size = new System.Drawing.Size(232, 22);
             this.txtChieuCao.TabIndex = 14;
@@ -300,7 +301,7 @@
             // txtCanNang
             // 
             this.txtCanNang.Location = new System.Drawing.Point(416, 103);
-            this.txtCanNang.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtCanNang.Margin = new System.Windows.Forms.Padding(4);
             this.txtCanNang.Name = "txtCanNang";
             this.txtCanNang.Size = new System.Drawing.Size(232, 22);
             this.txtCanNang.TabIndex = 13;
@@ -308,7 +309,7 @@
             // txtNhietDo
             // 
             this.txtNhietDo.Location = new System.Drawing.Point(416, 62);
-            this.txtNhietDo.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtNhietDo.Margin = new System.Windows.Forms.Padding(4);
             this.txtNhietDo.Name = "txtNhietDo";
             this.txtNhietDo.Size = new System.Drawing.Size(232, 22);
             this.txtNhietDo.TabIndex = 12;
@@ -316,7 +317,7 @@
             // txtHuyetAp
             // 
             this.txtHuyetAp.Location = new System.Drawing.Point(96, 206);
-            this.txtHuyetAp.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtHuyetAp.Margin = new System.Windows.Forms.Padding(4);
             this.txtHuyetAp.Name = "txtHuyetAp";
             this.txtHuyetAp.Size = new System.Drawing.Size(231, 22);
             this.txtHuyetAp.TabIndex = 11;
@@ -324,7 +325,7 @@
             // txtNhipTim
             // 
             this.txtNhipTim.Location = new System.Drawing.Point(96, 155);
-            this.txtNhipTim.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtNhipTim.Margin = new System.Windows.Forms.Padding(4);
             this.txtNhipTim.Name = "txtNhipTim";
             this.txtNhipTim.Size = new System.Drawing.Size(231, 22);
             this.txtNhipTim.TabIndex = 10;
@@ -332,7 +333,7 @@
             // txtHoTen
             // 
             this.txtHoTen.Location = new System.Drawing.Point(96, 103);
-            this.txtHoTen.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtHoTen.Margin = new System.Windows.Forms.Padding(4);
             this.txtHoTen.Name = "txtHoTen";
             this.txtHoTen.Size = new System.Drawing.Size(231, 22);
             this.txtHoTen.TabIndex = 9;
@@ -340,7 +341,7 @@
             // txtMaBN
             // 
             this.txtMaBN.Location = new System.Drawing.Point(96, 62);
-            this.txtMaBN.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtMaBN.Margin = new System.Windows.Forms.Padding(4);
             this.txtMaBN.Name = "txtMaBN";
             this.txtMaBN.Size = new System.Drawing.Size(232, 22);
             this.txtMaBN.TabIndex = 8;
@@ -433,7 +434,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1005, 468);
             this.Controls.Add(this.splitContainer1);
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "Form7";
             this.Text = "Form7";
             this.Load += new System.EventHandler(this.Form7_Load);

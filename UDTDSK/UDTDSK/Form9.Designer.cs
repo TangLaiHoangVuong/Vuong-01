@@ -36,11 +36,11 @@
             this.button2 = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.button6 = new System.Windows.Forms.Button();
-            this.button7 = new System.Windows.Forms.Button();
-            this.bt = new System.Windows.Forms.Button();
             this.dgvCanhBao = new System.Windows.Forms.DataGridView();
+            this.bt = new System.Windows.Forms.Button();
+            this.button7 = new System.Windows.Forms.Button();
+            this.button6 = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -53,7 +53,7 @@
             // 
             this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.splitContainer1.Location = new System.Drawing.Point(0, 0);
-            this.splitContainer1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.splitContainer1.Margin = new System.Windows.Forms.Padding(4);
             this.splitContainer1.Name = "splitContainer1";
             // 
             // splitContainer1.Panel1
@@ -66,7 +66,6 @@
             this.splitContainer1.Panel1.Controls.Add(this.button2);
             this.splitContainer1.Panel1.Controls.Add(this.button1);
             this.splitContainer1.Panel1.Controls.Add(this.pictureBox1);
-//<<<<<<< HEAD
             // 
             // splitContainer1.Panel2
             // 
@@ -76,13 +75,9 @@
             this.splitContainer1.Panel2.Controls.Add(this.button6);
             this.splitContainer1.Panel2.Controls.Add(this.label1);
             this.splitContainer1.Panel2.Paint += new System.Windows.Forms.PaintEventHandler(this.splitContainer1_Panel2_Paint);
- //           this.splitContainer1.Size = new System.Drawing.Size(754, 380);
- //           this.splitContainer1.SplitterDistance = 251;
-//=======
             this.splitContainer1.Size = new System.Drawing.Size(1005, 468);
             this.splitContainer1.SplitterDistance = 334;
             this.splitContainer1.SplitterWidth = 5;
-//>>>>>>> f72a7540e6fcef0af3ec20bbe90dce0d4c75f2ff
             this.splitContainer1.TabIndex = 0;
             // 
             // btnDangXuat
@@ -100,7 +95,7 @@
             // 
             // button5
             // 
-            this.button5.BackColor = System.Drawing.Color.SteelBlue;
+            this.button5.BackColor = System.Drawing.Color.RoyalBlue;
             this.button5.ForeColor = System.Drawing.Color.White;
             this.button5.Location = new System.Drawing.Point(56, 406);
             this.button5.Margin = new System.Windows.Forms.Padding(4);
@@ -109,6 +104,7 @@
             this.button5.TabIndex = 47;
             this.button5.Text = "Quản lý cảnh báo";
             this.button5.UseVisualStyleBackColor = false;
+            this.button5.Click += new System.EventHandler(this.button5_Click);
             // 
             // button4
             // 
@@ -133,6 +129,7 @@
             this.button3.TabIndex = 45;
             this.button3.Text = "Quản lý phân tích tính toán";
             this.button3.UseVisualStyleBackColor = false;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
             // button2
             // 
@@ -145,6 +142,7 @@
             this.button2.TabIndex = 44;
             this.button2.Text = "Quản lý dữ liệu sức khoẻ";
             this.button2.UseVisualStyleBackColor = false;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // button1
             // 
@@ -157,6 +155,7 @@
             this.button1.TabIndex = 43;
             this.button1.Text = "Thông tin cá nhân";
             this.button1.UseVisualStyleBackColor = false;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // pictureBox1
             // 
@@ -170,35 +169,14 @@
             this.pictureBox1.TabIndex = 42;
             this.pictureBox1.TabStop = false;
             // 
-            // label1
+            // dgvCanhBao
             // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(209, 41);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(148, 20);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Quản lý cảnh báo";
-            // 
-            // button6
-            // 
-            this.button6.Location = new System.Drawing.Point(53, 282);
-            this.button6.Name = "button6";
-            this.button6.Size = new System.Drawing.Size(75, 38);
-            this.button6.TabIndex = 2;
-            this.button6.Text = "Gửi thông báo";
-            this.button6.UseVisualStyleBackColor = true;
-            this.button6.Click += new System.EventHandler(this.button6_Click);
-            // 
-            // button7
-            // 
-            this.button7.Location = new System.Drawing.Point(229, 282);
-            this.button7.Name = "button7";
-            this.button7.Size = new System.Drawing.Size(75, 38);
-            this.button7.TabIndex = 3;
-            this.button7.Text = "Xoá cảnh báo";
-            this.button7.UseVisualStyleBackColor = true;
-            this.button7.Click += new System.EventHandler(this.button7_Click);
+            this.dgvCanhBao.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvCanhBao.Location = new System.Drawing.Point(3, 118);
+            this.dgvCanhBao.Name = "dgvCanhBao";
+            this.dgvCanhBao.Size = new System.Drawing.Size(484, 150);
+            this.dgvCanhBao.TabIndex = 5;
+            this.dgvCanhBao.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvCanhBao_CellContentClick);
             // 
             // bt
             // 
@@ -210,14 +188,35 @@
             this.bt.UseVisualStyleBackColor = true;
             this.bt.Click += new System.EventHandler(this.bt_Click);
             // 
-            // dgvCanhBao
+            // button7
             // 
-            this.dgvCanhBao.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvCanhBao.Location = new System.Drawing.Point(3, 118);
-            this.dgvCanhBao.Name = "dgvCanhBao";
-            this.dgvCanhBao.Size = new System.Drawing.Size(484, 150);
-            this.dgvCanhBao.TabIndex = 5;
-            this.dgvCanhBao.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvCanhBao_CellContentClick);
+            this.button7.Location = new System.Drawing.Point(229, 282);
+            this.button7.Name = "button7";
+            this.button7.Size = new System.Drawing.Size(75, 38);
+            this.button7.TabIndex = 3;
+            this.button7.Text = "Xoá cảnh báo";
+            this.button7.UseVisualStyleBackColor = true;
+            this.button7.Click += new System.EventHandler(this.button7_Click);
+            // 
+            // button6
+            // 
+            this.button6.Location = new System.Drawing.Point(53, 282);
+            this.button6.Name = "button6";
+            this.button6.Size = new System.Drawing.Size(75, 38);
+            this.button6.TabIndex = 2;
+            this.button6.Text = "Gửi thông báo";
+            this.button6.UseVisualStyleBackColor = true;
+            this.button6.Click += new System.EventHandler(this.button6_Click);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(209, 41);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(182, 25);
+            this.label1.TabIndex = 0;
+            this.label1.Text = "Quản lý cảnh báo";
             // 
             // Form9
             // 
@@ -225,7 +224,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1005, 468);
             this.Controls.Add(this.splitContainer1);
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "Form9";
             this.Text = "Form9";
             this.Load += new System.EventHandler(this.Form9_Load);

@@ -190,6 +190,25 @@ namespace UDTDSK
                 txtDanhGia.Text = "Nguy cơ sức khỏe cao";
             }
         }
+
+        private void button3_Click_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            Form7 fr7 = new Form7();
+            fr7.Show();
+            this.Hide();
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            Form9 fr9 = new Form9();
+            fr9.Show();
+            this.Hide();
+        }
     }
 }
 

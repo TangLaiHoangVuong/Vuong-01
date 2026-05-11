@@ -193,6 +193,11 @@ namespace UDTDSK
             AddHoverEffect(this);
             CenterButtons(splitContainer1.Panel1);
 
+            //Màu viền nút Button Thông tin cá nhân
+            button5.FlatStyle = FlatStyle.Flat;
+            button5.FlatAppearance.BorderSize = 2;
+            button5.FlatAppearance.BorderColor = Color.Violet;
+
             // Xử lý button đăng xuất
             btnDangXuat.Click += btnDangXuat_Click;
             btnDangXuat.MouseEnter += btnDangXuat_MouseEnter;
@@ -370,6 +375,7 @@ namespace UDTDSK
             }
         }
 
+<<<<<<< HEAD
         // THÊM THÔNG BÁO
         private void ThemThongBao(
             string maTB,
@@ -448,6 +454,32 @@ namespace UDTDSK
              txtTim.Clear();
 
             LoadThongBao();
+=======
+        private void button1_Click(object sender, EventArgs e)
+        {
+            Form6 fr6 = new Form6();
+            fr6.Show();
+            this.Hide();
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            Form7 fr7 = new Form7();
+            fr7.Show();
+            this.Hide();
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            Form5 fr5 = new Form5();
+            fr5.Show();
+            this.Hide();
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+
+>>>>>>> 945dac357578f44d3e67d19a39c6042950824f5c
         }
     }
    }

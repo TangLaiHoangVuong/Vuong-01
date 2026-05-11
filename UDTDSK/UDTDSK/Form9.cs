@@ -482,6 +482,13 @@ namespace UDTDSK
 
 //>>>>>>> 945dac357578f44d3e67d19a39c6042950824f5c
         }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            Form8 fr8 = new Form8();
+            fr8.Show();
+            this.Hide();
+        }
     }
    }
 

@@ -140,6 +140,9 @@ namespace UDTDSK
             //ListView
             LoadDataToListView();
             listView1.SelectedIndexChanged += listView1_SelectedIndexChanged;
+
+            //txtTienDo
+            TinhTienDo();
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -294,7 +297,7 @@ namespace UDTDSK
                 {
                     conn.Open();
                     // Lấy các cột tương ứng với giao diện của bạn
-                    string query = "SELECT mo_ta, Loai_MT, gia_tri, Thoi_han, Trang_thai FROM Muc_tieu";
+                    string query = "SELECT mo_ta, Loai_MT, gia_tri, Thoi_han, Trang_thai, Gia_tri_hien_tai FROM Muc_tieu";
                     SqlCommand cmd = new SqlCommand(query, conn);
                     SqlDataReader reader = cmd.ExecuteReader();
 
@@ -312,6 +315,10 @@ namespace UDTDSK
                         item.SubItems.Add(thoiHan.ToString("dd/MM/yyyy"));
 
                         item.SubItems.Add(reader["Trang_thai"].ToString());
+
+                        // Gán giá trị % vào SubItems thứ 5 (Cột thứ 6)
+                        string phanTram = reader["Gia_tri_hien_tai"] != DBNull.Value ? reader["Gia_tri_hien_tai"].ToString() : "0%";
+                        item.SubItems.Add(phanTram);
 
                         item.Tag = reader["mo_ta"].ToString();
 
@@ -485,6 +492,46 @@ namespace UDTDSK
                     // Nếu vẫn lỗi, gán ngày hiện tại để tránh crash chương trình
                     dtpThoiHan.Value = DateTime.Now;
                 }
+
+                // 5. Hiển thị tiến độ % (Lấy từ SubItems index 5)
+                if (item.SubItems.Count > 5) // Kiểm tra để tránh lỗi nếu dòng không có đủ cột
+                {
+                    txtGiatriHT.Text = item.SubItems[5].Text;
+                }
+                else
+                {
+                    txtGiatriHT.Text = "0%";
+                }
+                TinhTienDo();
+            }
+        }
+        // ====================== txt Tiến Độ hoàn thành ======================
+        private void TinhTienDo()
+        {
+            double mucTieu;
+            double giaTriHT;
+
+            // 1. Loại bỏ ký tự '%' để có thể ép kiểu sang số
+            string strGiaTriHT = txtGiatriHT.Text.Replace("%", "").Trim();
+
+            // 2. QUAN TRỌNG: Dùng biến strGiaTriHT đã xử lý thay vì txtGiatriHT.Text
+            if (double.TryParse(txtMTHoanThanh.Text, out mucTieu) &&
+                double.TryParse(strGiaTriHT, out giaTriHT))
+            {
+                if (mucTieu > 0)
+                {
+                    // Công thức tính ngược từ phần trăm ra con số thực tế
+                    double tienDo = (giaTriHT * mucTieu) / 100;
+                    txtTienDo.Text = tienDo.ToString("0.#");
+                }
+                else
+                {
+                    txtTienDo.Text = "0";
+                }
+            }
+            else
+            {
+                txtTienDo.Text = "0";
             }
         }
     }

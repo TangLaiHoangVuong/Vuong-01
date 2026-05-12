@@ -299,9 +299,9 @@
             this.label9.AutoSize = true;
             this.label9.Location = new System.Drawing.Point(213, 52);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(81, 17);
+            this.label9.Size = new System.Drawing.Size(65, 17);
             this.label9.TabIndex = 3;
-            this.label9.Text = "% mục tiêu.";
+            this.label9.Text = "mục tiêu.";
             // 
             // label7
             // 

@@ -7,11 +7,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Data.SqlClient;
 
 namespace UDTDSK
 {
     public partial class Form6 : Form
     {
+        string strCon = @"Data Source=DESKTOP-NT4S0AQ;Initial Catalog=QLSK;Integrated Security=True";
+        SqlConnection sqlCon = null;
+
         Color originalBackColor;
         Color originalForeColor;
         public Form6()
@@ -171,6 +175,183 @@ namespace UDTDSK
             Form8 fr8 = new Form8();
             fr8.Show();
             this.Hide();
+        }
+        // 2. Hàm để lấy dữ liệu từ DB lên TextBox khi load Form
+        private void LoadUserData(string maID)
+        {
+            using (SqlConnection conn = new SqlConnection(strCon))
+            {
+                try
+                {
+                    conn.Open();
+                    string query = "SELECT Ten, Tuoi, Email, Chieu_cao_, Can_nang FROM Nguoidung WHERE maID = @maID";
+                    SqlCommand cmd = new SqlCommand(query, conn);
+                    cmd.Parameters.AddWithValue("@maID", maID);
+
+                    SqlDataReader reader = cmd.ExecuteReader();
+                    if (reader.Read())
+                    {
+                        txtHoTen.Text = reader["Ten"].ToString();
+                        txtTuoi.Text = reader["Tuoi"].ToString();
+                        txtEmail.Text = reader["Email"].ToString();
+                        txtChieuCao.Text = reader["Chieu_cao_"].ToString();
+                        txtCanNang.Text = reader["Can_nang"].ToString();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Lỗi load dữ liệu: " + ex.Message);
+                }
+            }
+        }
+        private void button7_Click(object sender, EventArgs e)
+        {
+            // 1. Kiểm tra đầu vào
+            if (txtHoTen.Text.Trim() == "")
+            {
+                MessageBox.Show("Vui lòng nhập tên của bạn!");
+                txtHoTen.Focus();
+                return;
+            }
+
+            if (txtTuoi.Text.Trim() == "")
+            {
+                MessageBox.Show("Vui lòng nhập tuổi!");
+                txtTuoi.Focus();
+                return;
+            }
+
+            // Kiểm tra RadioButton
+            if (!radNam.Checked &&
+                !radNu.Checked)
+            {
+                MessageBox.Show("Vui lòng chọn giới tính!");
+                return;
+            }
+
+            if (txtChieuCao.Text.Trim() == "")
+            {
+                MessageBox.Show("Vui lòng nhập tên của bạn!");
+                txtChieuCao.Focus();
+                return;
+            }
+
+            if (txtCanNang.Text.Trim() == "")
+            {
+                MessageBox.Show("Vui lòng nhập tuổi!");
+                txtCanNang.Focus();
+                return;
+            }
+
+            if (txtEmail.Text.Trim() == "")
+            {
+                MessageBox.Show("Vui lòng nhập tuổi!");
+                txtEmail.Focus();
+                return;
+            }
+
+            //SQL
+            using (SqlConnection conn = new SqlConnection(strCon))
+            {
+                try
+                {
+                    conn.Open();
+
+                    // 1. Lấy giá trị giới tính
+                    string gioiTinh = radNam.Checked ? "Nam" : (radNu.Checked ? "Nữ" : "");
+
+                    // 2. Câu lệnh INSERT (Thêm mới dữ liệu)
+                    // Lưu ý: maID là khóa chính nên không được trùng
+                    string query = @"INSERT INTO Nguoidung (maID, Ten, Tuoi, Chieu_cao_, Can_nang, Email, GioiTinh) 
+                             VALUES (@maID, @ten, @tuoi, @chieucao, @cannang, @email, @gioitinh)";
+
+                    SqlCommand cmd = new SqlCommand(query, conn);
+
+                    // Bạn cần có 1 ô nhập mã ID hoặc lấy mã tự động, ở đây mình ví dụ lấy từ txtHoTen (hoặc 1 biến tạm)
+                    // Tốt nhất bạn nên có 1 TextBox txtMaID để người dùng nhập mã số sinh viên/mã user
+                    cmd.Parameters.AddWithValue("@maID", "USER_" + DateTime.Now.Ticks.ToString().Substring(10)); // Tạo ID tạm thời
+                    cmd.Parameters.AddWithValue("@ten", txtHoTen.Text);
+                    cmd.Parameters.AddWithValue("@tuoi", txtTuoi.Text);
+                    cmd.Parameters.AddWithValue("@chieucao", txtChieuCao.Text);
+                    cmd.Parameters.AddWithValue("@cannang", txtCanNang.Text);
+                    cmd.Parameters.AddWithValue("@email", txtEmail.Text);
+                    cmd.Parameters.AddWithValue("@gioitinh", gioiTinh);
+
+                    int result = cmd.ExecuteNonQuery();
+
+                    if (result > 0)
+                    {
+                        MessageBox.Show("Đã lưu thông tin người dùng mới thành công!", "Thông báo");
+                        // Sau khi lưu xong có thể xóa trắng ô nhập để nhập người tiếp theo
+                        ClearFields();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Lỗi khi lưu: " + ex.Message);
+                }
+            }
+        }
+        // Hàm phụ để xóa trắng các ô nhập liệu
+        private void ClearFields()
+        {
+            txtHoTen.Clear();
+            txtTuoi.Clear();
+            txtEmail.Clear();
+            txtChieuCao.Clear();
+            txtCanNang.Clear();
+            radNam.Checked = false;
+            radNu.Checked = false;
+        }
+        private void button6_Click(object sender, EventArgs e)
+        {
+            using (SqlConnection conn = new SqlConnection(strCon))
+            {
+                try
+                {
+                    conn.Open();
+                    // 1. Xác định giới tính từ RadioButton
+                    string gioiTinh = "";
+                    if (radNam.Checked) // Thay 'radioNam' bằng Name đúng của RadioButton Nam
+                    {
+                        gioiTinh = "Nam";
+                    }
+                    else if (radNu.Checked) // Thay 'radioNu' bằng Name đúng của RadioButton Nữ
+                    {
+                        gioiTinh = "Nữ";
+                    }
+                    // Câu lệnh SQL update đầy đủ các trường dựa trên giao diện của bạn
+                    string query = @"UPDATE Nguoidung 
+                             SET Ten = @ten, 
+                                 Tuoi = @tuoi, 
+                                 Email = @email, 
+                                 Chieu_cao_ = @chieucao, 
+                                 Can_nang = @cannang,
+                                 GioiTinh = @gioitinh 
+                             WHERE Ten = @ten";
+
+                    SqlCommand cmd = new SqlCommand(query, conn);
+                    cmd.Parameters.AddWithValue("@ten", txtHoTen.Text);
+                    cmd.Parameters.AddWithValue("@tuoi", txtTuoi.Text);
+                    cmd.Parameters.AddWithValue("@email", txtEmail.Text);
+                    cmd.Parameters.AddWithValue("@chieucao", txtChieuCao.Text);
+                    cmd.Parameters.AddWithValue("@cannang", txtCanNang.Text);
+                    cmd.Parameters.AddWithValue("@gioitinh", gioiTinh);
+
+                    // Chỗ này bạn cần truyền ID thực tế (ví dụ: "User01")
+                    cmd.Parameters.AddWithValue("@maID", "User01");
+
+                    int rows = cmd.ExecuteNonQuery();
+                    if (rows > 0)
+                        MessageBox.Show("Cập nhật thông tin thành công!", "Thông báo");
+                    else
+                        MessageBox.Show("Không tìm thấy người dùng để cập nhật.");
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Lỗi khi cập nhật: " + ex.Message);
+                }
+            }
         }
     }
 }

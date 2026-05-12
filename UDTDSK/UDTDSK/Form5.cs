@@ -17,10 +17,7 @@ namespace UDTDSK
         public Form5()
         {
             InitializeComponent();
-            
         }
-        
-    
         private void HideLogoutIfNeeded()
         {
             if (!pictureBox1.ClientRectangle.Contains(pictureBox1.PointToClient(Cursor.Position)) &&
@@ -114,7 +111,6 @@ namespace UDTDSK
                 }
             }
         }
-
         private void Form5_Load(object sender, EventArgs e)
         {
             pictureBox1.Left = (splitContainer1.Panel1.Width - pictureBox1.Width) / 2;
@@ -138,7 +134,21 @@ namespace UDTDSK
             pictureBox1.MouseEnter += pictureBox1_MouseEnter;
             pictureBox1.MouseLeave += pictureBox1_MouseLeave;
         }
-        
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            Form6 fr6 = new Form6();
+            fr6.Show();
+            this.Hide();
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            Form7 fr7 = new Form7();
+            fr7.Show();
+            this.Hide();
+        }
+
         private void button3_Click(object sender, EventArgs e)
         {
             Form5 fr5 = new Form5();
@@ -146,10 +156,17 @@ namespace UDTDSK
             this.Hide();
         }
 
-        private void button1_Click_1(object sender, EventArgs e)
+        private void button4_Click(object sender, EventArgs e)
         {
-            Form6 fr6 = new Form6();
-            fr6.Show();
+            Form8 fr8 = new Form8();
+            fr8.Show();
+            this.Hide();
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            Form9 fr9 = new Form9();
+            fr9.Show();
             this.Hide();
         }
 
@@ -197,4 +214,3 @@ namespace UDTDSK
         }
     }
 }
-

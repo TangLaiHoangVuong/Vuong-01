@@ -113,8 +113,21 @@ namespace UDTDSK
                 }
             }
         }
+        private void DLSK()
+        {
+            dt.Columns.Add("Mã BN");
+            dt.Columns.Add("Họ tên");
+            dt.Columns.Add("Nhịp tim");
+            dt.Columns.Add("Huyết áp");
+            dt.Columns.Add("Nhiệt độ");
+            dt.Columns.Add("Cân nặng");
+            dt.Columns.Add("Chiều cao");
+
+            dgvSucKhoe.DataSource = dt;
+        }
         private void Form7_Load(object sender, EventArgs e)
         {
+            DLSK();
             pictureBox1.Left = (splitContainer1.Panel1.Width - pictureBox1.Width) / 2;
             btnDangXuat.Left = (splitContainer1.Panel1.Width - btnDangXuat.Width) / 2;
 
@@ -130,17 +143,6 @@ namespace UDTDSK
             //Xử lý Ảnh
             pictureBox1.MouseEnter += pictureBox1_MouseEnter;
             pictureBox1.MouseLeave += pictureBox1_MouseLeave;
-
-            // DATA GRID VIEW
-            dt.Columns.Add("Mã BN");
-            dt.Columns.Add("Họ tên");
-            dt.Columns.Add("Nhịp tim");
-            dt.Columns.Add("Huyết áp");
-            dt.Columns.Add("Nhiệt độ");
-            dt.Columns.Add("Cân nặng");
-            dt.Columns.Add("Chiều cao");
-
-            dgvSucKhoe.DataSource = dt;
         }
 
         private void splitContainer1_Panel2_Paint(object sender, PaintEventArgs e)
@@ -239,6 +241,11 @@ namespace UDTDSK
             txtChieuCao.Clear();
 
             txtMaBN.Focus();
+        }
+
+        private void labelQuanLy_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

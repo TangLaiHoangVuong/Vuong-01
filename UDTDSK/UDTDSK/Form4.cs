@@ -144,7 +144,9 @@ namespace UDTDSK
         }
         private void button2_Click_1(object sender, EventArgs e)
         {
-
+            Form7 fr7 = new Form7();
+            fr7.Show();
+            this.Hide();
         }
         private void button3_Click(object sender, EventArgs e)
         {
@@ -154,11 +156,15 @@ namespace UDTDSK
         }
         private void button4_Click(object sender, EventArgs e)
         {
-
+            Form8 fr8 = new Form8();
+            fr8.Show();
+            this.Hide();
         }
         private void button5_Click(object sender, EventArgs e)
         {
-
+            Form9 fr9 = new Form9();
+            fr9.Show();
+            this.Hide();
         }
     }
 }

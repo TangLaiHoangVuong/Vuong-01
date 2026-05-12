@@ -48,7 +48,7 @@
             this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader5 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.textBox6 = new System.Windows.Forms.TextBox();
+            this.txtGiatriHT = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
@@ -56,7 +56,7 @@
             this.cboDonVi = new System.Windows.Forms.ComboBox();
             this.txtMTHoanThanh = new System.Windows.Forms.TextBox();
             this.label10 = new System.Windows.Forms.Label();
-            this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
+            this.dtpThoiHan = new System.Windows.Forms.DateTimePicker();
             this.txtTenMucTieu = new System.Windows.Forms.TextBox();
             this.radCalorie = new System.Windows.Forms.RadioButton();
             this.radLuongNuoc = new System.Windows.Forms.RadioButton();
@@ -221,7 +221,7 @@
             this.groupBox2.Controls.Add(this.button7);
             this.groupBox2.Controls.Add(this.textBox7);
             this.groupBox2.Controls.Add(this.listView1);
-            this.groupBox2.Controls.Add(this.textBox6);
+            this.groupBox2.Controls.Add(this.txtGiatriHT);
             this.groupBox2.Controls.Add(this.label9);
             this.groupBox2.Controls.Add(this.label7);
             this.groupBox2.Controls.Add(this.label8);
@@ -278,14 +278,14 @@
             this.columnHeader5.Text = "Trạng thái";
             this.columnHeader5.Width = 81;
             // 
-            // textBox6
+            // txtGiatriHT
             // 
-            this.textBox6.Location = new System.Drawing.Point(162, 46);
-            this.textBox6.Name = "textBox6";
-            this.textBox6.Size = new System.Drawing.Size(32, 22);
-            this.textBox6.TabIndex = 4;
-            this.textBox6.Text = "0";
-            this.textBox6.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.txtGiatriHT.Location = new System.Drawing.Point(162, 46);
+            this.txtGiatriHT.Name = "txtGiatriHT";
+            this.txtGiatriHT.Size = new System.Drawing.Size(32, 22);
+            this.txtGiatriHT.TabIndex = 4;
+            this.txtGiatriHT.Text = "0";
+            this.txtGiatriHT.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // label9
             // 
@@ -319,7 +319,7 @@
             this.groupBox1.Controls.Add(this.cboDonVi);
             this.groupBox1.Controls.Add(this.txtMTHoanThanh);
             this.groupBox1.Controls.Add(this.label10);
-            this.groupBox1.Controls.Add(this.dateTimePicker1);
+            this.groupBox1.Controls.Add(this.dtpThoiHan);
             this.groupBox1.Controls.Add(this.txtTenMucTieu);
             this.groupBox1.Controls.Add(this.radCalorie);
             this.groupBox1.Controls.Add(this.radLuongNuoc);
@@ -360,14 +360,14 @@
             this.label10.TabIndex = 11;
             this.label10.Text = "Tên mục tiêu:";
             // 
-            // dateTimePicker1
+            // dtpThoiHan
             // 
-            this.dateTimePicker1.CustomFormat = "dd/MM/yyyy";
-            this.dateTimePicker1.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dateTimePicker1.Location = new System.Drawing.Point(201, 121);
-            this.dateTimePicker1.Name = "dateTimePicker1";
-            this.dateTimePicker1.Size = new System.Drawing.Size(201, 22);
-            this.dateTimePicker1.TabIndex = 10;
+            this.dtpThoiHan.CustomFormat = "dd/MM/yyyy";
+            this.dtpThoiHan.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.dtpThoiHan.Location = new System.Drawing.Point(201, 121);
+            this.dtpThoiHan.Name = "dtpThoiHan";
+            this.dtpThoiHan.Size = new System.Drawing.Size(201, 22);
+            this.dtpThoiHan.TabIndex = 10;
             // 
             // txtTenMucTieu
             // 
@@ -581,9 +581,9 @@
             // 
             // button7
             // 
-            this.button7.Location = new System.Drawing.Point(380, 21);
+            this.button7.Location = new System.Drawing.Point(380, 20);
             this.button7.Name = "button7";
-            this.button7.Size = new System.Drawing.Size(107, 25);
+            this.button7.Size = new System.Drawing.Size(107, 30);
             this.button7.TabIndex = 7;
             this.button7.Text = "Lưu tiến độ";
             this.button7.UseVisualStyleBackColor = true;
@@ -628,7 +628,7 @@
         private System.Windows.Forms.ColumnHeader columnHeader3;
         private System.Windows.Forms.ColumnHeader columnHeader4;
         private System.Windows.Forms.ColumnHeader columnHeader5;
-        private System.Windows.Forms.TextBox textBox6;
+        private System.Windows.Forms.TextBox txtGiatriHT;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label8;
@@ -636,7 +636,7 @@
         private System.Windows.Forms.ComboBox cboDonVi;
         private System.Windows.Forms.TextBox txtMTHoanThanh;
         private System.Windows.Forms.Label label10;
-        private System.Windows.Forms.DateTimePicker dateTimePicker1;
+        private System.Windows.Forms.DateTimePicker dtpThoiHan;
         private System.Windows.Forms.TextBox txtTenMucTieu;
         private System.Windows.Forms.RadioButton radCalorie;
         private System.Windows.Forms.RadioButton radLuongNuoc;

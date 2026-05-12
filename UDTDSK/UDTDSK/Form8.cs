@@ -170,13 +170,55 @@ namespace UDTDSK
             fr9.Show();
             this.Hide();
         }
+        // ====================== LẤY LOẠI MỤC TIÊU ======================
         private string GetLoaiMucTieu()
         {
-            if (radCanNang.Checked) return "Cân nặng";
-            if (radSoBuoc.Checked) return "Số bước chân";
-            if (radLuongNuoc.Checked) return "Lượng nước uống";
-            if (radCalorie.Checked) return "Calorie";
+            if (radCanNang.Checked)
+                return "Cân nặng";
+
+            if (radSoBuoc.Checked)
+                return "Số bước chân";
+
+            if (radLuongNuoc.Checked)
+                return "Lượng nước uống";
+
+            if (radCalorie.Checked)
+                return "Calories";
+
             return "";
+        }
+        // ====================== TẠO MÃ MỤC TIÊU ======================
+        private string TaoMaMucTieu()
+        {
+            string maMoi = "MT01";
+
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                conn.Open();
+
+                string query =
+                    "SELECT TOP 1 Ma_muc_tieu FROM Muc_tieu ORDER BY Ma_muc_tieu DESC";
+
+                SqlCommand cmd = new SqlCommand(query, conn);
+
+                object result = cmd.ExecuteScalar();
+
+                if (result != null)
+                {
+                    string maCu = result.ToString();
+
+                    // Lấy phần số phía sau MT
+                    int so = int.Parse(maCu.Substring(2));
+
+                    // Tăng lên 1
+                    so++;
+
+                    // Format thành MT001, MT002... => D2 thành MT01, MT02,...
+                    maMoi = "MT" + so.ToString("D3");
+                }
+            }
+
+            return maMoi;
         }
         private void button6_Click(object sender, EventArgs e)
         {
@@ -204,25 +246,9 @@ namespace UDTDSK
                 return;
             }
 
-            // Xác định loại mục tiêu
-            string loaiMucTieu = "";
-
-            if (radCanNang.Checked)
-                loaiMucTieu = "Cân nặng";
-
-            else if (radSoBuoc.Checked)
-                loaiMucTieu = "Số bước";
-
-            else if (radLuongNuoc.Checked)
-                loaiMucTieu = "Lượng nước";
-
-            else if (radCalorie.Checked)
-                loaiMucTieu = "Calories";
-
-            // Mã mục tiêu tự động
-            string maMucTieu = "MT" + DateTime.Now.Ticks.ToString();
-
             // Trạng thái mặc định
+            string loaiMucTieu = GetLoaiMucTieu();
+            string maMucTieu = TaoMaMucTieu();
             string trangThai = "Chưa hoàn thành";
 
             try
@@ -230,32 +256,31 @@ namespace UDTDSK
                 using (SqlConnection conn = new SqlConnection(connectionString))
                 {
                     conn.Open();
-
-                    string query = @"INSERT INTO Muc_tieu
-                            (Ma_muc_tieu, mo_ta, gia_tri, Gia_tri_hien_tai, Trang_thai)
-                            VALUES
-                            (@MaMT, @MoTa, @GiaTri, @GiaTriHT, @TrangThai)";
+                    // Câu lệnh Insert mới đầy đủ các trường theo yêu cầu
+                    string query = @"INSERT INTO Muc_tieu 
+                            (Ma_muc_tieu, mo_ta, Loai_MT, gia_tri, Gia_tri_hien_tai, Thoi_han, Trang_thai) 
+                            VALUES 
+                            (@MaMT, @TenMT, @LoaiMT, @GiaTri, @GiaTriHT, @ThoiHan, @TrangThai)";
 
                     SqlCommand cmd = new SqlCommand(query, conn);
-
                     cmd.Parameters.AddWithValue("@MaMT", maMucTieu);
+                    cmd.Parameters.AddWithValue("@TenMT", txtTenMucTieu.Text); // Tên mục tiêu
+                    cmd.Parameters.AddWithValue("@LoaiMT", loaiMucTieu);        // Loại mục tiêu
 
-                    // Tên mục tiêu
-                    cmd.Parameters.AddWithValue("@MoTa",
-                        txtTenMucTieu.Text + " - " + loaiMucTieu);
+                    // Giá trị mục tiêu (Mục tiêu hoàn thành)
+                    cmd.Parameters.AddWithValue("@GiaTri", txtMTHoanThanh.Text + " " + cboDonVi.Text);
 
-                    // Giá trị mục tiêu
-                    cmd.Parameters.AddWithValue("@GiaTri",
-                        txtMTHoanThanh.Text + " " + cboDonVi.Text);
+                    // Tiến độ hoàn thành ban đầu là 0
+                    cmd.Parameters.AddWithValue("@GiaTriHT", txtGiatriHT.Text);
 
-                    // Giá trị hiện tại mặc định
-                    cmd.Parameters.AddWithValue("@GiaTriHT", "0");
+                    // Thời hạn hoàn thành (Lấy từ DateTimePicker trên giao diện)
+                    // Giả sử DateTimePicker của bạn tên là dtpThoiHan (theo ảnh image_d3d4b5.jpg)
+                    cmd.Parameters.AddWithValue("@ThoiHan", dtpThoiHan.Value);
 
                     cmd.Parameters.AddWithValue("@TrangThai", trangThai);
 
                     cmd.ExecuteNonQuery();
-
-                    MessageBox.Show("Thêm mục tiêu thành công!");
+                    MessageBox.Show("Thiết lập mục tiêu thành công!");
                 }
 
                 // Reset dữ liệu

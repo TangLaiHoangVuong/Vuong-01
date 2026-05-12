@@ -28,11 +28,11 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.ListViewItem listViewItem56 = new System.Windows.Forms.ListViewItem("Tên mục tiêu");
-            System.Windows.Forms.ListViewItem listViewItem57 = new System.Windows.Forms.ListViewItem("Loại mục tiêu");
-            System.Windows.Forms.ListViewItem listViewItem58 = new System.Windows.Forms.ListViewItem("Mục tiêu");
-            System.Windows.Forms.ListViewItem listViewItem59 = new System.Windows.Forms.ListViewItem("Thời hạn");
-            System.Windows.Forms.ListViewItem listViewItem60 = new System.Windows.Forms.ListViewItem("Trạng thái");
+            System.Windows.Forms.ListViewItem listViewItem1 = new System.Windows.Forms.ListViewItem("Tên mục tiêu");
+            System.Windows.Forms.ListViewItem listViewItem2 = new System.Windows.Forms.ListViewItem("Loại mục tiêu");
+            System.Windows.Forms.ListViewItem listViewItem3 = new System.Windows.Forms.ListViewItem("Mục tiêu");
+            System.Windows.Forms.ListViewItem listViewItem4 = new System.Windows.Forms.ListViewItem("Thời hạn");
+            System.Windows.Forms.ListViewItem listViewItem5 = new System.Windows.Forms.ListViewItem("Trạng thái");
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.btnDangXuat = new System.Windows.Forms.Button();
             this.button5 = new System.Windows.Forms.Button();
@@ -78,6 +78,7 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
+            this.textBox7 = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -216,6 +217,7 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.textBox7);
             this.groupBox2.Controls.Add(this.listView1);
             this.groupBox2.Controls.Add(this.textBox6);
             this.groupBox2.Controls.Add(this.label9);
@@ -223,7 +225,7 @@
             this.groupBox2.Controls.Add(this.label8);
             this.groupBox2.Location = new System.Drawing.Point(23, 290);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(620, 161);
+            this.groupBox2.Size = new System.Drawing.Size(620, 175);
             this.groupBox2.TabIndex = 33;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Tiến độ";
@@ -237,12 +239,12 @@
             this.columnHeader4,
             this.columnHeader5});
             this.listView1.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
-            listViewItem56,
-            listViewItem57,
-            listViewItem58,
-            listViewItem59,
-            listViewItem60});
-            this.listView1.Location = new System.Drawing.Point(30, 55);
+            listViewItem1,
+            listViewItem2,
+            listViewItem3,
+            listViewItem4,
+            listViewItem5});
+            this.listView1.Location = new System.Drawing.Point(30, 72);
             this.listView1.Name = "listView1";
             this.listView1.Size = new System.Drawing.Size(567, 97);
             this.listView1.TabIndex = 5;
@@ -276,7 +278,7 @@
             // 
             // textBox6
             // 
-            this.textBox6.Location = new System.Drawing.Point(308, 21);
+            this.textBox6.Location = new System.Drawing.Point(162, 46);
             this.textBox6.Name = "textBox6";
             this.textBox6.Size = new System.Drawing.Size(32, 22);
             this.textBox6.TabIndex = 4;
@@ -286,7 +288,7 @@
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(344, 27);
+            this.label9.Location = new System.Drawing.Point(198, 52);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(81, 17);
             this.label9.TabIndex = 3;
@@ -295,7 +297,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(173, 27);
+            this.label7.Location = new System.Drawing.Point(27, 52);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(129, 17);
             this.label7.TabIndex = 1;
@@ -568,6 +570,13 @@
             this.label1.TabIndex = 25;
             this.label1.Text = "Quản lý mục tiêu và theo dõi";
             // 
+            // textBox7
+            // 
+            this.textBox7.Location = new System.Drawing.Point(162, 24);
+            this.textBox7.Name = "textBox7";
+            this.textBox7.Size = new System.Drawing.Size(240, 22);
+            this.textBox7.TabIndex = 6;
+            // 
             // Form8
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -638,5 +647,6 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.TextBox textBox7;
     }
 }

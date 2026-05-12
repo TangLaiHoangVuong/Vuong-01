@@ -7,11 +7,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Data.SqlClient;
 
 namespace UDTDSK
 {
     public partial class Form8 : Form
     {
+        string connectionString = @"Data Source=DESKTOP-NT4S0AQ;Initial Catalog=QLSK;Integrated Security=True";
+
         Color originalBackColor;
         Color originalForeColor;
         public Form8()
@@ -167,6 +170,14 @@ namespace UDTDSK
             fr9.Show();
             this.Hide();
         }
+        private string GetLoaiMucTieu()
+        {
+            if (radCanNang.Checked) return "Cân nặng";
+            if (radSoBuoc.Checked) return "Số bước chân";
+            if (radLuongNuoc.Checked) return "Lượng nước uống";
+            if (radCalorie.Checked) return "Calorie";
+            return "";
+        }
         private void button6_Click(object sender, EventArgs e)
         {
             if (txtTenMucTieu.Text.Trim() == "")
@@ -193,19 +204,75 @@ namespace UDTDSK
                 return;
             }
 
-            // Thông báo thành công
-            MessageBox.Show("Thêm mục tiêu thành công!");
+            // Xác định loại mục tiêu
+            string loaiMucTieu = "";
 
-            // Reset dữ liệu sau khi thêm
-            txtTenMucTieu.Clear();
-            txtMTHoanThanh.Clear();
+            if (radCanNang.Checked)
+                loaiMucTieu = "Cân nặng";
 
-            radCanNang.Checked = false;
-            radSoBuoc.Checked = false;
-            radLuongNuoc.Checked = false;
-            radCalorie.Checked = false;
+            else if (radSoBuoc.Checked)
+                loaiMucTieu = "Số bước";
 
-            cboDonVi.Items.Clear();
+            else if (radLuongNuoc.Checked)
+                loaiMucTieu = "Lượng nước";
+
+            else if (radCalorie.Checked)
+                loaiMucTieu = "Calories";
+
+            // Mã mục tiêu tự động
+            string maMucTieu = "MT" + DateTime.Now.Ticks.ToString();
+
+            // Trạng thái mặc định
+            string trangThai = "Chưa hoàn thành";
+
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+
+                    string query = @"INSERT INTO Muc_tieu
+                            (Ma_muc_tieu, mo_ta, gia_tri, Gia_tri_hien_tai, Trang_thai)
+                            VALUES
+                            (@MaMT, @MoTa, @GiaTri, @GiaTriHT, @TrangThai)";
+
+                    SqlCommand cmd = new SqlCommand(query, conn);
+
+                    cmd.Parameters.AddWithValue("@MaMT", maMucTieu);
+
+                    // Tên mục tiêu
+                    cmd.Parameters.AddWithValue("@MoTa",
+                        txtTenMucTieu.Text + " - " + loaiMucTieu);
+
+                    // Giá trị mục tiêu
+                    cmd.Parameters.AddWithValue("@GiaTri",
+                        txtMTHoanThanh.Text + " " + cboDonVi.Text);
+
+                    // Giá trị hiện tại mặc định
+                    cmd.Parameters.AddWithValue("@GiaTriHT", "0");
+
+                    cmd.Parameters.AddWithValue("@TrangThai", trangThai);
+
+                    cmd.ExecuteNonQuery();
+
+                    MessageBox.Show("Thêm mục tiêu thành công!");
+                }
+
+                // Reset dữ liệu
+                txtTenMucTieu.Clear();
+                txtMTHoanThanh.Clear();
+
+                radCanNang.Checked = false;
+                radSoBuoc.Checked = false;
+                radLuongNuoc.Checked = false;
+                radCalorie.Checked = false;
+
+                cboDonVi.Items.Clear();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Lỗi kết nối CSDL: " + ex.Message);
+            }
         }
 
         private void radCanNang_CheckedChanged(object sender, EventArgs e)

@@ -28,11 +28,11 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.ListViewItem listViewItem1 = new System.Windows.Forms.ListViewItem("Tên mục tiêu");
-            System.Windows.Forms.ListViewItem listViewItem2 = new System.Windows.Forms.ListViewItem("Loại mục tiêu");
-            System.Windows.Forms.ListViewItem listViewItem3 = new System.Windows.Forms.ListViewItem("Mục tiêu");
-            System.Windows.Forms.ListViewItem listViewItem4 = new System.Windows.Forms.ListViewItem("Thời hạn");
-            System.Windows.Forms.ListViewItem listViewItem5 = new System.Windows.Forms.ListViewItem("Trạng thái");
+            System.Windows.Forms.ListViewItem listViewItem6 = new System.Windows.Forms.ListViewItem("Tên mục tiêu");
+            System.Windows.Forms.ListViewItem listViewItem7 = new System.Windows.Forms.ListViewItem("Loại mục tiêu");
+            System.Windows.Forms.ListViewItem listViewItem8 = new System.Windows.Forms.ListViewItem("Mục tiêu");
+            System.Windows.Forms.ListViewItem listViewItem9 = new System.Windows.Forms.ListViewItem("Thời hạn");
+            System.Windows.Forms.ListViewItem listViewItem10 = new System.Windows.Forms.ListViewItem("Trạng thái");
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.btnDangXuat = new System.Windows.Forms.Button();
             this.button5 = new System.Windows.Forms.Button();
@@ -79,6 +79,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.textBox7 = new System.Windows.Forms.TextBox();
+            this.button7 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -217,6 +218,7 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.button7);
             this.groupBox2.Controls.Add(this.textBox7);
             this.groupBox2.Controls.Add(this.listView1);
             this.groupBox2.Controls.Add(this.textBox6);
@@ -239,11 +241,11 @@
             this.columnHeader4,
             this.columnHeader5});
             this.listView1.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
-            listViewItem1,
-            listViewItem2,
-            listViewItem3,
-            listViewItem4,
-            listViewItem5});
+            listViewItem6,
+            listViewItem7,
+            listViewItem8,
+            listViewItem9,
+            listViewItem10});
             this.listView1.Location = new System.Drawing.Point(30, 72);
             this.listView1.Name = "listView1";
             this.listView1.Size = new System.Drawing.Size(567, 97);
@@ -574,8 +576,17 @@
             // 
             this.textBox7.Location = new System.Drawing.Point(162, 24);
             this.textBox7.Name = "textBox7";
-            this.textBox7.Size = new System.Drawing.Size(240, 22);
+            this.textBox7.Size = new System.Drawing.Size(198, 22);
             this.textBox7.TabIndex = 6;
+            // 
+            // button7
+            // 
+            this.button7.Location = new System.Drawing.Point(380, 21);
+            this.button7.Name = "button7";
+            this.button7.Size = new System.Drawing.Size(107, 25);
+            this.button7.TabIndex = 7;
+            this.button7.Text = "Lưu tiến độ";
+            this.button7.UseVisualStyleBackColor = true;
             // 
             // Form8
             // 
@@ -648,5 +659,6 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox textBox7;
+        private System.Windows.Forms.Button button7;
     }
 }

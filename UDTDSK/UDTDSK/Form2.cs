@@ -7,11 +7,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Data.SqlClient;
 
 namespace UDTDSK
 {
     public partial class Form2 : Form
     {
+        string strCon = @"Data Source=DESKTOP-NT4S0AQ;Initial Catalog=QLSK;Integrated Security=True";
+        SqlConnection sqlCon = null;
         public Form2()
         {
             InitializeComponent();
@@ -26,6 +29,7 @@ namespace UDTDSK
 
         private void button1_Click(object sender, EventArgs e)
         {
+            // 1. Kiểm tra đầu vào
             if (txtEmail.Text.Trim() == "")
             {
                 MessageBox.Show("Vui lòng nhập tài khoản Email của bạn!");
@@ -47,7 +51,6 @@ namespace UDTDSK
                 return;
             }
 
-            // Kiểm tra mật khẩu nhập lại có giống không
             if (txtPass.Text != txtPass2.Text)
             {
                 MessageBox.Show("Mật khẩu xác nhận không khớp!");
@@ -56,29 +59,66 @@ namespace UDTDSK
                 return;
             }
 
-            // Thông báo đăng ký thành công và hỏi quay lại đăng nhập
-            DialogResult result = MessageBox.Show(
-                "Đăng ký tài khoản thành công!\nBạn có muốn quay lại trang đăng nhập không?",
-                "Thông báo",
-                MessageBoxButtons.YesNo,
-                MessageBoxIcon.Question
-            );
-
-            // Nếu chọn Yes
-            if (result == DialogResult.Yes)
+            // 2. Kết nối CSDL và lưu dữ liệu
+            try
             {
-                Form1 fr1 = new Form1();
-                fr1.Show();
-                this.Hide();
+                if (sqlCon == null) sqlCon = new SqlConnection(strCon);
+                if (sqlCon.State == ConnectionState.Closed) sqlCon.Open();
+
+                // Kiểm tra email đã tồn tại chưa
+                string checkSql = "SELECT COUNT(*) FROM Nguoidung WHERE Email = @email";
+                SqlCommand cmdCheck = new SqlCommand(checkSql, sqlCon);
+                cmdCheck.Parameters.AddWithValue("@email", txtEmail.Text.Trim());
+                int count = (int)cmdCheck.ExecuteScalar();
+
+                if (count > 0)
+                {
+                    MessageBox.Show("Email này đã được đăng ký. Vui lòng dùng email khác!");
+                    return;
+                }
+
+                // Lệnh chèn dữ liệu (Vì maID không tự tăng nên mình lấy Email làm ID luôn)
+                string insertSql = "INSERT INTO Nguoidung(maID, Email, MatKhau) VALUES(@id, @email, @pass)";
+                SqlCommand sqlCmd = new SqlCommand(insertSql, sqlCon);
+
+                sqlCmd.Parameters.AddWithValue("@id", txtEmail.Text.Trim());
+                sqlCmd.Parameters.AddWithValue("@email", txtEmail.Text.Trim());
+                sqlCmd.Parameters.AddWithValue("@pass", txtPass.Text.Trim());
+
+                int kq = sqlCmd.ExecuteNonQuery();
+
+                if (kq > 0)
+                {
+                    DialogResult result = MessageBox.Show(
+                        "Đăng ký tài khoản thành công!\nBạn có muốn quay lại trang đăng nhập không?",
+                        "Thông báo",
+                        MessageBoxButtons.YesNo,
+                        MessageBoxIcon.Question
+                    );
+
+                    if (result == DialogResult.Yes)
+                    {
+                        Form1 fr1 = new Form1();
+                        fr1.Show();
+                        this.Hide();
+                    }
+                    else
+                    {
+                        txtEmail.Text = "";
+                        txtPass.Text = "";
+                        txtPass2.Text = "";
+                        txtEmail.Focus();
+                    }
+                }
             }
-            // Nếu chọn No
-            else if (result == DialogResult.No)
+            catch (Exception ex)
             {
-                txtEmail.Text = "";
-                txtPass.Text = "";
-                txtPass2.Text = "";
-
-                txtEmail.Focus();
+                MessageBox.Show("Lỗi kết nối: " + ex.Message);
+            }
+            finally
+            {
+                if (sqlCon != null && sqlCon.State == ConnectionState.Open)
+                    sqlCon.Close();
             }
         }
         private void pictureBox1_Click(object sender, EventArgs e)

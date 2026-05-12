@@ -167,47 +167,6 @@ namespace UDTDSK
             fr9.Show();
             this.Hide();
         }
-        /*
-        private void radCanNang_CheckedChanged(object sender, EventArgs e)
-        {
-            if (radCanNang.Checked)
-            {
-                cboDonVi.Items.Clear();
-                cboDonVi.Items.Add("kg");
-                cboDonVi.SelectedIndex = 0; // Tự động chọn mục đầu tiên
-            }
-        }
-
-        private void radSoBuoc_CheckedChanged(object sender, EventArgs e)
-        {
-            if (radSoBuoc.Checked)
-            {
-                cboDonVi.Items.Clear();
-                cboDonVi.Items.Add("bước");
-                cboDonVi.SelectedIndex = 0;
-            }
-        }
-
-        private void radLuongNuoc_CheckedChanged(object sender, EventArgs e)
-        {
-            if (radLuongNuoc.Checked)
-            {
-                cboDonVi.Items.Clear();
-                cboDonVi.Items.Add("ml");
-                cboDonVi.Items.Add("lít");
-                cboDonVi.SelectedIndex = 0;
-            }
-        }
-
-        private void radCalorie_CheckedChanged(object sender, EventArgs e)
-        {
-            if (radCalorie.Checked)
-            {
-                cboDonVi.Items.Clear();
-                cboDonVi.Items.Add("kcal");
-                cboDonVi.SelectedIndex = 0;
-            }
-        }*/
         private void button6_Click(object sender, EventArgs e)
         {
             if (txtTenMucTieu.Text.Trim() == "")

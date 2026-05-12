@@ -28,11 +28,11 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.ListViewItem listViewItem31 = new System.Windows.Forms.ListViewItem("Tên mục tiêu");
-            System.Windows.Forms.ListViewItem listViewItem32 = new System.Windows.Forms.ListViewItem("Loại mục tiêu");
-            System.Windows.Forms.ListViewItem listViewItem33 = new System.Windows.Forms.ListViewItem("Mục tiêu");
-            System.Windows.Forms.ListViewItem listViewItem34 = new System.Windows.Forms.ListViewItem("Thời hạn");
-            System.Windows.Forms.ListViewItem listViewItem35 = new System.Windows.Forms.ListViewItem("Trạng thái");
+            System.Windows.Forms.ListViewItem listViewItem56 = new System.Windows.Forms.ListViewItem("Tên mục tiêu");
+            System.Windows.Forms.ListViewItem listViewItem57 = new System.Windows.Forms.ListViewItem("Loại mục tiêu");
+            System.Windows.Forms.ListViewItem listViewItem58 = new System.Windows.Forms.ListViewItem("Mục tiêu");
+            System.Windows.Forms.ListViewItem listViewItem59 = new System.Windows.Forms.ListViewItem("Thời hạn");
+            System.Windows.Forms.ListViewItem listViewItem60 = new System.Windows.Forms.ListViewItem("Trạng thái");
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.btnDangXuat = new System.Windows.Forms.Button();
             this.button5 = new System.Windows.Forms.Button();
@@ -237,11 +237,11 @@
             this.columnHeader4,
             this.columnHeader5});
             this.listView1.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
-            listViewItem31,
-            listViewItem32,
-            listViewItem33,
-            listViewItem34,
-            listViewItem35});
+            listViewItem56,
+            listViewItem57,
+            listViewItem58,
+            listViewItem59,
+            listViewItem60});
             this.listView1.Location = new System.Drawing.Point(30, 55);
             this.listView1.Name = "listView1";
             this.listView1.Size = new System.Drawing.Size(567, 97);
@@ -382,6 +382,7 @@
             this.radCalorie.TabStop = true;
             this.radCalorie.Text = "Calorie";
             this.radCalorie.UseVisualStyleBackColor = true;
+            this.radCalorie.CheckedChanged += new System.EventHandler(this.radCalorie_CheckedChanged);
             // 
             // radLuongNuoc
             // 
@@ -393,6 +394,7 @@
             this.radLuongNuoc.TabStop = true;
             this.radLuongNuoc.Text = "Lượng nước uống";
             this.radLuongNuoc.UseVisualStyleBackColor = true;
+            this.radLuongNuoc.CheckedChanged += new System.EventHandler(this.radLuongNuoc_CheckedChanged);
             // 
             // radSoBuoc
             // 
@@ -404,6 +406,7 @@
             this.radSoBuoc.TabStop = true;
             this.radSoBuoc.Text = "Số bước chân";
             this.radSoBuoc.UseVisualStyleBackColor = true;
+            this.radSoBuoc.CheckedChanged += new System.EventHandler(this.radSoBuoc_CheckedChanged);
             // 
             // radCanNang
             // 
@@ -415,6 +418,7 @@
             this.radCanNang.TabStop = true;
             this.radCanNang.Text = "Cân nặng";
             this.radCanNang.UseVisualStyleBackColor = true;
+            this.radCanNang.CheckedChanged += new System.EventHandler(this.radCanNang_CheckedChanged);
             // 
             // button6
             // 
@@ -424,6 +428,7 @@
             this.button6.TabIndex = 3;
             this.button6.Text = "Thiết lập";
             this.button6.UseVisualStyleBackColor = true;
+            this.button6.Click += new System.EventHandler(this.button6_Click);
             // 
             // label11
             // 

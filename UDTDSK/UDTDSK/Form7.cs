@@ -247,5 +247,29 @@ namespace UDTDSK
         {
 
         }
+
+        private void Form7_Load_1(object sender, EventArgs e)
+        {
+            pictureBox1.Left = (splitContainer1.Panel1.Width - pictureBox1.Width) / 2;
+            btnDangXuat.Left = (splitContainer1.Panel1.Width - btnDangXuat.Width) / 2;
+
+            //Xử lý nút Button
+            AddHoverEffect(this);
+            CenterButtons(splitContainer1.Panel1);
+
+            //Màu viền nút Button Thông tin cá nhân
+            button2.FlatStyle = FlatStyle.Flat;
+            button2.FlatAppearance.BorderSize = 2;
+            button2.FlatAppearance.BorderColor = Color.Violet;
+
+            // Xử lý button đăng xuất
+            btnDangXuat.Click += btnDangXuat_Click;
+            btnDangXuat.MouseEnter += btnDangXuat_MouseEnter;
+            btnDangXuat.MouseLeave += btnDangXuat_MouseLeave;
+
+            //Xử lý Ảnh
+            pictureBox1.MouseEnter += pictureBox1_MouseEnter;
+            pictureBox1.MouseLeave += pictureBox1_MouseLeave;
+        }
     }
 }

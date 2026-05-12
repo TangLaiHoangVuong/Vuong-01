@@ -434,6 +434,7 @@
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "Form7";
             this.Text = "Form7";
+            this.Load += new System.EventHandler(this.Form7_Load_1);
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel2.ResumeLayout(false);
             this.splitContainer1.Panel2.PerformLayout();

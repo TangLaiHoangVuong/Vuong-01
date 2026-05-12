@@ -136,6 +136,10 @@ namespace UDTDSK
             //Xử lý Ảnh
             pictureBox1.MouseEnter += pictureBox1_MouseEnter;
             pictureBox1.MouseLeave += pictureBox1_MouseLeave;
+
+            //ListView
+            LoadDataToListView();
+            listView1.SelectedIndexChanged += listView1_SelectedIndexChanged;
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -190,7 +194,7 @@ namespace UDTDSK
         // ====================== TẠO MÃ MỤC TIÊU ======================
         private string TaoMaMucTieu()
         {
-            string maMoi = "MT01";
+            string maMoi = "MT001";
 
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
@@ -219,6 +223,106 @@ namespace UDTDSK
             }
 
             return maMoi;
+        }
+        // ====================== Button Lưu Tiến Độ ======================
+        private void btnLuuTienDo_Click(object sender, EventArgs e)
+        {
+            // 1. Kiểm tra xem người dùng đã chọn mục tiêu nào trong ListView chưa
+            if (listView1.SelectedItems.Count == 0)
+            {
+                MessageBox.Show("Vui lòng chọn một mục tiêu trong danh sách để cập nhật!");
+                return;
+            }
+
+            // 2. Kiểm tra dữ liệu đầu vào tại txtTienDo
+            if (string.IsNullOrEmpty(txtTienDo.Text))
+            {
+                MessageBox.Show("Vui lòng nhập tiến độ thực tế!");
+                return;
+            }
+
+            try
+            {
+                // Lấy Ma_muc_tieu từ dòng đang chọn (Giả sử bạn lưu Ma_muc_tieu ẩn hoặc lấy theo mô tả)
+                // Cách tốt nhất là khi Load ListView, bạn gán Ma_muc_tieu vào thuộc tính .Tag của ListViewItem
+                string moTa = listView1.SelectedItems[0].Text;
+                double tienDoMoi = double.Parse(txtTienDo.Text);
+
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+
+                    // Lấy giá trị mục tiêu (gia_tri) từ DB để tính toán %
+                    string queryGet = "SELECT gia_tri FROM Muc_tieu WHERE mo_ta = @moTa";
+                    SqlCommand cmdGet = new SqlCommand(queryGet, conn);
+                    cmdGet.Parameters.AddWithValue("@moTa", moTa);
+
+                    string giaTriMTStr = cmdGet.ExecuteScalar().ToString();
+                    // Tách số từ chuỗi (VD: "50 kg" -> lấy 50)
+                    double giaTriMT = double.Parse(System.Text.RegularExpressions.Regex.Match(giaTriMTStr, @"\d+").Value);
+
+                    // 3. Tính toán tỉ lệ %
+                    double phanTram = (tienDoMoi / giaTriMT) * 100;
+
+                    // Hiển thị lên txtGiatriHT (VD: "75%")
+                    txtGiatriHT.Text = phanTram.ToString("F1") + "%";
+
+                    // 4. Cập nhật vào CSDL
+                    string queryUpdate = "UPDATE Muc_tieu SET Gia_tri_hien_tai = @ht WHERE mo_ta = @moTa";
+                    SqlCommand cmdUpdate = new SqlCommand(queryUpdate, conn);
+                    cmdUpdate.Parameters.AddWithValue("@ht", txtGiatriHT.Text);
+                    cmdUpdate.Parameters.AddWithValue("@moTa", moTa);
+
+                    cmdUpdate.ExecuteNonQuery();
+                    MessageBox.Show("Lưu tiến độ thành công!");
+
+                    // Làm mới ListView
+                    LoadDataToListView();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Lỗi: " + ex.Message);
+            }
+        }
+        // ====================== ListView ======================
+        private void LoadDataToListView()
+        {
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+                    // Lấy các cột tương ứng với giao diện của bạn
+                    string query = "SELECT mo_ta, Loai_MT, gia_tri, Thoi_han, Trang_thai FROM Muc_tieu";
+                    SqlCommand cmd = new SqlCommand(query, conn);
+                    SqlDataReader reader = cmd.ExecuteReader();
+
+                    listView1.Items.Clear(); // Xóa dữ liệu cũ trên giao diện
+
+                    while (reader.Read())
+                    {
+                        // Tạo một dòng mới cho ListView
+                        ListViewItem item = new ListViewItem(reader["mo_ta"].ToString());
+                        item.SubItems.Add(reader["Loai_MT"].ToString());
+                        item.SubItems.Add(reader["gia_tri"].ToString());
+
+                        // Định dạng ngày tháng cho đẹp (dd/MM/yyyy)
+                        DateTime thoiHan = Convert.ToDateTime(reader["Thoi_han"]);
+                        item.SubItems.Add(thoiHan.ToString("dd/MM/yyyy"));
+
+                        item.SubItems.Add(reader["Trang_thai"].ToString());
+
+                        item.Tag = reader["mo_ta"].ToString();
+
+                        listView1.Items.Add(item); // Thêm dòng vào ListView
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Lỗi khi tải dữ liệu: " + ex.Message);
+            }
         }
         private void button6_Click(object sender, EventArgs e)
         {
@@ -283,6 +387,9 @@ namespace UDTDSK
                     MessageBox.Show("Thiết lập mục tiêu thành công!");
                 }
 
+                //ListView
+                LoadDataToListView();
+
                 // Reset dữ liệu
                 txtTenMucTieu.Clear();
                 txtMTHoanThanh.Clear();
@@ -338,6 +445,46 @@ namespace UDTDSK
                 cboDonVi.Items.Clear();
                 cboDonVi.Items.Add("kcal");
                 cboDonVi.SelectedIndex = 0;
+            }
+        }
+
+        private void listView1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            // Kiểm tra xem có dòng nào đang được chọn không
+            if (listView1.SelectedItems.Count > 0)
+            {
+                // Lấy dòng đầu tiên trong danh sách các dòng được chọn
+                ListViewItem item = listView1.SelectedItems[0];
+
+                // 1. Hiển thị Tên mục tiêu (Cột 0)
+                txtTenMucTieu.Text = item.Text;
+
+                // 2. Xử lý Loại mục tiêu (Cột 1) để check vào RadioButton tương ứng
+                string loaiMT = item.SubItems[1].Text;
+                radCanNang.Checked = (loaiMT == "Cân nặng");
+                radSoBuoc.Checked = (loaiMT == "Số bước chân");
+                radLuongNuoc.Checked = (loaiMT == "Lượng nước uống");
+                radCalorie.Checked = (loaiMT == "Calories");
+
+                // 3. Xử lý Giá trị và Đơn vị (Cột 2 - Ví dụ: "50 kg")
+                string giaTriFull = item.SubItems[2].Text;
+                // Tách số và chữ (Đơn giản nhất là dùng Split)
+                string[] parts = giaTriFull.Split(' ');
+                if (parts.Length >= 1) txtMTHoanThanh.Text = parts[0];
+                if (parts.Length >= 2) cboDonVi.Text = parts[1];
+
+                // 4. Hiển thị Thời hạn (Cột 3)
+                try
+                {
+                    string dateString = item.SubItems[3].Text.Trim();
+                    // Thử dùng Parse thông thường để hệ thống tự nhận diện định dạng
+                    dtpThoiHan.Value = DateTime.Parse(dateString);
+                }
+                catch
+                {
+                    // Nếu vẫn lỗi, gán ngày hiện tại để tránh crash chương trình
+                    dtpThoiHan.Value = DateTime.Now;
+                }
             }
         }
     }

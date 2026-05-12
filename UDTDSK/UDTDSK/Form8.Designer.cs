@@ -28,11 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.ListViewItem listViewItem6 = new System.Windows.Forms.ListViewItem("Tên mục tiêu");
-            System.Windows.Forms.ListViewItem listViewItem7 = new System.Windows.Forms.ListViewItem("Loại mục tiêu");
-            System.Windows.Forms.ListViewItem listViewItem8 = new System.Windows.Forms.ListViewItem("Mục tiêu");
-            System.Windows.Forms.ListViewItem listViewItem9 = new System.Windows.Forms.ListViewItem("Thời hạn");
-            System.Windows.Forms.ListViewItem listViewItem10 = new System.Windows.Forms.ListViewItem("Trạng thái");
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.btnDangXuat = new System.Windows.Forms.Button();
             this.button5 = new System.Windows.Forms.Button();
@@ -42,6 +37,8 @@
             this.button1 = new System.Windows.Forms.Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.btnLuuTienDo = new System.Windows.Forms.Button();
+            this.txtTienDo = new System.Windows.Forms.TextBox();
             this.listView1 = new System.Windows.Forms.ListView();
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -78,8 +75,6 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.textBox7 = new System.Windows.Forms.TextBox();
-            this.button7 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -218,8 +213,8 @@
             // 
             // groupBox2
             // 
-            this.groupBox2.Controls.Add(this.button7);
-            this.groupBox2.Controls.Add(this.textBox7);
+            this.groupBox2.Controls.Add(this.btnLuuTienDo);
+            this.groupBox2.Controls.Add(this.txtTienDo);
             this.groupBox2.Controls.Add(this.listView1);
             this.groupBox2.Controls.Add(this.txtGiatriHT);
             this.groupBox2.Controls.Add(this.label9);
@@ -232,6 +227,23 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Tiến độ";
             // 
+            // btnLuuTienDo
+            // 
+            this.btnLuuTienDo.Location = new System.Drawing.Point(380, 20);
+            this.btnLuuTienDo.Name = "btnLuuTienDo";
+            this.btnLuuTienDo.Size = new System.Drawing.Size(107, 30);
+            this.btnLuuTienDo.TabIndex = 7;
+            this.btnLuuTienDo.Text = "Lưu tiến độ";
+            this.btnLuuTienDo.UseVisualStyleBackColor = true;
+            this.btnLuuTienDo.Click += new System.EventHandler(this.btnLuuTienDo_Click);
+            // 
+            // txtTienDo
+            // 
+            this.txtTienDo.Location = new System.Drawing.Point(162, 24);
+            this.txtTienDo.Name = "txtTienDo";
+            this.txtTienDo.Size = new System.Drawing.Size(198, 22);
+            this.txtTienDo.TabIndex = 6;
+            // 
             // listView1
             // 
             this.listView1.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
@@ -240,18 +252,13 @@
             this.columnHeader3,
             this.columnHeader4,
             this.columnHeader5});
-            this.listView1.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
-            listViewItem6,
-            listViewItem7,
-            listViewItem8,
-            listViewItem9,
-            listViewItem10});
             this.listView1.Location = new System.Drawing.Point(30, 72);
             this.listView1.Name = "listView1";
             this.listView1.Size = new System.Drawing.Size(567, 97);
             this.listView1.TabIndex = 5;
             this.listView1.UseCompatibleStateImageBehavior = false;
-            this.listView1.View = System.Windows.Forms.View.SmallIcon;
+            this.listView1.View = System.Windows.Forms.View.Details;
+            this.listView1.SelectedIndexChanged += new System.EventHandler(this.listView1_SelectedIndexChanged);
             // 
             // columnHeader1
             // 
@@ -282,7 +289,7 @@
             // 
             this.txtGiatriHT.Location = new System.Drawing.Point(162, 46);
             this.txtGiatriHT.Name = "txtGiatriHT";
-            this.txtGiatriHT.Size = new System.Drawing.Size(32, 22);
+            this.txtGiatriHT.Size = new System.Drawing.Size(45, 22);
             this.txtGiatriHT.TabIndex = 4;
             this.txtGiatriHT.Text = "0";
             this.txtGiatriHT.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
@@ -290,7 +297,7 @@
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(198, 52);
+            this.label9.Location = new System.Drawing.Point(213, 52);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(81, 17);
             this.label9.TabIndex = 3;
@@ -362,7 +369,7 @@
             // 
             // dtpThoiHan
             // 
-            this.dtpThoiHan.CustomFormat = "dd/MM/yyyy";
+            this.dtpThoiHan.CustomFormat = "MM/dd/yyyy";
             this.dtpThoiHan.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.dtpThoiHan.Location = new System.Drawing.Point(201, 121);
             this.dtpThoiHan.Name = "dtpThoiHan";
@@ -572,22 +579,6 @@
             this.label1.TabIndex = 25;
             this.label1.Text = "Quản lý mục tiêu và theo dõi";
             // 
-            // textBox7
-            // 
-            this.textBox7.Location = new System.Drawing.Point(162, 24);
-            this.textBox7.Name = "textBox7";
-            this.textBox7.Size = new System.Drawing.Size(198, 22);
-            this.textBox7.TabIndex = 6;
-            // 
-            // button7
-            // 
-            this.button7.Location = new System.Drawing.Point(380, 20);
-            this.button7.Name = "button7";
-            this.button7.Size = new System.Drawing.Size(107, 30);
-            this.button7.TabIndex = 7;
-            this.button7.Text = "Lưu tiến độ";
-            this.button7.UseVisualStyleBackColor = true;
-            // 
             // Form8
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -658,7 +649,7 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox textBox7;
-        private System.Windows.Forms.Button button7;
+        private System.Windows.Forms.TextBox txtTienDo;
+        private System.Windows.Forms.Button btnLuuTienDo;
     }
 }

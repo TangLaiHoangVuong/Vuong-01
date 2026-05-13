@@ -135,6 +135,11 @@ namespace UDTDSK
             AddHoverEffect(this);
             CenterButtons(splitContainer1.Panel1);
 
+            //Màu viền nút Button QUẢN LÝ PHÂN TÍCH TÍNH TOÁN
+            button2.FlatStyle = FlatStyle.Flat;
+            button2.FlatAppearance.BorderSize = 2;
+            button2.FlatAppearance.BorderColor = Color.Violet;
+
             // Xử lý button đăng xuất
             btnDangXuat.Click += btnDangXuat_Click;
             btnDangXuat.MouseEnter += btnDangXuat_MouseEnter;

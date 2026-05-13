@@ -513,10 +513,6 @@ namespace UDTDSK
             LoadThongBao();
          }
 
-           
-        
-
-
         private void button1_Click(object sender, EventArgs e)
         {
             Form6 fr6 = new Form6();
@@ -538,46 +534,16 @@ namespace UDTDSK
             this.Hide();
         }
 
-        private void button5_Click(object sender, EventArgs e)
-        {
-
-
-        }
-
         private void button4_Click(object sender, EventArgs e)
         {
             Form8 fr8 = new Form8();
             fr8.Show();
             this.Hide();
-
         }
 
-        private void button1_Click_1(object sender, EventArgs e)
+        private void button5_Click(object sender, EventArgs e)
         {
-            Form6 fr6 = new Form6();
-            fr6.Show();
-            this.Hide();
-        }
 
-        private void button2_Click_1(object sender, EventArgs e)
-        {
-            Form7 fr7 = new Form7();
-            fr7.Show();
-            this.Hide();
-        }
-
-        private void button3_Click_1(object sender, EventArgs e)
-        {
-            Form5 fr5 = new Form5();
-            fr5.Show();
-            this.Hide();
-        }
-
-        private void button5_Click_1(object sender, EventArgs e)
-        {
-            Form9 fr9 = new Form9();
-            fr9.Show();
-            this.Hide();
         }
     }
    }

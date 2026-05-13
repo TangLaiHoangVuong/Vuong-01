@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -143,6 +144,8 @@ namespace UDTDSK
             //Xử lý Ảnh
             pictureBox1.MouseEnter += pictureBox1_MouseEnter;
             pictureBox1.MouseLeave += pictureBox1_MouseLeave;
+            dgvSucKhoe.AutoGenerateColumns = false;
+            dgvSucKhoe.DataSource = dt;
         }
 
         private void splitContainer1_Panel2_Paint(object sender, PaintEventArgs e)
@@ -152,7 +155,11 @@ namespace UDTDSK
 
         private void btnNhap_Click(object sender, EventArgs e)
         {
-            if (txtMaBN.Text == "" || txtHoTen.Text == "")
+            if (dt.Columns.Count == 0)
+            {
+                DLSK();
+            }    
+                if (txtMaBN.Text == "" || txtHoTen.Text == "")
             {
                 MessageBox.Show("Vui lòng nhập đầy đủ thông tin!");
                 return;
@@ -248,29 +255,7 @@ namespace UDTDSK
 
         }
 
-        private void Form7_Load_1(object sender, EventArgs e)
-        {
-            pictureBox1.Left = (splitContainer1.Panel1.Width - pictureBox1.Width) / 2;
-            btnDangXuat.Left = (splitContainer1.Panel1.Width - btnDangXuat.Width) / 2;
-
-            //Xử lý nút Button
-            AddHoverEffect(this);
-            CenterButtons(splitContainer1.Panel1);
-
-            //Màu viền nút Button Thông tin cá nhân
-            button2.FlatStyle = FlatStyle.Flat;
-            button2.FlatAppearance.BorderSize = 2;
-            button2.FlatAppearance.BorderColor = Color.Violet;
-
-            // Xử lý button đăng xuất
-            btnDangXuat.Click += btnDangXuat_Click;
-            btnDangXuat.MouseEnter += btnDangXuat_MouseEnter;
-            btnDangXuat.MouseLeave += btnDangXuat_MouseLeave;
-
-            //Xử lý Ảnh
-            pictureBox1.MouseEnter += pictureBox1_MouseEnter;
-            pictureBox1.MouseLeave += pictureBox1_MouseLeave;
-        }
+        
 
         private void button1_Click(object sender, EventArgs e)
         {
@@ -303,6 +288,43 @@ namespace UDTDSK
             Form9 fr9 = new Form9();
             fr9.Show();
             this.Hide();
+        }
+        private static SqlConnection cnn = new SqlConnection();
+        public static void MoKetNoi()
+        {
+            try
+            {
+                string sqlcon = @"Data Source=ADMIN-PC\SQLEXPRESS;Initial Catalog=QLSK;Integrated Security=True";
+                cnn.ConnectionString = sqlcon;
+                if (cnn.State == ConnectionState.Closed)
+                    cnn.Open();
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Ket noi khong thanh cong");
+            }
+        }
+        public static void DongKetNoi()
+        {
+            if (cnn.State == ConnectionState.Open)
+                cnn.Close();
+        }
+        public static DataTable DocDuLieu(string sql)
+        {
+            MoKetNoi();
+            SqlCommand cd = new SqlCommand(sql, cnn);
+            SqlDataReader dr = cd.ExecuteReader();
+            DataTable dt = new DataTable();
+            dt.Load(dr);
+            DongKetNoi();
+            return dt;
+        }
+        public static void ThucThiTruyVan(string sql)
+        {
+            MoKetNoi();
+            SqlCommand cmd = new SqlCommand(sql, cnn);
+            cmd.ExecuteNonQuery();
+            DongKetNoi();
         }
     }
 }

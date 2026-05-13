@@ -50,9 +50,9 @@ namespace UDTDSK
                 {
                     conn.Open();
                     // Lấy thêm cột maID thay vì chỉ COUNT
-                    string sql = "SELECT maID FROM Nguoidung WHERE Email = @email AND MatKhau = @pass";
+                    string sql = "SELECT maID FROM Nguoidung WHERE (maID = @input OR Email = @input) AND MatKhau = @pass";
                     SqlCommand cmd = new SqlCommand(sql, conn);
-                    cmd.Parameters.AddWithValue("@email", txtEmail.Text.Trim());
+                    cmd.Parameters.AddWithValue("@input", txtEmail.Text.Trim());
                     cmd.Parameters.AddWithValue("@pass", txtPass.Text.Trim());
 
                     object result = cmd.ExecuteScalar(); // Lấy giá trị đầu tiên (maID)

@@ -19,6 +19,44 @@ namespace UDTDSK
         {
             InitializeComponent();
         }
+        //KNCSDL//
+        private static SqlConnection cnn = new SqlConnection();
+        public static void MoKetNoi()
+        {
+            try
+            {
+                string sqlcon = @"Data Source=WINDOWS-PC\SQLEXPRESS;Initial Catalog=QLSK;Integrated Security=True";
+                cnn.ConnectionString = sqlcon;
+                if (cnn.State == ConnectionState.Closed)
+                    cnn.Open();
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Ket noi khong thanh cong");
+            }
+        }
+        public static void DongKetNoi()
+        {
+            if (cnn.State == ConnectionState.Open)
+                cnn.Close();
+        }
+        public static DataTable DocDuLieu(string sql)
+        {
+            MoKetNoi();
+            SqlCommand cd = new SqlCommand(sql, cnn);
+            SqlDataReader dr = cd.ExecuteReader();
+            DataTable dt = new DataTable();
+            dt.Load(dr);
+            DongKetNoi();
+            return dt;
+        }
+        public static void ThucThiTruyVan(string sql)
+        {
+            MoKetNoi();
+            SqlCommand cmd = new SqlCommand(sql, cnn);
+            cmd.ExecuteNonQuery();
+            DongKetNoi();
+        }
         private void HideLogoutIfNeeded()
         {
             if (!pictureBox1.ClientRectangle.Contains(pictureBox1.PointToClient(Cursor.Position)) &&
@@ -116,14 +154,14 @@ namespace UDTDSK
         {
             try
             {
-                conn.Open();
+                MoKetNoi();
 
                 string sql =
                 @"SELECT *
-                  FROM Thong_bao";
+          FROM Thong_bao";
 
                 SqlDataAdapter da =
-                    new SqlDataAdapter(sql, conn);
+                    new SqlDataAdapter(sql, cnn);
 
                 DataTable dt = new DataTable();
 
@@ -131,17 +169,10 @@ namespace UDTDSK
 
                 dgvCanhBao.DataSource = dt;
 
-                dgvCanhBao.Columns[0].HeaderText =
-                    "Mã TB";
-
-                dgvCanhBao.Columns[1].HeaderText =
-                    "Nội dung";
-
-                dgvCanhBao.Columns[2].HeaderText =
-                    "Loại thông báo";
-
-                dgvCanhBao.Columns[3].HeaderText =
-                    "Thời gian";
+                dgvCanhBao.Columns[0].HeaderText = "Mã TB";
+                dgvCanhBao.Columns[1].HeaderText = "Nội dung";
+                dgvCanhBao.Columns[2].HeaderText = "Loại thông báo";
+                dgvCanhBao.Columns[3].HeaderText = "Thời gian";
 
                 dgvCanhBao.AutoSizeColumnsMode =
                     DataGridViewAutoSizeColumnsMode.Fill;
@@ -149,7 +180,6 @@ namespace UDTDSK
                 dgvCanhBao.DefaultCellStyle.Font =
                     new Font("Arial", 11);
 
-                // Tô màu
                 foreach (DataGridViewRow row in dgvCanhBao.Rows)
                 {
                     if (row.Cells[2].Value != null)
@@ -175,13 +205,80 @@ namespace UDTDSK
                     }
                 }
 
-                conn.Close();
+                DongKetNoi();
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
         }
+        class CanhBao
+        {
+            // LẤY DANH SÁCH THÔNG BÁO
+            public static DataTable ThongTinThongBao()
+            {
+                string sql =
+                @"SELECT *
+              FROM Thong_bao";
+
+                DataTable dt =
+                    new DataTable();
+
+                dt = Form9.DocDuLieu(sql);
+
+                return dt;
+            }
+
+            // THÊM THÔNG BÁO
+            public static void ThemThongBao(
+                string maTB,
+                string noiDung,
+                string loai
+            )
+            {
+                string sql =
+                @"INSERT INTO Thong_bao
+            VALUES
+            (
+                N'" + maTB + @"',
+                N'" + noiDung + @"',
+                N'" + loai + @"',
+                GETDATE()
+            )";
+
+                Form9.ThucThiTruyVan(sql);
+            }
+
+            // XÓA THÔNG BÁO
+            public static void XoaThongBao(string maTB)
+            {
+                string sql =
+                @"DELETE FROM Thong_bao
+              WHERE Ma_thong_bao = N'" + maTB + "'";
+
+                Form9.ThucThiTruyVan(sql);
+            }
+
+            // TÌM KIẾM
+            public static DataTable TimThongBao(
+                string noiDung
+            )
+            {
+                string sql =
+                @"SELECT *
+              FROM Thong_bao
+              WHERE Noi_dung_
+              LIKE N'%" + noiDung + "%'";
+
+                DataTable dt =
+                    new DataTable();
+
+                dt = Form9.DocDuLieu(sql);
+
+                return dt;
+            }
+        }
+
 
         private void Form9_Load(object sender, EventArgs e)
         {
@@ -207,11 +304,7 @@ namespace UDTDSK
             pictureBox1.MouseEnter += pictureBox1_MouseEnter;
             pictureBox1.MouseLeave += pictureBox1_MouseLeave;
         }
-        string strConn =
-        @"Data Source=.;Initial Catalog=QLSK;Integrated Security=True";
-
-        SqlConnection conn;
-        
+       
         
        
 
@@ -244,35 +337,28 @@ namespace UDTDSK
 
         private void button7_Click(object sender, EventArgs e)
         {
-            if (dgvCanhBao.SelectedRows.Count > 0)
+            try
             {
-                string maTB =
-                    dgvCanhBao.SelectedRows[0]
-                    .Cells[0].Value.ToString();
+                if (dgvCanhBao.SelectedRows.Count > 0)
+                {
+                    string maTB =
+                        dgvCanhBao.SelectedRows[0]
+                        .Cells[0].Value.ToString();
 
-                conn.Open();
+                    CanhBao.XoaThongBao(maTB);
 
-                string sql =
-                @"DELETE FROM Thong_bao
-                  WHERE Ma_thong_bao=@Ma";
+                    MessageBox.Show(
+                        "Xóa thành công!"
+                    );
 
-                SqlCommand cmd =
-                    new SqlCommand(sql, conn);
-
-                cmd.Parameters.AddWithValue(
-                    "@Ma",
-                    maTB
-                );
-
-                cmd.ExecuteNonQuery();
-
-                conn.Close();
-
+                    LoadThongBao();
+                }
+            }
+            catch (Exception)
+            {
                 MessageBox.Show(
-                    "Xóa thành công!"
+                    "Không thể xóa thông báo!"
                 );
-
-                LoadThongBao();
             }
         }
 
@@ -280,19 +366,15 @@ namespace UDTDSK
         {
             try
             {
-                conn.Open();
+                DataTable dt =
+                    new DataTable();
 
-                string sql =
-                @"SELECT *
-                  FROM Chi_so_suc_khoe";
+                dt = DocDuLieu(
+                    @"SELECT *
+              FROM Chi_so_suc_khoe"
+                );
 
-                SqlCommand cmd =
-                    new SqlCommand(sql, conn);
-
-                SqlDataReader rd =
-                    cmd.ExecuteReader();
-
-                while (rd.Read())
+                foreach (DataRow rd in dt.Rows)
                 {
                     string maTB =
                         "TB" + DateTime.Now.Ticks.ToString();
@@ -301,67 +383,66 @@ namespace UDTDSK
 
                     string loai = "";
 
-                    // Nhịp tim
                     int nhipTim =
-                        Convert.ToInt32(rd["Nhip_tim"]);
+                        Convert.ToInt32(
+                            rd["Nhip_tim"]
+                        );
 
-                    // Nước
                     int nuoc =
-                        Convert.ToInt32(rd["Luong_nuoc"]);
+                        Convert.ToInt32(
+                            rd["Luong_nuoc"]
+                        );
 
-                    // Giấc ngủ
                     int ngu =
-                        Convert.ToInt32(rd["Thoi_gian_ngu"]);
+                        Convert.ToInt32(
+                            rd["Thoi_gian_ngu"]
+                        );
 
-                    // KIỂM TRA NHỊP TIM
+                    // NHỊP TIM
                     if (nhipTim > 120)
                     {
                         noiDung =
-                        "Nhịp tim vượt ngưỡng an toàn";
+                            "Nhịp tim vượt ngưỡng an toàn";
 
                         loai = "Nguy hiểm";
 
-                        ThemThongBao(
+                        CanhBao.ThemThongBao(
                             maTB,
                             noiDung,
                             loai
                         );
                     }
 
-                    // KIỂM TRA NƯỚC
+                    // NƯỚC
                     if (nuoc < 1500)
                     {
                         noiDung =
-                        "Bạn uống chưa đủ nước";
+                            "Bạn uống chưa đủ nước";
 
                         loai = "Nhắc nhở";
 
-                        ThemThongBao(
+                        CanhBao.ThemThongBao(
                             maTB + "1",
                             noiDung,
                             loai
                         );
                     }
 
-                    // KIỂM TRA GIẤC NGỦ
+                    // GIẤC NGỦ
                     if (ngu < 6)
                     {
                         noiDung =
-                        "Bạn ngủ chưa đủ giấc";
+                            "Bạn ngủ chưa đủ giấc";
 
                         loai = "Cảnh báo";
 
-                        ThemThongBao(
+                        CanhBao.ThemThongBao(
                             maTB + "2",
                             noiDung,
                             loai
                         );
                     }
                 }
-
-                rd.Close();
-
-                conn.Close();
 
                 MessageBox.Show(
                     "Kiểm tra hoàn tất!"
@@ -396,7 +477,7 @@ namespace UDTDSK
             )";
 
             SqlCommand cmd =
-                new SqlCommand(sql, conn);
+                new SqlCommand(sql, cnn);
 
             cmd.Parameters.AddWithValue(
                 "@MaTB",
@@ -418,37 +499,11 @@ namespace UDTDSK
 
         private void button8_Click(object sender, EventArgs e)
         {
-            try
-            {
-                conn.Open();
+            DataTable dt =new DataTable();
 
-                string sql =
-                @"SELECT *
-                  FROM Thong_bao
-                  WHERE Noi_dung_
-                  LIKE '%' + @NoiDung + '%'";
+            dt = CanhBao.TimThongBao(txtTim.Text );
 
-                SqlDataAdapter da =
-                    new SqlDataAdapter(sql, conn);
-
-                da.SelectCommand.Parameters.AddWithValue(
-                    "@NoiDung",
-                    txtTim.Text
-                );
-
-                DataTable dt =
-                    new DataTable();
-
-                da.Fill(dt);
-
-                dgvCanhBao.DataSource = dt;
-
-                conn.Close();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
+            dgvCanhBao.DataSource = dt;
         }
 
         private void button9_Click(object sender, EventArgs e)

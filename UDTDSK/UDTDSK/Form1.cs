@@ -49,16 +49,19 @@ namespace UDTDSK
                 using (SqlConnection conn = new SqlConnection(connectionString))
                 {
                     conn.Open();
-                    // 3. Truy vấn kiểm tra Email và Mật khẩu
-                    string sql = "SELECT COUNT(*) FROM Nguoidung WHERE Email = @email AND MatKhau = @pass";
+                    // Lấy thêm cột maID thay vì chỉ COUNT
+                    string sql = "SELECT maID FROM Nguoidung WHERE (maID = @input OR Email = @input) AND MatKhau = @pass";
                     SqlCommand cmd = new SqlCommand(sql, conn);
-                    cmd.Parameters.AddWithValue("@email", txtEmail.Text.Trim());
+                    cmd.Parameters.AddWithValue("@input", txtEmail.Text.Trim());
                     cmd.Parameters.AddWithValue("@pass", txtPass.Text.Trim());
 
-                    int result = (int)cmd.ExecuteScalar();
+                    object result = cmd.ExecuteScalar(); // Lấy giá trị đầu tiên (maID)
 
-                    if (result > 0)
+                    if (result != null)
                     {
+                        // GÁN ID VÀO SESSION ĐỂ CÁC FORM KHÁC SỬ DỤNG
+                        UserSession.CurrentUserID = result.ToString();
+
                         MessageBox.Show("Đăng nhập thành công!");
                         Form4 fr4 = new Form4();
                         fr4.Show();

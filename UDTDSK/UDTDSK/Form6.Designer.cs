@@ -36,7 +36,6 @@
             this.button2 = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.button7 = new System.Windows.Forms.Button();
             this.txtCanNang = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
             this.radNu = new System.Windows.Forms.RadioButton();
@@ -79,7 +78,6 @@
             // 
             // splitContainer1.Panel2
             // 
-            this.splitContainer1.Panel2.Controls.Add(this.button7);
             this.splitContainer1.Panel2.Controls.Add(this.txtCanNang);
             this.splitContainer1.Panel2.Controls.Add(this.label7);
             this.splitContainer1.Panel2.Controls.Add(this.radNu);
@@ -190,16 +188,6 @@
             this.pictureBox1.TabIndex = 35;
             this.pictureBox1.TabStop = false;
             // 
-            // button7
-            // 
-            this.button7.Location = new System.Drawing.Point(204, 329);
-            this.button7.Name = "button7";
-            this.button7.Size = new System.Drawing.Size(109, 42);
-            this.button7.TabIndex = 31;
-            this.button7.Text = "Lưu";
-            this.button7.UseVisualStyleBackColor = true;
-            this.button7.Click += new System.EventHandler(this.button7_Click);
-            // 
             // txtCanNang
             // 
             this.txtCanNang.Location = new System.Drawing.Point(255, 253);
@@ -269,7 +257,7 @@
             // 
             // button6
             // 
-            this.button6.Location = new System.Drawing.Point(351, 329);
+            this.button6.Location = new System.Drawing.Point(255, 343);
             this.button6.Name = "button6";
             this.button6.Size = new System.Drawing.Size(161, 42);
             this.button6.TabIndex = 22;
@@ -368,7 +356,6 @@
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.PictureBox pictureBox1;
-        private System.Windows.Forms.Button button7;
         private System.Windows.Forms.TextBox txtCanNang;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.RadioButton radNu;

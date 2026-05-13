@@ -28,11 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.ListViewItem listViewItem56 = new System.Windows.Forms.ListViewItem("Tên mục tiêu");
-            System.Windows.Forms.ListViewItem listViewItem57 = new System.Windows.Forms.ListViewItem("Loại mục tiêu");
-            System.Windows.Forms.ListViewItem listViewItem58 = new System.Windows.Forms.ListViewItem("Mục tiêu");
-            System.Windows.Forms.ListViewItem listViewItem59 = new System.Windows.Forms.ListViewItem("Thời hạn");
-            System.Windows.Forms.ListViewItem listViewItem60 = new System.Windows.Forms.ListViewItem("Trạng thái");
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.btnDangXuat = new System.Windows.Forms.Button();
             this.button5 = new System.Windows.Forms.Button();
@@ -42,13 +37,15 @@
             this.button1 = new System.Windows.Forms.Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.btnLuuTienDo = new System.Windows.Forms.Button();
+            this.txtTienDo = new System.Windows.Forms.TextBox();
             this.listView1 = new System.Windows.Forms.ListView();
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader5 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.textBox6 = new System.Windows.Forms.TextBox();
+            this.txtGiatriHT = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
@@ -56,7 +53,7 @@
             this.cboDonVi = new System.Windows.Forms.ComboBox();
             this.txtMTHoanThanh = new System.Windows.Forms.TextBox();
             this.label10 = new System.Windows.Forms.Label();
-            this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
+            this.dtpThoiHan = new System.Windows.Forms.DateTimePicker();
             this.txtTenMucTieu = new System.Windows.Forms.TextBox();
             this.radCalorie = new System.Windows.Forms.RadioButton();
             this.radLuongNuoc = new System.Windows.Forms.RadioButton();
@@ -216,17 +213,36 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.btnLuuTienDo);
+            this.groupBox2.Controls.Add(this.txtTienDo);
             this.groupBox2.Controls.Add(this.listView1);
-            this.groupBox2.Controls.Add(this.textBox6);
+            this.groupBox2.Controls.Add(this.txtGiatriHT);
             this.groupBox2.Controls.Add(this.label9);
             this.groupBox2.Controls.Add(this.label7);
             this.groupBox2.Controls.Add(this.label8);
             this.groupBox2.Location = new System.Drawing.Point(23, 290);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(620, 161);
+            this.groupBox2.Size = new System.Drawing.Size(620, 175);
             this.groupBox2.TabIndex = 33;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Tiến độ";
+            // 
+            // btnLuuTienDo
+            // 
+            this.btnLuuTienDo.Location = new System.Drawing.Point(380, 20);
+            this.btnLuuTienDo.Name = "btnLuuTienDo";
+            this.btnLuuTienDo.Size = new System.Drawing.Size(107, 30);
+            this.btnLuuTienDo.TabIndex = 7;
+            this.btnLuuTienDo.Text = "Lưu tiến độ";
+            this.btnLuuTienDo.UseVisualStyleBackColor = true;
+            this.btnLuuTienDo.Click += new System.EventHandler(this.btnLuuTienDo_Click);
+            // 
+            // txtTienDo
+            // 
+            this.txtTienDo.Location = new System.Drawing.Point(162, 24);
+            this.txtTienDo.Name = "txtTienDo";
+            this.txtTienDo.Size = new System.Drawing.Size(198, 22);
+            this.txtTienDo.TabIndex = 6;
             // 
             // listView1
             // 
@@ -236,18 +252,13 @@
             this.columnHeader3,
             this.columnHeader4,
             this.columnHeader5});
-            this.listView1.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
-            listViewItem56,
-            listViewItem57,
-            listViewItem58,
-            listViewItem59,
-            listViewItem60});
-            this.listView1.Location = new System.Drawing.Point(30, 55);
+            this.listView1.Location = new System.Drawing.Point(30, 72);
             this.listView1.Name = "listView1";
             this.listView1.Size = new System.Drawing.Size(567, 97);
             this.listView1.TabIndex = 5;
             this.listView1.UseCompatibleStateImageBehavior = false;
-            this.listView1.View = System.Windows.Forms.View.SmallIcon;
+            this.listView1.View = System.Windows.Forms.View.Details;
+            this.listView1.SelectedIndexChanged += new System.EventHandler(this.listView1_SelectedIndexChanged);
             // 
             // columnHeader1
             // 
@@ -274,28 +285,28 @@
             this.columnHeader5.Text = "Trạng thái";
             this.columnHeader5.Width = 81;
             // 
-            // textBox6
+            // txtGiatriHT
             // 
-            this.textBox6.Location = new System.Drawing.Point(308, 21);
-            this.textBox6.Name = "textBox6";
-            this.textBox6.Size = new System.Drawing.Size(32, 22);
-            this.textBox6.TabIndex = 4;
-            this.textBox6.Text = "0";
-            this.textBox6.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.txtGiatriHT.Location = new System.Drawing.Point(162, 46);
+            this.txtGiatriHT.Name = "txtGiatriHT";
+            this.txtGiatriHT.Size = new System.Drawing.Size(45, 22);
+            this.txtGiatriHT.TabIndex = 4;
+            this.txtGiatriHT.Text = "0";
+            this.txtGiatriHT.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(344, 27);
+            this.label9.Location = new System.Drawing.Point(213, 52);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(81, 17);
+            this.label9.Size = new System.Drawing.Size(65, 17);
             this.label9.TabIndex = 3;
-            this.label9.Text = "% mục tiêu.";
+            this.label9.Text = "mục tiêu.";
             // 
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(173, 27);
+            this.label7.Location = new System.Drawing.Point(27, 52);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(129, 17);
             this.label7.TabIndex = 1;
@@ -315,7 +326,7 @@
             this.groupBox1.Controls.Add(this.cboDonVi);
             this.groupBox1.Controls.Add(this.txtMTHoanThanh);
             this.groupBox1.Controls.Add(this.label10);
-            this.groupBox1.Controls.Add(this.dateTimePicker1);
+            this.groupBox1.Controls.Add(this.dtpThoiHan);
             this.groupBox1.Controls.Add(this.txtTenMucTieu);
             this.groupBox1.Controls.Add(this.radCalorie);
             this.groupBox1.Controls.Add(this.radLuongNuoc);
@@ -356,14 +367,14 @@
             this.label10.TabIndex = 11;
             this.label10.Text = "Tên mục tiêu:";
             // 
-            // dateTimePicker1
+            // dtpThoiHan
             // 
-            this.dateTimePicker1.CustomFormat = "dd/MM/yyyy";
-            this.dateTimePicker1.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dateTimePicker1.Location = new System.Drawing.Point(201, 121);
-            this.dateTimePicker1.Name = "dateTimePicker1";
-            this.dateTimePicker1.Size = new System.Drawing.Size(201, 22);
-            this.dateTimePicker1.TabIndex = 10;
+            this.dtpThoiHan.CustomFormat = "MM/dd/yyyy";
+            this.dtpThoiHan.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.dtpThoiHan.Location = new System.Drawing.Point(201, 121);
+            this.dtpThoiHan.Name = "dtpThoiHan";
+            this.dtpThoiHan.Size = new System.Drawing.Size(201, 22);
+            this.dtpThoiHan.TabIndex = 10;
             // 
             // txtTenMucTieu
             // 
@@ -608,7 +619,7 @@
         private System.Windows.Forms.ColumnHeader columnHeader3;
         private System.Windows.Forms.ColumnHeader columnHeader4;
         private System.Windows.Forms.ColumnHeader columnHeader5;
-        private System.Windows.Forms.TextBox textBox6;
+        private System.Windows.Forms.TextBox txtGiatriHT;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label8;
@@ -616,7 +627,7 @@
         private System.Windows.Forms.ComboBox cboDonVi;
         private System.Windows.Forms.TextBox txtMTHoanThanh;
         private System.Windows.Forms.Label label10;
-        private System.Windows.Forms.DateTimePicker dateTimePicker1;
+        private System.Windows.Forms.DateTimePicker dtpThoiHan;
         private System.Windows.Forms.TextBox txtTenMucTieu;
         private System.Windows.Forms.RadioButton radCalorie;
         private System.Windows.Forms.RadioButton radLuongNuoc;
@@ -638,5 +649,7 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.TextBox txtTienDo;
+        private System.Windows.Forms.Button btnLuuTienDo;
     }
 }

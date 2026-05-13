@@ -13,7 +13,7 @@ namespace UDTDSK
 {
     public partial class Form1 : Form
     {
-        string connectionString = @"Data Source=DESKTOP-NT4S0AQ;Initial Catalog=QLSK;Integrated Security=True";
+        string connectionString = @"Data Source=DELL\SQLEXPRESS;Initial Catalog=QLSK;Integrated Security=True";
         public Form1()
         {
             InitializeComponent();

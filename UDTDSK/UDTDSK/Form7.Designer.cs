@@ -220,6 +220,7 @@
             this.dgvSucKhoe.Location = new System.Drawing.Point(4, 295);
             this.dgvSucKhoe.Margin = new System.Windows.Forms.Padding(4);
             this.dgvSucKhoe.Name = "dgvSucKhoe";
+            this.dgvSucKhoe.RowHeadersWidth = 51;
             this.dgvSucKhoe.Size = new System.Drawing.Size(659, 167);
             this.dgvSucKhoe.TabIndex = 18;
             this.dgvSucKhoe.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvSucKhoe_CellClick);
@@ -227,36 +228,43 @@
             // Column1
             // 
             this.Column1.HeaderText = "Mã BN";
+            this.Column1.MinimumWidth = 6;
             this.Column1.Name = "Column1";
             // 
             // Column2
             // 
             this.Column2.HeaderText = "Họ tên";
+            this.Column2.MinimumWidth = 6;
             this.Column2.Name = "Column2";
             // 
             // Column3
             // 
             this.Column3.HeaderText = "Nhịp tim";
+            this.Column3.MinimumWidth = 6;
             this.Column3.Name = "Column3";
             // 
             // Column4
             // 
             this.Column4.HeaderText = "Huyết áp";
+            this.Column4.MinimumWidth = 6;
             this.Column4.Name = "Column4";
             // 
             // Column5
             // 
             this.Column5.HeaderText = "Nhiệt độ";
+            this.Column5.MinimumWidth = 6;
             this.Column5.Name = "Column5";
             // 
             // Column6
             // 
             this.Column6.HeaderText = "Cân nặng";
+            this.Column6.MinimumWidth = 6;
             this.Column6.Name = "Column6";
             // 
             // Column7
             // 
             this.Column7.HeaderText = "Chiều cao";
+            this.Column7.MinimumWidth = 6;
             this.Column7.Name = "Column7";
             // 
             // btnXoa
@@ -354,7 +362,7 @@
             this.label8.Location = new System.Drawing.Point(340, 162);
             this.label8.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(75, 17);
+            this.label8.Size = new System.Drawing.Size(70, 16);
             this.label8.TabIndex = 7;
             this.label8.Text = "Chiều cao:";
             // 
@@ -364,7 +372,7 @@
             this.label7.Location = new System.Drawing.Point(340, 112);
             this.label7.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(73, 17);
+            this.label7.Size = new System.Drawing.Size(67, 16);
             this.label7.TabIndex = 6;
             this.label7.Text = "Cân nặng:";
             // 
@@ -374,7 +382,7 @@
             this.label6.Location = new System.Drawing.Point(340, 70);
             this.label6.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(65, 17);
+            this.label6.Size = new System.Drawing.Size(60, 16);
             this.label6.TabIndex = 5;
             this.label6.Text = "Nhiệt độ:";
             // 
@@ -384,7 +392,7 @@
             this.label5.Location = new System.Drawing.Point(24, 214);
             this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(69, 17);
+            this.label5.Size = new System.Drawing.Size(64, 16);
             this.label5.TabIndex = 4;
             this.label5.Text = "Huyết áp:";
             // 
@@ -394,7 +402,7 @@
             this.label4.Location = new System.Drawing.Point(24, 164);
             this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(63, 17);
+            this.label4.Size = new System.Drawing.Size(58, 16);
             this.label4.TabIndex = 3;
             this.label4.Text = "Nhịp tim:";
             // 
@@ -404,7 +412,7 @@
             this.label3.Location = new System.Drawing.Point(24, 114);
             this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(54, 17);
+            this.label3.Size = new System.Drawing.Size(49, 16);
             this.label3.TabIndex = 2;
             this.label3.Text = "Họ tên:";
             // 
@@ -414,7 +422,7 @@
             this.label2.Location = new System.Drawing.Point(24, 70);
             this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(54, 17);
+            this.label2.Size = new System.Drawing.Size(51, 16);
             this.label2.TabIndex = 1;
             this.label2.Text = "Mã BN:";
             // 
@@ -439,7 +447,6 @@
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "Form7";
             this.Text = "Form7";
-            this.Load += new System.EventHandler(this.Form7_Load_1);
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel2.ResumeLayout(false);
             this.splitContainer1.Panel2.PerformLayout();

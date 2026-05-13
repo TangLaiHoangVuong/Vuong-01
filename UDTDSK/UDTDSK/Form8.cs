@@ -168,7 +168,9 @@ namespace UDTDSK
 
         private void button4_Click(object sender, EventArgs e)
         {
-
+            Form8 fr8 = new Form8();
+            fr8.Show();
+            this.Hide();
         }
 
         private void button5_Click(object sender, EventArgs e)
@@ -230,62 +232,93 @@ namespace UDTDSK
         // ====================== Button Lưu Tiến Độ ======================
         private void btnLuuTienDo_Click(object sender, EventArgs e)
         {
-            // 1. Kiểm tra xem người dùng đã chọn mục tiêu nào trong ListView chưa
+            // 1. Kiểm tra xem người dùng đã chọn mục tiêu nào chưa
             if (listView1.SelectedItems.Count == 0)
             {
                 MessageBox.Show("Vui lòng chọn một mục tiêu trong danh sách để cập nhật!");
                 return;
             }
 
-            // 2. Kiểm tra dữ liệu đầu vào tại txtTienDo
+            // 2. Kiểm tra dữ liệu đầu vào
             if (string.IsNullOrEmpty(txtTienDo.Text))
             {
                 MessageBox.Show("Vui lòng nhập tiến độ thực tế!");
                 return;
             }
 
+            // Kiểm tra Session người dùng
+            string currentUserId = UserSession.CurrentUserID;
+            if (string.IsNullOrEmpty(currentUserId))
+            {
+                MessageBox.Show("Phiên đăng nhập hết hạn. Vui lòng đăng nhập lại!");
+                return;
+            }
+
             try
             {
-                // Lấy Ma_muc_tieu từ dòng đang chọn (Giả sử bạn lưu Ma_muc_tieu ẩn hoặc lấy theo mô tả)
-                // Cách tốt nhất là khi Load ListView, bạn gán Ma_muc_tieu vào thuộc tính .Tag của ListViewItem
                 string moTa = listView1.SelectedItems[0].Text;
-                double tienDoMoi = double.Parse(txtTienDo.Text);
+                double tienDoMoi;
+                if (!double.TryParse(txtTienDo.Text, out tienDoMoi))
+                {
+                    MessageBox.Show("Tiến độ phải là một số hợp lệ!");
+                    return;
+                }
 
                 using (SqlConnection conn = new SqlConnection(connectionString))
                 {
                     conn.Open();
 
-                    // Lấy giá trị mục tiêu (gia_tri) từ DB để tính toán %
-                    string queryGet = "SELECT gia_tri FROM Muc_tieu WHERE mo_ta = @moTa";
+                    // --- BƯỚC A: Lấy giá trị mục tiêu của ĐÚNG người dùng này ---
+                    string queryGet = "SELECT gia_tri FROM Muc_tieu WHERE mo_ta = @moTa AND maID = @maID";
                     SqlCommand cmdGet = new SqlCommand(queryGet, conn);
                     cmdGet.Parameters.AddWithValue("@moTa", moTa);
+                    cmdGet.Parameters.AddWithValue("@maID", currentUserId);
 
-                    string giaTriMTStr = cmdGet.ExecuteScalar().ToString();
-                    // Tách số từ chuỗi (VD: "50 kg" -> lấy 50)
-                    double giaTriMT = double.Parse(System.Text.RegularExpressions.Regex.Match(giaTriMTStr, @"\d+").Value);
+                    object result = cmdGet.ExecuteScalar();
+                    if (result == null)
+                    {
+                        MessageBox.Show("Không tìm thấy dữ liệu mục tiêu phù hợp!");
+                        return;
+                    }
+
+                    string giaTriMTStr = result.ToString();
+                    // Tách số từ chuỗi (VD: "50 kg" -> 50)
+                    var match = System.Text.RegularExpressions.Regex.Match(giaTriMTStr, @"\d+");
+                    if (!match.Success)
+                    {
+                        MessageBox.Show("Định dạng giá trị mục tiêu trong DB không hợp lệ!");
+                        return;
+                    }
+                    double giaTriMT = double.Parse(match.Value);
 
                     // 3. Tính toán tỉ lệ %
                     double phanTram = (tienDoMoi / giaTriMT) * 100;
-
-                    // Hiển thị lên txtGiatriHT (VD: "75%")
                     txtGiatriHT.Text = phanTram.ToString("F1") + "%";
 
-                    // 4. Cập nhật vào CSDL
-                    string queryUpdate = "UPDATE Muc_tieu SET Gia_tri_hien_tai = @ht WHERE mo_ta = @moTa";
+                    // --- BƯỚC B: Cập nhật vào CSDL kèm theo điều kiện maID ---
+                    string queryUpdate = "UPDATE Muc_tieu SET Gia_tri_hien_tai = @ht WHERE mo_ta = @moTa AND maID = @maID";
                     SqlCommand cmdUpdate = new SqlCommand(queryUpdate, conn);
+
                     cmdUpdate.Parameters.AddWithValue("@ht", txtGiatriHT.Text);
                     cmdUpdate.Parameters.AddWithValue("@moTa", moTa);
+                    cmdUpdate.Parameters.AddWithValue("@maID", currentUserId); // Thêm tham số maID ở đây
 
-                    cmdUpdate.ExecuteNonQuery();
-                    MessageBox.Show("Lưu tiến độ thành công!");
+                    int rowsAffected = cmdUpdate.ExecuteNonQuery();
 
-                    // Làm mới ListView
-                    LoadDataToListView();
+                    if (rowsAffected > 0)
+                    {
+                        MessageBox.Show("Lưu tiến độ thành công!");
+                        LoadDataToListView(); // Làm mới danh sách
+                    }
+                    else
+                    {
+                        MessageBox.Show("Không có dữ liệu nào được cập nhật. Vui lòng kiểm tra lại!");
+                    }
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Lỗi: " + ex.Message);
+                MessageBox.Show("Lỗi hệ thống: " + ex.Message);
             }
         }
         // ====================== ListView ======================
@@ -296,11 +329,14 @@ namespace UDTDSK
                 using (SqlConnection conn = new SqlConnection(connectionString))
                 {
                     conn.Open();
-                    // Lấy các cột tương ứng với giao diện của bạn
-                    string query = "SELECT mo_ta, Loai_MT, gia_tri, Thoi_han, Trang_thai, Gia_tri_hien_tai FROM Muc_tieu";
-                    SqlCommand cmd = new SqlCommand(query, conn);
-                    SqlDataReader reader = cmd.ExecuteReader();
+                    // Thêm điều kiện WHERE maID = @maID
+                    string query = "SELECT mo_ta, Loai_MT, gia_tri, Thoi_han, Trang_thai, Gia_tri_hien_tai " +
+                                   "FROM Muc_tieu WHERE maID = @maID";
 
+                    SqlCommand cmd = new SqlCommand(query, conn);
+                    cmd.Parameters.AddWithValue("@maID", UserSession.CurrentUserID);
+
+                    SqlDataReader reader = cmd.ExecuteReader();
                     listView1.Items.Clear(); // Xóa dữ liệu cũ trên giao diện
 
                     while (reader.Read())
@@ -362,33 +398,37 @@ namespace UDTDSK
             string maMucTieu = TaoMaMucTieu();
             string trangThai = "Chưa hoàn thành";
 
+            // Lấy ID người dùng hiện tại từ Session
+            string currentUserId = UserSession.CurrentUserID;
+
+            if (string.IsNullOrEmpty(currentUserId))
+            {
+                MessageBox.Show("Lỗi: Không tìm thấy thông tin đăng nhập. Vui lòng đăng nhập lại!");
+                return;
+            }
+
             try
             {
                 using (SqlConnection conn = new SqlConnection(connectionString))
                 {
                     conn.Open();
-                    // Câu lệnh Insert mới đầy đủ các trường theo yêu cầu
+                    // Cập nhật câu lệnh SQL: Thêm cột maID và tham số @maID
                     string query = @"INSERT INTO Muc_tieu 
-                            (Ma_muc_tieu, mo_ta, Loai_MT, gia_tri, Gia_tri_hien_tai, Thoi_han, Trang_thai) 
+                            (Ma_muc_tieu, mo_ta, Loai_MT, gia_tri, Gia_tri_hien_tai, Thoi_han, Trang_thai, maID) 
                             VALUES 
-                            (@MaMT, @TenMT, @LoaiMT, @GiaTri, @GiaTriHT, @ThoiHan, @TrangThai)";
+                            (@MaMT, @TenMT, @LoaiMT, @GiaTri, @GiaTriHT, @ThoiHan, @TrangThai, @maID)";
 
                     SqlCommand cmd = new SqlCommand(query, conn);
                     cmd.Parameters.AddWithValue("@MaMT", maMucTieu);
-                    cmd.Parameters.AddWithValue("@TenMT", txtTenMucTieu.Text); // Tên mục tiêu
-                    cmd.Parameters.AddWithValue("@LoaiMT", loaiMucTieu);        // Loại mục tiêu
-
-                    // Giá trị mục tiêu (Mục tiêu hoàn thành)
+                    cmd.Parameters.AddWithValue("@TenMT", txtTenMucTieu.Text);
+                    cmd.Parameters.AddWithValue("@LoaiMT", loaiMucTieu);
                     cmd.Parameters.AddWithValue("@GiaTri", txtMTHoanThanh.Text + " " + cboDonVi.Text);
-
-                    // Tiến độ hoàn thành ban đầu là 0
                     cmd.Parameters.AddWithValue("@GiaTriHT", txtGiatriHT.Text);
-
-                    // Thời hạn hoàn thành (Lấy từ DateTimePicker trên giao diện)
-                    // Giả sử DateTimePicker của bạn tên là dtpThoiHan (theo ảnh image_d3d4b5.jpg)
                     cmd.Parameters.AddWithValue("@ThoiHan", dtpThoiHan.Value);
-
                     cmd.Parameters.AddWithValue("@TrangThai", trangThai);
+
+                    // Truyền ID người dùng vào đây
+                    cmd.Parameters.AddWithValue("@maID", currentUserId);
 
                     cmd.ExecuteNonQuery();
                     MessageBox.Show("Thiết lập mục tiêu thành công!");

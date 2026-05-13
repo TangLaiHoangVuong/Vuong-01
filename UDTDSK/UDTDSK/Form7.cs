@@ -248,40 +248,11 @@ namespace UDTDSK
 
         }
 
-        private void Form7_Load_1(object sender, EventArgs e)
-        {
-            pictureBox1.Left = (splitContainer1.Panel1.Width - pictureBox1.Width) / 2;
-            btnDangXuat.Left = (splitContainer1.Panel1.Width - btnDangXuat.Width) / 2;
-
-            //Xử lý nút Button
-            AddHoverEffect(this);
-            CenterButtons(splitContainer1.Panel1);
-
-            //Màu viền nút Button Thông tin cá nhân
-            button2.FlatStyle = FlatStyle.Flat;
-            button2.FlatAppearance.BorderSize = 2;
-            button2.FlatAppearance.BorderColor = Color.Violet;
-
-            // Xử lý button đăng xuất
-            btnDangXuat.Click += btnDangXuat_Click;
-            btnDangXuat.MouseEnter += btnDangXuat_MouseEnter;
-            btnDangXuat.MouseLeave += btnDangXuat_MouseLeave;
-
-            //Xử lý Ảnh
-            pictureBox1.MouseEnter += pictureBox1_MouseEnter;
-            pictureBox1.MouseLeave += pictureBox1_MouseLeave;
-        }
-
         private void button1_Click(object sender, EventArgs e)
         {
             Form6 fr6 = new Form6();
             fr6.Show();
             this.Hide();
-        }
-
-        private void button2_Click(object sender, EventArgs e)
-        {
-
         }
 
         private void button3_Click(object sender, EventArgs e)
@@ -302,6 +273,13 @@ namespace UDTDSK
         {
             Form9 fr9 = new Form9();
             fr9.Show();
+            this.Hide();
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            Form7 fr7 = new Form7();
+            fr7.Show();
             this.Hide();
         }
     }

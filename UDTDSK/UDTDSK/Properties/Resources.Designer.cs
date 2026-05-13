@@ -19,11 +19,11 @@ namespace UDTDSK.Properties {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-/*<<<<<<< HEAD
+<<<<<<< HEAD
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
-=======*/
+=======
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "18.0.0.0")]
-//>>>>>>> f72a7540e6fcef0af3ec20bbe90dce0d4c75f2ff
+>>>>>>> f72a7540e6fcef0af3ec20bbe90dce0d4c75f2ff
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class Resources {

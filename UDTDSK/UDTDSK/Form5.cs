@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.SqlClient;
+using System.Data.SqlTypes;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -14,6 +16,8 @@ namespace UDTDSK
     {
         Color originalBackColor;
         Color originalForeColor;
+        string strCon = @"Data Source=DELL\SQLEXPRESS;Initial Catalog=QLSK;Integrated Security=True";
+        SqlConnection sqlCon = null;
         public Form5()
         {
             InitializeComponent();
@@ -133,6 +137,8 @@ namespace UDTDSK
             //Xử lý Ảnh
             pictureBox1.MouseEnter += pictureBox1_MouseEnter;
             pictureBox1.MouseLeave += pictureBox1_MouseLeave;
+
+            LoadDataToGrid();//1
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -172,45 +178,174 @@ namespace UDTDSK
 
         private void button6_Click(object sender, EventArgs e)
         {
-            double canNang, chieuCao;
-            if (!double.TryParse(txtCanNang.Text, out canNang) ||
-                !double.TryParse(txtChieuCao.Text, out chieuCao))
+            if (txtCanNang.Text.Trim() == "")
             {
-                MessageBox.Show("Vui lòng nhập số hợp lệ");
+                MessageBox.Show("Vui lòng nhập cân nặng!");
+                txtCanNang.Focus();
                 return;
             }
 
-            chieuCao /= 100;
-
-            double bmi = canNang / (chieuCao * chieuCao);
-
-            txtBMI.Text = bmi.ToString("0.00");
-
-            if (bmi < 18.5)
+            if (txtChieuCao.Text.Trim() == "")
             {
-                txtPhanLoai.Text = "Gầy";
-                txtDanhGia.Text = "Thiếu cân";
+                MessageBox.Show("Vui lòng nhập chiều cao!");
+                txtChieuCao.Focus();
+                return;
             }
-            else if (bmi < 25)
+
+            try
             {
-                txtPhanLoai.Text = "Bình thường";
-                txtDanhGia.Text = "Sức khỏe tốt";
+                
+                double canNang = double.Parse(txtCanNang.Text.Trim());
+                double chieuCao = double.Parse(txtChieuCao.Text.Trim());
+                double chieuCaoMet = chieuCao / 100;
+                double bmi = canNang / (chieuCaoMet * chieuCaoMet);
+
+                string phanLoai = "";
+                string danhGia = "";
+
+                if (bmi < 18.5) { phanLoai = "Gầy"; danhGia = "Thiếu cân"; }
+                else if (bmi < 25) { phanLoai = "Bình thường"; danhGia = "Sức khỏe tốt"; }
+                else if (bmi < 30) { phanLoai = "Thừa cân"; danhGia = "Cần kiểm soát cân nặng"; }
+                else { phanLoai = "Béo phì"; danhGia = "Nguy cơ sức khỏe cao"; }
+
+                txtBMI.Text = bmi.ToString("0.00");
+                txtPhanLoai.Text = phanLoai;
+                txtDanhGia.Text = danhGia;
+
+                
+                if (sqlCon == null) sqlCon = new SqlConnection(strCon);
+                if (sqlCon.State == ConnectionState.Closed) sqlCon.Open();
+
+                
+                string maPT = DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss");
+
+                string sql = "INSERT INTO Phan_tich (maPT, BMI, Can_nang, Chieu_cao, Phan_tich_xu_huong, Xu_li_du_lieu) " +
+                     "VALUES (@maPT, @bmi, @cn, @cc, @loai, @dg)";
+
+                SqlCommand sqlCmd = new SqlCommand(sql, sqlCon);
+                sqlCmd.Parameters.AddWithValue("@maPT", maPT);
+                sqlCmd.Parameters.AddWithValue("@bmi", Math.Round(bmi, 2));
+                sqlCmd.Parameters.AddWithValue("@cn", double.Parse(txtCanNang.Text)); // Lưu cân nặng
+                sqlCmd.Parameters.AddWithValue("@cc", double.Parse(txtChieuCao.Text)); // Lưu chiều cao
+                sqlCmd.Parameters.AddWithValue("@loai", phanLoai);
+                sqlCmd.Parameters.AddWithValue("@dg", danhGia);
+
+                int kq = sqlCmd.ExecuteNonQuery();
+
+                if (kq > 0)
+                {
+                    
+                    LoadDataToGrid();
+                    MessageBox.Show("Tính toán và lưu dữ liệu thành công!", "Thông báo");
+                }
             }
-            else if (bmi < 30)
+            catch (Exception ex)
             {
-                txtPhanLoai.Text = "Thừa cân";
-                txtDanhGia.Text = "Cần kiểm soát cân nặng";
+                MessageBox.Show("Lỗi kết nối: " + ex.Message);
+            }
+            finally
+            {
+                
+                if (sqlCon != null && sqlCon.State == ConnectionState.Open)
+                    sqlCon.Close();
+            }
+        }
+        private void LoadDataToGrid()
+        {
+            try
+            {
+                if (sqlCon == null) sqlCon = new SqlConnection(strCon);
+                if (sqlCon.State == ConnectionState.Closed) sqlCon.Open();
+
+                string query = "SELECT maPT, Can_nang, Chieu_cao, BMI, Phan_tich_xu_huong, Xu_li_du_lieu FROM Phan_tich";
+                SqlDataAdapter da = new SqlDataAdapter(query, sqlCon);
+                DataTable dt = new DataTable();
+                da.Fill(dt);
+
+                dgvPhanTich.DataSource = null;
+                dgvPhanTich.Columns.Clear();
+                dgvPhanTich.DataSource = dt;
+
+                
+                dgvPhanTich.Columns["maPT"].HeaderText = "Ngày đo";
+                dgvPhanTich.Columns["Can_nang"].HeaderText = "Cân nặng (kg)";
+                dgvPhanTich.Columns["Chieu_cao"].HeaderText = "Chiều cao (cm)";
+                dgvPhanTich.Columns["BMI"].HeaderText = "BMI";
+                dgvPhanTich.Columns["Phan_tich_xu_huong"].HeaderText = "Phân loại";
+                dgvPhanTich.Columns["Xu_li_du_lieu"].HeaderText = "Đánh giá";
+
+                dgvPhanTich.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Lỗi hiển thị bảng: " + ex.Message);
+            }
+            finally
+            {
+                if (sqlCon != null && sqlCon.State == ConnectionState.Open)
+                    sqlCon.Close();
+            }
+        }
+        
+    
+        private void Form5_Load_1(object sender, EventArgs e)
+        {
+            
+        }
+
+        private void button7_Click(object sender, EventArgs e)
+        {
+            // 1. Kiểm tra xem người dùng đã chọn dòng nào chưa
+            if (dgvPhanTich.SelectedRows.Count > 0)
+            {
+                // Lấy giá trị maPT (Ngày đo) của dòng đang chọn
+                string maPT_CanXoa = dgvPhanTich.CurrentRow.Cells["maPT"].Value.ToString();
+
+                // Hỏi xác nhận trước khi xóa (giống Form đăng ký của bạn)
+                DialogResult result = MessageBox.Show(
+                    "Bạn có chắc chắn muốn xóa bản ghi ngày " + maPT_CanXoa + " không?",
+                    "Xác nhận xóa",
+                    MessageBoxButtons.YesNo,
+                    MessageBoxIcon.Warning
+                );
+
+                if (result == DialogResult.Yes)
+                {
+                    try
+                    {
+                        // 2. Kết nối CSDL (Dùng đúng biến strCon và sqlCon của bạn)
+                        if (sqlCon == null) sqlCon = new SqlConnection(strCon);
+                        if (sqlCon.State == ConnectionState.Closed) sqlCon.Open();
+
+                        // Câu lệnh xóa dựa trên maPT
+                        string sqlXoa = "DELETE FROM Phan_tich WHERE maPT = @maPT";
+                        SqlCommand cmd = new SqlCommand(sqlXoa, sqlCon);
+                        cmd.Parameters.AddWithValue("@maPT", maPT_CanXoa);
+
+                        int kq = cmd.ExecuteNonQuery();
+
+                        if (kq > 0)
+                        {
+                            MessageBox.Show("Đã xóa dữ liệu thành công!");
+                            // 3. Cập nhật lại bảng sau khi xóa
+                            LoadDataToGrid();
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Lỗi khi xóa: " + ex.Message);
+                    }
+                    finally
+                    {
+                        if (sqlCon != null && sqlCon.State == ConnectionState.Open)
+                            sqlCon.Close();
+                    }
+                }
             }
             else
             {
-                txtPhanLoai.Text = "Béo phì";
-                txtDanhGia.Text = "Nguy cơ sức khỏe cao";
+                MessageBox.Show("Vui lòng chọn một dòng trong bảng để xóa!");
             }
-        }
-
-        private void Form5_Load_1(object sender, EventArgs e)
-        {
-
         }
     }
 }

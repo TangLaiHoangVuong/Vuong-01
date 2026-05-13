@@ -138,7 +138,7 @@ namespace UDTDSK
             pictureBox1.MouseEnter += pictureBox1_MouseEnter;
             pictureBox1.MouseLeave += pictureBox1_MouseLeave;
 
-            LoadDataToGrid();
+            LoadDataToGrid();//1
         }
 
         private void button1_Click(object sender, EventArgs e)

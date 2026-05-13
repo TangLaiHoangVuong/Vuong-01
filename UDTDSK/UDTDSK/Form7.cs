@@ -126,34 +126,6 @@ namespace UDTDSK
 
             dgvSucKhoe.DataSource = dt;
         }
-        private void Form7_Load(object sender, EventArgs e)
-        {
-            DLSK();
-            pictureBox1.Left = (splitContainer1.Panel1.Width - pictureBox1.Width) / 2;
-            btnDangXuat.Left = (splitContainer1.Panel1.Width - btnDangXuat.Width) / 2;
-
-            //Xử lý nút Button
-            AddHoverEffect(this);
-            CenterButtons(splitContainer1.Panel1);
-
-            //Màu viền nút Button QUẢN LÝ PHÂN TÍCH TÍNH TOÁN
-            button2.FlatStyle = FlatStyle.Flat;
-            button2.FlatAppearance.BorderSize = 2;
-            button2.FlatAppearance.BorderColor = Color.Violet;
-
-            // Xử lý button đăng xuất
-            btnDangXuat.Click += btnDangXuat_Click;
-            btnDangXuat.MouseEnter += btnDangXuat_MouseEnter;
-            btnDangXuat.MouseLeave += btnDangXuat_MouseLeave;
-
-            //Xử lý Ảnh
-            pictureBox1.MouseEnter += pictureBox1_MouseEnter;
-            pictureBox1.MouseLeave += pictureBox1_MouseLeave;
-            dgvSucKhoe.AutoGenerateColumns = false;
-            dgvSucKhoe.DataSource = dt;
-
-        }
-
         private void splitContainer1_Panel2_Paint(object sender, PaintEventArgs e)
         {
 
@@ -331,6 +303,33 @@ namespace UDTDSK
             SqlCommand cmd = new SqlCommand(sql, cnn);
             cmd.ExecuteNonQuery();
             DongKetNoi();
+        }
+
+        private void Form7_Load(object sender, EventArgs e)
+        {
+            DLSK();
+            pictureBox1.Left = (splitContainer1.Panel1.Width - pictureBox1.Width) / 2;
+            btnDangXuat.Left = (splitContainer1.Panel1.Width - btnDangXuat.Width) / 2;
+
+            //Xử lý nút Button
+            AddHoverEffect(this);
+            CenterButtons(splitContainer1.Panel1);
+
+            //Màu viền nút Button QUẢN LÝ PHÂN TÍCH TÍNH TOÁN
+            button2.FlatStyle = FlatStyle.Flat;
+            button2.FlatAppearance.BorderSize = 2;
+            button2.FlatAppearance.BorderColor = Color.Violet;
+
+            // Xử lý button đăng xuất
+            btnDangXuat.Click += btnDangXuat_Click;
+            btnDangXuat.MouseEnter += btnDangXuat_MouseEnter;
+            btnDangXuat.MouseLeave += btnDangXuat_MouseLeave;
+
+            //Xử lý Ảnh
+            pictureBox1.MouseEnter += pictureBox1_MouseEnter;
+            pictureBox1.MouseLeave += pictureBox1_MouseLeave;
+            dgvSucKhoe.AutoGenerateColumns = false;
+            dgvSucKhoe.DataSource = dt;
         }
     }
 }
